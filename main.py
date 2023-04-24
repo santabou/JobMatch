@@ -41,7 +41,7 @@ class MainUI(QMainWindow):
 
     def logging(self):
         if(self.userType=="0"):
-            subprocess.run(['python', 'userprofile.py', self.user])
+            subprocess.run(['python', 'edituserprofile.py', self.user])
         else:
             pass
 

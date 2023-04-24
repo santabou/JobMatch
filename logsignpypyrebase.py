@@ -5,7 +5,6 @@ from loginsignup import Ui_Form
 from config import firebaseConfig
 from PySide6.QtGui import *
 import pyrebase
-import subprocess
 
 
 firebase = pyrebase.initialize_app(firebaseConfig)
@@ -99,6 +98,7 @@ class LoginUI(QWidget):
         else:
             add_user(username, password,email,firstname,lastname,dob)
             QMessageBox.information(self,"Success", f"Account created successfully!")
+            self.ui.tabWidget.setCurrentIndex(0)
 
     def signingupcom(self):
         username = self.ui.comusername.text()
@@ -115,6 +115,7 @@ class LoginUI(QWidget):
         else:
             add_com(username, password,email,companyname,location)
             QMessageBox.information(self,"Success", f"Account created successfully!")
+            self.ui.tabWidget.setCurrentIndex(0)
     
     def loggingin(self):
         username = self.ui.logusername.text()
