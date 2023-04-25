@@ -53,6 +53,10 @@ class Ui_MainWindow(object):
         self.vipro.setObjectName(u"vipro")
         self.vipro.setGeometry(QRect(220, 200, 261, 41))
         self.vipro.setFont(font1)
+        self.gochat = QPushButton(self.tab_2)
+        self.gochat.setObjectName(u"gochat")
+        self.gochat.setGeometry(QRect(220, 270, 261, 41))
+        self.gochat.setFont(font1)
         self.tabWidget.addTab(self.tab_2, "")
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QMenuBar(MainWindow)
@@ -77,6 +81,7 @@ class Ui_MainWindow(object):
         self.usn.setText(QCoreApplication.translate("MainWindow", u"Hello", None))
         self.uppro.setText(QCoreApplication.translate("MainWindow", u"Update Profile", None))
         self.vipro.setText(QCoreApplication.translate("MainWindow", u"View Profile", None))
+        self.gochat.setText(QCoreApplication.translate("MainWindow", u"Create/Enter Chat Room", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), QCoreApplication.translate("MainWindow", u"Setting", None))
     # retranslateUi
 

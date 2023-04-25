@@ -36,12 +36,19 @@ class MainUI(QMainWindow):
             self.ui.vipro.setText("View Job Application")
 
         self.ui.uppro.clicked.connect(self.logging)
+        self.ui.gochat.clicked.connect(self.cha)
 
 
 
     def logging(self):
         if(self.userType=="0"):
             subprocess.run(['python', 'edituserprofile.py', self.user])
+        else:
+            pass
+    
+    def cha(self):
+        if(self.userType=="0"):
+            subprocess.run(['python', 'goroom.py', self.user])
         else:
             pass
 

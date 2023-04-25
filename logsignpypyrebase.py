@@ -6,7 +6,6 @@ from config import firebaseConfig
 from PySide6.QtGui import *
 import pyrebase
 
-
 firebase = pyrebase.initialize_app(firebaseConfig)
 db = firebase.database()
 
@@ -23,9 +22,10 @@ def email_exists(email, is_com):
             if user.val()["email"] == email:
                 return True
     else:
-        for user in db.child("users").get().each():
-            if user.val()["email"] == email:
-                return True
+        if(db.child("users").get().val()!=None):
+            for user in db.child("users").get().each():
+                if user.val()["email"] == email:
+                    return True
             
     return False
         
