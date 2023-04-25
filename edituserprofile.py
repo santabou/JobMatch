@@ -31,10 +31,17 @@ class UserUI(QWidget):
         self.ui = Ui_Form()
         self.ui.setupUi(self)
 
+        self.ui.dobedit.setCalendarPopup(True)
+        self.ui.dobedit.setDisplayFormat("dd/MM/yyyy")
+        date_str = db.child("users").child(arg1).child("dob").get().val()
+        date_format = "dd/MM/yyyy"
+        date = QDate.fromString(date_str, date_format)
+        self.ui.dobedit.setDate(date)
+        self.ui.updateedit.clicked.connect(self.update)
+
         self.ui.updateedit.clicked.connect(self.update)
         self.ui.firstedit.setText(db.child("users").child(arg1).child("firstname").get().val())
         self.ui.lastedit.setText(db.child("users").child(arg1).child("lastname").get().val())
-        self.ui.dobedit.setText(db.child("users").child(arg1).child("dob").get().val())
         self.ui.emailedit.setText(db.child("users").child(arg1).child("email").get().val())
         self.ui.phoneedit.setText(db.child("users").child(arg1).child("phone_number").get().val())
         self.ui.posedit.setText(db.child("users").child(arg1).child("position").get().val())
