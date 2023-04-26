@@ -37,7 +37,6 @@ class UserUI(QWidget):
         date_format = "dd/MM/yyyy"
         date = QDate.fromString(date_str, date_format)
         self.ui.dobedit.setDate(date)
-        self.ui.updateedit.clicked.connect(self.update)
 
         self.ui.updateedit.clicked.connect(self.update)
         self.ui.firstedit.setText(db.child("users").child(arg1).child("firstname").get().val())

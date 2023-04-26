@@ -32,7 +32,7 @@ class MainUI(QMainWindow):
             self.ui.usn.setText("Hello, "+db.child("users").child(self.user).child("firstname").get().val()+" "+db.child("users").child(self.user).child("lastname").get().val())
         else:
             self.ui.usn.setText("Welcome, "+db.child("companies").child(self.user).child("companyname").get().val())
-            self.ui.uppro.setText("Create Job Application")
+            self.ui.uppro.setText("Create/Edit Job Application")
             self.ui.vipro.setText("View Job Application")
 
         self.ui.uppro.clicked.connect(self.logging)
@@ -44,7 +44,7 @@ class MainUI(QMainWindow):
         if(self.userType=="0"):
             subprocess.run(['python', 'edituserprofile.py', self.user])
         else:
-            pass
+            subprocess.run(['python', 'gojob.py', self.user])
     
     def cha(self):
         if(self.userType=="0"):

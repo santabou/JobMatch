@@ -18,9 +18,10 @@ def user_exists(username, is_com):
 
 def email_exists(email, is_com):
     if is_com==1:
-        for user in db.child("companies").get().each():
-            if user.val()["email"] == email:
-                return True
+        if(db.child("companies").get().val()!=None):
+            for user in db.child("companies").get().each():
+                if user.val()["email"] == email:
+                    return True
     else:
         if(db.child("users").get().val()!=None):
             for user in db.child("users").get().each():
