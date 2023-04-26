@@ -37,6 +37,7 @@ class MainUI(QMainWindow):
 
         self.ui.uppro.clicked.connect(self.logging)
         self.ui.gochat.clicked.connect(self.cha)
+        self.ui.vipro.clicked.connect(self.view)
 
         def print_values(data, section="",count=0):
             for key in data:
@@ -117,7 +118,12 @@ class MainUI(QMainWindow):
             subprocess.run(['python', 'goroom.py', self.user])
         else:
             pass
-
+    
+    def view(self):
+        if(self.userType=="0"):
+            subprocess.run(['python', 'viewuserprofile.py', self.user])
+        else:
+            pass
 
 def main():
     app = QApplication(sys.argv)
