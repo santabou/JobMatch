@@ -95,6 +95,6 @@ def main():
     return app.exec()
 
 if __name__ == "__main__":
-    arg1 = sys.argv[1]
-    # arg1= "u1"
+    # arg1 = sys.argv[1]
+    arg1= "u1"
     sys.exit(main())
