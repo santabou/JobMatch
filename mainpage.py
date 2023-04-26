@@ -15,9 +15,9 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QFont, QFontDatabase, QGradient, QIcon,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QApplication, QLabel, QMainWindow, QMenuBar,
-    QPushButton, QSizePolicy, QStatusBar, QTabWidget,
-    QWidget)
+from PySide6.QtWidgets import (QApplication, QGridLayout, QHBoxLayout, QLabel,
+    QMainWindow, QMenuBar, QPushButton, QScrollArea,
+    QSizePolicy, QStatusBar, QTabWidget, QWidget)
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -26,14 +26,26 @@ class Ui_MainWindow(object):
         MainWindow.resize(800, 600)
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
+        self.horizontalLayout = QHBoxLayout(self.centralwidget)
+        self.horizontalLayout.setObjectName(u"horizontalLayout")
         self.tabWidget = QTabWidget(self.centralwidget)
         self.tabWidget.setObjectName(u"tabWidget")
-        self.tabWidget.setGeometry(QRect(20, 10, 761, 551))
         self.tab = QWidget()
         self.tab.setObjectName(u"tab")
-        self.widget = QWidget(self.tab)
-        self.widget.setObjectName(u"widget")
-        self.widget.setGeometry(QRect(20, 10, 721, 481))
+        self.horizontalLayout_2 = QHBoxLayout(self.tab)
+        self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
+        self.scrollArea = QScrollArea(self.tab)
+        self.scrollArea.setObjectName(u"scrollArea")
+        self.scrollArea.setWidgetResizable(True)
+        self.scrollAreaWidgetContents_4 = QWidget()
+        self.scrollAreaWidgetContents_4.setObjectName(u"scrollAreaWidgetContents_4")
+        self.scrollAreaWidgetContents_4.setGeometry(QRect(0, 0, 748, 474))
+        self.gridLayout = QGridLayout(self.scrollAreaWidgetContents_4)
+        self.gridLayout.setObjectName(u"gridLayout")
+        self.scrollArea.setWidget(self.scrollAreaWidgetContents_4)
+
+        self.horizontalLayout_2.addWidget(self.scrollArea)
+
         self.tabWidget.addTab(self.tab, "")
         self.tab_2 = QWidget()
         self.tab_2.setObjectName(u"tab_2")
@@ -58,6 +70,9 @@ class Ui_MainWindow(object):
         self.gochat.setGeometry(QRect(220, 270, 261, 41))
         self.gochat.setFont(font1)
         self.tabWidget.addTab(self.tab_2, "")
+
+        self.horizontalLayout.addWidget(self.tabWidget)
+
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QMenuBar(MainWindow)
         self.menubar.setObjectName(u"menubar")
