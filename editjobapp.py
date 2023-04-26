@@ -20,9 +20,10 @@ def edit_item(pos,edu,sal,ava,pho,due,req):
         "avaliable": ava,
         "phone": pho,
         "due":due,
-        "requirement":req
+        "requirement":req,
+        "company":comname
     }
-    db.child("job").child(comname).child(jobid).update(data)
+    db.child("job").child(ind).update(data)
     return True
 
 class JobUI(QWidget):
@@ -33,18 +34,18 @@ class JobUI(QWidget):
 
         self.ui.dateedit.setCalendarPopup(True)
         self.ui.dateedit.setDisplayFormat("dd/MM/yyyy")
-        date_str = db.child("job").child(comname).child(jobid).child("due").get().val()
+        date_str = db.child("job").child(ind).child("due").get().val()
         date_format = "dd/MM/yyyy"
         date = QDate.fromString(date_str, date_format)
         self.ui.dateedit.setDate(date)
 
         self.ui.savebutton.clicked.connect(self.update)
-        self.ui.posedit.setText(db.child("job").child(comname).child(jobid).child("position").get().val())
-        self.ui.eduedit.setText(db.child("job").child(comname).child(jobid).child("education").get().val())
-        self.ui.saledit.setText(db.child("job").child(comname).child(jobid).child("salary").get().val())
-        self.ui.avaedit.setText(db.child("job").child(comname).child(jobid).child("avaliable").get().val())
-        self.ui.phoedit.setText(db.child("job").child(comname).child(jobid).child("phone").get().val())
-        self.ui.reqedit.setText(db.child("job").child(comname).child(jobid).child("requirement").get().val())
+        self.ui.posedit.setText(db.child("job").child(ind).child("position").get().val())
+        self.ui.eduedit.setText(db.child("job").child(ind).child("education").get().val())
+        self.ui.saledit.setText(db.child("job").child(ind).child("salary").get().val())
+        self.ui.avaedit.setText(db.child("job").child(ind).child("avaliable").get().val())
+        self.ui.phoedit.setText(db.child("job").child(ind).child("phone").get().val())
+        self.ui.reqedit.setText(db.child("job").child(ind).child("requirement").get().val())
 
     def update(self):
         pos = self.ui.posedit.text()
@@ -72,4 +73,5 @@ def main():
 if __name__ == "__main__":
     comname = sys.argv[1]
     jobid = sys.argv[2]
+    ind= comname+"_"+jobid
     sys.exit(main())

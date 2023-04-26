@@ -19,7 +19,7 @@ class ChatU(QWidget):
 
     def go(self):
         jn=self.ui.comboBox.currentText()
-        if(db.child("job").child(comname).child(jn).get().val()==None):
+        if(db.child("job").child(comname+"_"+jn).get().val()==None):
             data = {
                 "position": "",
                 "education": "",
@@ -27,9 +27,10 @@ class ChatU(QWidget):
                 "avaliable": "",
                 "phone": "",
                 "due":"",
-                "requirement":""
+                "requirement":"",
+                "company":comname
             }
-            db.child("job").child(comname).child(jn).update(data)
+            db.child("job").child(comname+"_"+jn).update(data)
         subprocess.check_output(['python', 'editjobapp.py',comname,jn])
         
     
