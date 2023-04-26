@@ -21,7 +21,7 @@ def edit_item(pos,edu,sal,ava,pho,due,req):
         "phone": pho,
         "due":due,
         "requirement":req,
-        "company":comname
+        "username":comname
     }
     db.child("job").child(ind).update(data)
     return True

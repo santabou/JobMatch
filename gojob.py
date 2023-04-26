@@ -28,7 +28,7 @@ class ChatU(QWidget):
                 "phone": "",
                 "due":"",
                 "requirement":"",
-                "company":comname
+                "username":comname
             }
             db.child("job").child(comname+"_"+jn).update(data)
         subprocess.check_output(['python', 'editjobapp.py',comname,jn])
