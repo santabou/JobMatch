@@ -30,6 +30,7 @@ class MainUI(QMainWindow):
 
         if(self.userType=="0"):
             self.ui.usn.setText("Hello, "+db.child("users").child(self.user).child("firstname").get().val()+" "+db.child("users").child(self.user).child("lastname").get().val())
+            self.createjoblist(db.child("job").get().val())
         else:
             self.ui.usn.setText("Welcome, "+db.child("companies").child(self.user).child("companyname").get().val())
             self.ui.uppro.setText("Create/Edit Job Application")
@@ -38,26 +39,50 @@ class MainUI(QMainWindow):
         self.ui.uppro.clicked.connect(self.logging)
         self.ui.gochat.clicked.connect(self.cha)
         self.ui.vipro.clicked.connect(self.view)
+        self.ui.clearButton.clicked.connect(self.reloadlist)
+        self.ui.searchButton.clicked.connect(self.searching)
 
-        def createjoblist(data, section="",count=0):
-            for key in data:
-                if isinstance(data[key], dict):
-                    count=count+1
-                    createjoblist(data[key], section + key + "/",count)
-                    
-                else:
-                    if(key=="username"):
-                        comp=db.child("companies").child(data[key]).child("companyname").get().val()
-                        cnum=db.child("job").child(section[:-1]).child("username").get().val()
+    def searching(self):
+        search=self.ui.searchEdit.text()
+        # print(self.ui.gridLayout.count)
+        for i in reversed(range(self.ui.gridLayout.count())):
+            widget = self.ui.gridLayout.itemAt(i).widget()
+
+            if widget is not None:
+                widget.deleteLater()
+                self.ui.gridLayout.removeWidget(widget)
+        self.createjoblist(db.child("job").get().val(),search)
+
+    def reloadlist(self):
+        if(self.userType=="0"):
+            self.createjoblist(db.child("job").get().val())
+
+    def createjoblist(self,data,sear="",section="",count=0):
+        for key in data:
+            if isinstance(data[key], dict):
+                count=count+1
+                self.createjoblist(data[key],sear, section + key + "/",count)
+                
+            else:
+                if(sear!=""):
+                    if(db.child("job").child(section[:-1]).child(key).get().val().lower()==sear.lower()):
+                        comp=db.child("job").child(section[:-1]).child("companyname").get().val()
                         cnum2=section[:-1]
                         pos=db.child("job").child(section[:-1]).child("position").get().val()
                         sal=db.child("job").child(section[:-1]).child("salary").get().val()
-                        self.createNewWindow(count,comp,pos,sal,cnum,cnum2)
+                        self.createNewWindow(count,comp,pos,sal,cnum2)
+                else:
+                    if(key=="username"):
+                        comp=db.child("job").child(section[:-1]).child("companyname").get().val()
+                        cnum2=section[:-1]
+                        pos=db.child("job").child(section[:-1]).child("position").get().val()
+                        sal=db.child("job").child(section[:-1]).child("salary").get().val()
+                        self.createNewWindow(count,comp,pos,sal,cnum2)
 
 
-        createjoblist(db.child("job").get().val())
 
-    def createNewWindow(self,rowNo,com,pos,sal,cnum,cnum2):
+
+    def createNewWindow(self,rowNo,com,pos,sal,cnum2):
 
         framename = "frame_" + str(rowNo)
         comnam = "comn_" + str(rowNo)
@@ -136,7 +161,6 @@ class MainUI(QMainWindow):
         self.gridLayout_2.addWidget(self.button, 2, 1, 1, 1, Qt.AlignLeft|Qt.AlignVCenter)
         self.gridLayout_2.addWidget(self.button2, 2, 2, 1, 1, Qt.AlignLeft|Qt.AlignVCenter)
 
-        self.button.setProperty("comname", cnum)
         self.button.setProperty("jobdes", cnum2)
         self.button.clicked.connect(self.more)
     
@@ -144,9 +168,7 @@ class MainUI(QMainWindow):
         button=self.sender()
         comna=button.property("comname")
         jobd=button.property("jobdes")
-        c=db.child("companies").child(comna).get().val()
         j=db.child("job").child(jobd).get().val()
-        self.print_values(c)
         self.print_values(j)
         
 
@@ -156,9 +178,7 @@ class MainUI(QMainWindow):
             if isinstance(data[key], dict):
                 self.print_values(data[key], section + key + "/")
             else:
-                if (key=="password"):
-                    pass
-                elif (key=="username"):
+                if (key=="username"):
                     pass
                 else:
                     if section:

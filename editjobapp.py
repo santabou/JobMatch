@@ -21,7 +21,10 @@ def edit_item(pos,edu,sal,ava,pho,due,req):
         "phone": pho,
         "due":due,
         "requirement":req,
-        "username":comname
+        "username":comname,
+        "companyname":db.child("companies").child(comname).child("companyname").get().val(),
+        "email":db.child("companies").child(comname).child("email").get().val(),
+        "location":db.child("companies").child(comname).child("location").get().val()
     }
     db.child("job").child(ind).update(data)
     return True
