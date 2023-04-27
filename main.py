@@ -42,19 +42,23 @@ class MainUI(QMainWindow):
         self.ui.clearButton.clicked.connect(self.reloadlist)
         self.ui.searchButton.clicked.connect(self.searching)
 
-    def searching(self):
-        search=self.ui.searchEdit.text()
-        # print(self.ui.gridLayout.count)
+    def removeAll(self):
         for i in reversed(range(self.ui.gridLayout.count())):
             widget = self.ui.gridLayout.itemAt(i).widget()
-
             if widget is not None:
                 widget.deleteLater()
                 self.ui.gridLayout.removeWidget(widget)
-        self.createjoblist(db.child("job").get().val(),search)
+
+    def searching(self):
+        self.removeAll()
+        if(self.userType=="0"):
+            search=self.ui.searchEdit.text()
+            self.createjoblist(db.child("job").get().val(),search)
 
     def reloadlist(self):
+        self.removeAll()
         if(self.userType=="0"):
+            self.ui.searchEdit.setText("")
             self.createjoblist(db.child("job").get().val())
 
     def createjoblist(self,data,sear="",section="",count=0):
