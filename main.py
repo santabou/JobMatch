@@ -65,7 +65,7 @@ class MainUI(QMainWindow):
                 
             else:
                 if(sear!=""):
-                    if(db.child("job").child(section[:-1]).child(key).get().val().lower()==sear.lower()):
+                    if(sear.lower() in db.child("job").child(section[:-1]).child(key).get().val().lower()):
                         comp=db.child("job").child(section[:-1]).child("companyname").get().val()
                         cnum2=section[:-1]
                         pos=db.child("job").child(section[:-1]).child("position").get().val()
