@@ -32,6 +32,7 @@ class Ui_Form(object):
         font = QFont()
         font.setPointSize(20)
         self.title.setFont(font)
+        self.title.setPixmap(QPixmap(u"logo.png"))
 
         self.verticalLayout.addWidget(self.title)
 
@@ -66,6 +67,20 @@ class Ui_Form(object):
         font3 = QFont()
         font3.setPointSize(15)
         self.logusername.setFont(font3)
+        self.logusername.setStyleSheet(u"QLineEdit{\n"
+"border: 2px solid grey;\n"
+"border-radius: 15px;\n"
+"padding-left: 20px;\n"
+"padding-right: 20px;\n"
+"background: white;\n"
+"}\n"
+"QLineEdit:hover{\n"
+"border: 2px solid rgb(48,50,62);\n"
+"}\n"
+"QLineEdit:focus{\n"
+"border: 2px solid rgb(85, 170, 255);\n"
+"background-color: white;\n"
+"}")
 
         self.verticalLayout_2.addWidget(self.logusername)
 
@@ -78,6 +93,20 @@ class Ui_Form(object):
         self.logpassword = QLineEdit(self.tab)
         self.logpassword.setObjectName(u"logpassword")
         self.logpassword.setFont(font3)
+        self.logpassword.setStyleSheet(u"QLineEdit{\n"
+"border: 2px solid grey;\n"
+"border-radius: 15px;\n"
+"padding-left: 20px;\n"
+"padding-right: 20px;\n"
+"background: white;\n"
+"}\n"
+"QLineEdit:hover{\n"
+"border: 2px solid rgb(48,50,62);\n"
+"}\n"
+"QLineEdit:focus{\n"
+"border: 2px solid rgb(85, 170, 255);\n"
+"background-color: white;\n"
+"}")
         self.logpassword.setEchoMode(QLineEdit.Password)
 
         self.verticalLayout_2.addWidget(self.logpassword)
@@ -113,6 +142,7 @@ class Ui_Form(object):
         self.logenter = QPushButton(self.tab)
         self.logenter.setObjectName(u"logenter")
         self.logenter.setFont(font2)
+        self.logenter.setStyleSheet(u"")
 
         self.verticalLayout_2.addWidget(self.logenter)
 
@@ -150,6 +180,20 @@ class Ui_Form(object):
         self.signusername = QLineEdit(self.tab_2)
         self.signusername.setObjectName(u"signusername")
         self.signusername.setFont(font3)
+        self.signusername.setStyleSheet(u"QLineEdit{\n"
+"border: 2px solid grey;\n"
+"border-radius: 15px;\n"
+"padding-left: 20px;\n"
+"padding-right: 20px;\n"
+"background: white;\n"
+"}\n"
+"QLineEdit:hover{\n"
+"border: 2px solid rgb(48,50,62);\n"
+"}\n"
+"QLineEdit:focus{\n"
+"border: 2px solid rgb(85, 170, 255);\n"
+"background-color: white;\n"
+"}")
 
         self.verticalLayout_3.addWidget(self.signusername)
 
@@ -162,6 +206,20 @@ class Ui_Form(object):
         self.signpassword = QLineEdit(self.tab_2)
         self.signpassword.setObjectName(u"signpassword")
         self.signpassword.setFont(font3)
+        self.signpassword.setStyleSheet(u"QLineEdit{\n"
+"border: 2px solid grey;\n"
+"border-radius: 15px;\n"
+"padding-left: 20px;\n"
+"padding-right: 20px;\n"
+"background: white;\n"
+"}\n"
+"QLineEdit:hover{\n"
+"border: 2px solid rgb(48,50,62);\n"
+"}\n"
+"QLineEdit:focus{\n"
+"border: 2px solid rgb(85, 170, 255);\n"
+"background-color: white;\n"
+"}")
         self.signpassword.setEchoMode(QLineEdit.Password)
 
         self.verticalLayout_3.addWidget(self.signpassword)
@@ -175,6 +233,20 @@ class Ui_Form(object):
         self.signemail = QLineEdit(self.tab_2)
         self.signemail.setObjectName(u"signemail")
         self.signemail.setFont(font3)
+        self.signemail.setStyleSheet(u"QLineEdit{\n"
+"border: 2px solid grey;\n"
+"border-radius: 15px;\n"
+"padding-left: 20px;\n"
+"padding-right: 20px;\n"
+"background: white;\n"
+"}\n"
+"QLineEdit:hover{\n"
+"border: 2px solid rgb(48,50,62);\n"
+"}\n"
+"QLineEdit:focus{\n"
+"border: 2px solid rgb(85, 170, 255);\n"
+"background-color: white;\n"
+"}")
 
         self.verticalLayout_3.addWidget(self.signemail)
 
@@ -187,6 +259,20 @@ class Ui_Form(object):
         self.signfirst = QLineEdit(self.tab_2)
         self.signfirst.setObjectName(u"signfirst")
         self.signfirst.setFont(font3)
+        self.signfirst.setStyleSheet(u"QLineEdit{\n"
+"border: 2px solid grey;\n"
+"border-radius: 15px;\n"
+"padding-left: 20px;\n"
+"padding-right: 20px;\n"
+"background: white;\n"
+"}\n"
+"QLineEdit:hover{\n"
+"border: 2px solid rgb(48,50,62);\n"
+"}\n"
+"QLineEdit:focus{\n"
+"border: 2px solid rgb(85, 170, 255);\n"
+"background-color: white;\n"
+"}")
 
         self.verticalLayout_3.addWidget(self.signfirst)
 
@@ -199,6 +285,20 @@ class Ui_Form(object):
         self.signlast = QLineEdit(self.tab_2)
         self.signlast.setObjectName(u"signlast")
         self.signlast.setFont(font3)
+        self.signlast.setStyleSheet(u"QLineEdit{\n"
+"border: 2px solid grey;\n"
+"border-radius: 15px;\n"
+"padding-left: 20px;\n"
+"padding-right: 20px;\n"
+"background: white;\n"
+"}\n"
+"QLineEdit:hover{\n"
+"border: 2px solid rgb(48,50,62);\n"
+"}\n"
+"QLineEdit:focus{\n"
+"border: 2px solid rgb(85, 170, 255);\n"
+"background-color: white;\n"
+"}")
 
         self.verticalLayout_3.addWidget(self.signlast)
 
@@ -251,6 +351,30 @@ class Ui_Form(object):
         self.signday.addItem("")
         self.signday.setObjectName(u"signday")
         self.signday.setFont(font2)
+        self.signday.setStyleSheet(u"QComboBox {\n"
+"    border: 1px solid gray;\n"
+"    border-radius: 11px;\n"
+"    min-width: 5em;\n"
+"	background-color: rgb(231, 231, 231);\n"
+"}\n"
+"\n"
+"QComboBox:on {\n"
+"    border-bottom-left-radius: 0px;\n"
+"    border-bottom-right-radius: 0px;\n"
+"}\n"
+"\n"
+"QComboBox QAbstractItemView {\n"
+"    border-bottom-right-radius: 10px;\n"
+"    border-bottom-left-radius: 10px;\n"
+"    background: white;\n"
+"    border: 1px solid gray;\n"
+"    box-shadow: transparent;\n"
+"    padding: 4px 4px 4px 4px\n"
+"}\n"
+"\n"
+"QComboBox::drop-down {\n"
+"    border-color: transparent;\n"
+"}")
 
         self.horizontalLayout.addWidget(self.signday)
 
@@ -274,6 +398,30 @@ class Ui_Form(object):
         self.signmonth.addItem("")
         self.signmonth.setObjectName(u"signmonth")
         self.signmonth.setFont(font2)
+        self.signmonth.setStyleSheet(u"QComboBox {\n"
+"    border: 1px solid gray;\n"
+"    border-radius: 11px;\n"
+"    min-width: 5em;\n"
+"	background-color: rgb(231, 231, 231);\n"
+"}\n"
+"\n"
+"QComboBox:on {\n"
+"    border-bottom-left-radius: 0px;\n"
+"    border-bottom-right-radius: 0px;\n"
+"}\n"
+"\n"
+"QComboBox QAbstractItemView {\n"
+"    border-bottom-right-radius: 10px;\n"
+"    border-bottom-left-radius: 10px;\n"
+"    background: white;\n"
+"    border: 1px solid gray;\n"
+"    box-shadow: transparent;\n"
+"    padding: 4px 4px 4px 4px\n"
+"}\n"
+"\n"
+"QComboBox::drop-down {\n"
+"    border-color: transparent;\n"
+"}")
 
         self.horizontalLayout.addWidget(self.signmonth)
 
@@ -285,6 +433,20 @@ class Ui_Form(object):
         self.signyear = QLineEdit(self.widget)
         self.signyear.setObjectName(u"signyear")
         self.signyear.setFont(font3)
+        self.signyear.setStyleSheet(u"QLineEdit{\n"
+"border: 2px solid grey;\n"
+"border-radius: 15px;\n"
+"padding-left: 20px;\n"
+"padding-right: 20px;\n"
+"background: white;\n"
+"}\n"
+"QLineEdit:hover{\n"
+"border: 2px solid rgb(48,50,62);\n"
+"}\n"
+"QLineEdit:focus{\n"
+"border: 2px solid rgb(85, 170, 255);\n"
+"background-color: white;\n"
+"}")
 
         self.horizontalLayout.addWidget(self.signyear)
 
@@ -329,6 +491,20 @@ class Ui_Form(object):
         self.comusername = QLineEdit(self.tab_3)
         self.comusername.setObjectName(u"comusername")
         self.comusername.setFont(font3)
+        self.comusername.setStyleSheet(u"QLineEdit{\n"
+"border: 2px solid grey;\n"
+"border-radius: 15px;\n"
+"padding-left: 20px;\n"
+"padding-right: 20px;\n"
+"background: white;\n"
+"}\n"
+"QLineEdit:hover{\n"
+"border: 2px solid rgb(48,50,62);\n"
+"}\n"
+"QLineEdit:focus{\n"
+"border: 2px solid rgb(85, 170, 255);\n"
+"background-color: white;\n"
+"}")
 
         self.verticalLayout_4.addWidget(self.comusername)
 
@@ -341,6 +517,20 @@ class Ui_Form(object):
         self.compassword = QLineEdit(self.tab_3)
         self.compassword.setObjectName(u"compassword")
         self.compassword.setFont(font3)
+        self.compassword.setStyleSheet(u"QLineEdit{\n"
+"border: 2px solid grey;\n"
+"border-radius: 15px;\n"
+"padding-left: 20px;\n"
+"padding-right: 20px;\n"
+"background: white;\n"
+"}\n"
+"QLineEdit:hover{\n"
+"border: 2px solid rgb(48,50,62);\n"
+"}\n"
+"QLineEdit:focus{\n"
+"border: 2px solid rgb(85, 170, 255);\n"
+"background-color: white;\n"
+"}")
         self.compassword.setEchoMode(QLineEdit.Password)
 
         self.verticalLayout_4.addWidget(self.compassword)
@@ -354,6 +544,20 @@ class Ui_Form(object):
         self.comemail = QLineEdit(self.tab_3)
         self.comemail.setObjectName(u"comemail")
         self.comemail.setFont(font3)
+        self.comemail.setStyleSheet(u"QLineEdit{\n"
+"border: 2px solid grey;\n"
+"border-radius: 15px;\n"
+"padding-left: 20px;\n"
+"padding-right: 20px;\n"
+"background: white;\n"
+"}\n"
+"QLineEdit:hover{\n"
+"border: 2px solid rgb(48,50,62);\n"
+"}\n"
+"QLineEdit:focus{\n"
+"border: 2px solid rgb(85, 170, 255);\n"
+"background-color: white;\n"
+"}")
 
         self.verticalLayout_4.addWidget(self.comemail)
 
@@ -366,6 +570,20 @@ class Ui_Form(object):
         self.comname = QLineEdit(self.tab_3)
         self.comname.setObjectName(u"comname")
         self.comname.setFont(font3)
+        self.comname.setStyleSheet(u"QLineEdit{\n"
+"border: 2px solid grey;\n"
+"border-radius: 15px;\n"
+"padding-left: 20px;\n"
+"padding-right: 20px;\n"
+"background: white;\n"
+"}\n"
+"QLineEdit:hover{\n"
+"border: 2px solid rgb(48,50,62);\n"
+"}\n"
+"QLineEdit:focus{\n"
+"border: 2px solid rgb(85, 170, 255);\n"
+"background-color: white;\n"
+"}")
 
         self.verticalLayout_4.addWidget(self.comname)
 
@@ -378,6 +596,20 @@ class Ui_Form(object):
         self.comloc = QLineEdit(self.tab_3)
         self.comloc.setObjectName(u"comloc")
         self.comloc.setFont(font3)
+        self.comloc.setStyleSheet(u"QLineEdit{\n"
+"border: 2px solid grey;\n"
+"border-radius: 15px;\n"
+"padding-left: 20px;\n"
+"padding-right: 20px;\n"
+"background: white;\n"
+"}\n"
+"QLineEdit:hover{\n"
+"border: 2px solid rgb(48,50,62);\n"
+"}\n"
+"QLineEdit:focus{\n"
+"border: 2px solid rgb(85, 170, 255);\n"
+"background-color: white;\n"
+"}")
 
         self.verticalLayout_4.addWidget(self.comloc)
 
@@ -412,10 +644,12 @@ class Ui_Form(object):
 
     def retranslateUi(self, Form):
         Form.setWindowTitle(QCoreApplication.translate("Form", u"Form", None))
-        self.title.setText(QCoreApplication.translate("Form", u"JOBMATCH", None))
+        self.title.setText("")
         self.labellog.setText(QCoreApplication.translate("Form", u"Log-in", None))
         self.label_10.setText(QCoreApplication.translate("Form", u"Username", None))
+        self.logusername.setPlaceholderText(QCoreApplication.translate("Form", u"Enter Username", None))
         self.label_3.setText(QCoreApplication.translate("Form", u"Password", None))
+        self.logpassword.setPlaceholderText(QCoreApplication.translate("Form", u"Enter Password", None))
         self.label_17.setText(QCoreApplication.translate("Form", u"What type of user are you?", None))
         self.userrad.setText(QCoreApplication.translate("Form", u"Job Seeker", None))
         self.comrad.setText(QCoreApplication.translate("Form", u"Company", None))
@@ -425,10 +659,15 @@ class Ui_Form(object):
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab), QCoreApplication.translate("Form", u"log-in", None))
         self.labelsign.setText(QCoreApplication.translate("Form", u"Sign-up", None))
         self.label_11.setText(QCoreApplication.translate("Form", u"Username", None))
+        self.signusername.setPlaceholderText(QCoreApplication.translate("Form", u"Username", None))
         self.label_5.setText(QCoreApplication.translate("Form", u"Password", None))
+        self.signpassword.setPlaceholderText(QCoreApplication.translate("Form", u"Password", None))
         self.label_6.setText(QCoreApplication.translate("Form", u"Email address", None))
+        self.signemail.setPlaceholderText(QCoreApplication.translate("Form", u"Email Address", None))
         self.label_9.setText(QCoreApplication.translate("Form", u"First name", None))
+        self.signfirst.setPlaceholderText(QCoreApplication.translate("Form", u"Firstname", None))
         self.label_7.setText(QCoreApplication.translate("Form", u"Last name", None))
+        self.signlast.setPlaceholderText(QCoreApplication.translate("Form", u"Lastname", None))
         self.label_8.setText(QCoreApplication.translate("Form", u"Date of birth", None))
         self.label_4.setText(QCoreApplication.translate("Form", u"Day", None))
         self.signday.setItemText(0, QCoreApplication.translate("Form", u"01", None))
@@ -478,15 +717,21 @@ class Ui_Form(object):
         self.signmonth.setItemText(11, QCoreApplication.translate("Form", u"12", None))
 
         self.label_2.setText(QCoreApplication.translate("Form", u"Year", None))
+        self.signyear.setPlaceholderText(QCoreApplication.translate("Form", u"e.g. 2000", None))
         self.signenter.setText(QCoreApplication.translate("Form", u"Enter", None))
         self.gotolog.setText(QCoreApplication.translate("Form", u"Have account already? Log-in here", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), QCoreApplication.translate("Form", u"sign-up", None))
         self.labelcom.setText(QCoreApplication.translate("Form", u"Sign-up", None))
         self.label_12.setText(QCoreApplication.translate("Form", u"Username", None))
+        self.comusername.setPlaceholderText(QCoreApplication.translate("Form", u"Username", None))
         self.label_13.setText(QCoreApplication.translate("Form", u"Password", None))
+        self.compassword.setPlaceholderText(QCoreApplication.translate("Form", u"Password", None))
         self.label_16.setText(QCoreApplication.translate("Form", u"Email Address", None))
+        self.comemail.setPlaceholderText(QCoreApplication.translate("Form", u"Email Address", None))
         self.label_14.setText(QCoreApplication.translate("Form", u"Company Name", None))
+        self.comname.setPlaceholderText(QCoreApplication.translate("Form", u"Company Name", None))
         self.label_15.setText(QCoreApplication.translate("Form", u"Location", None))
+        self.comloc.setPlaceholderText(QCoreApplication.translate("Form", u"City/ Lacation", None))
         self.comenter.setText(QCoreApplication.translate("Form", u"Enter", None))
         self.gotolog2.setText(QCoreApplication.translate("Form", u"Have account already? Log-in here", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_3), QCoreApplication.translate("Form", u"company Sign-up", None))
