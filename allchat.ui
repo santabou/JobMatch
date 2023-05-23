@@ -15,6 +15,13 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
+    <widget class="QPushButton" name="openroom">
+     <property name="text">
+      <string>Open/Create Chat Room by Number</string>
+     </property>
+    </widget>
+   </item>
+   <item>
     <widget class="QScrollArea" name="scrollArea">
      <property name="widgetResizable">
       <bool>true</bool>
@@ -25,7 +32,7 @@
         <x>0</x>
         <y>0</y>
         <width>776</width>
-        <height>576</height>
+        <height>541</height>
        </rect>
       </property>
       <layout class="QGridLayout" name="gridLayout"/>

@@ -15,6 +15,7 @@ class AllUI(QWidget):
         QWidget.__init__(self, None)
         self.ui = Ui_Form()
         self.ui.setupUi(self)
+        self.ui.openroom.clicked.connect(self.open)
         if(db.child(arg2).child(arg1).child("chat").get().val()!=None):
 
             self.showchatlist(db.child(arg2).child(arg1).child("chat").get().val())
@@ -106,6 +107,9 @@ class AllUI(QWidget):
         rn=button.property("romna")
         subprocess.run(['python', 'chat.py', arg1,rn])
 
+    def open(self):
+        subprocess.run(['python', 'goroom.py', arg1])
+
 
 def main():    
     app = QApplication(sys.argv)
@@ -115,8 +119,8 @@ def main():
     return app.exec()
 
 if __name__ == "__main__":
-    arg1 = sys.argv[1]
-    arg2 = sys.argv[2]
-    # arg1="u1"
-    # arg2="users"
+    # arg1 = sys.argv[1]
+    # arg2 = sys.argv[2]
+    arg1="u1"
+    arg2="users"
     sys.exit(main())
