@@ -234,7 +234,7 @@ class MainUI(QMainWindow):
         if(self.userType=="0"):
             subprocess.run(['python', 'viewuserprofile.py', self.user])
         else:
-            pass
+            subprocess.run(['python', 'allappdisplay.py', self.user])
 
 def main():
     app = QApplication(sys.argv)
