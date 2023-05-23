@@ -10,6 +10,45 @@ import subprocess
 firebase = pyrebase.initialize_app(firebaseConfig)
 db = firebase.database()
 
+def create_chat(rn,cnt,jobt,message):
+    if(db.child("ms").child(rn).get().val()==None):
+            data = {
+                "message": message,
+            }
+            db.child("ms").child(rn).update(data)
+            if db.child("users").child(cnt).child("chat").get().val()!= None:
+                data2 = {
+                    "chat": db.child("users").child(cnt).child("chat").get().val()+"\n"+rn
+                }
+            else:
+                data2 = {
+                    "chat": rn,
+                }
+            db.child("users").child(cnt).update(data2)
+            if db.child("companies").child(arg1).child("chat").get().val()!= None:
+                data3 = {
+                    "chat": db.child("companies").child(arg1).child("chat").get().val()+"\n"+rn
+                }
+            else:
+                data3 = {
+                    "chat": rn,
+                }
+            db.child("companies").child(arg1).update(data3)
+
+            ap=db.child("job").child(jobt).child("apply").get().val()
+            repl=cnt+"\n"
+            newap=ap.replace(repl,"")
+            if(newap==ap):
+                repl="\n"+cnt
+                newap=ap.replace(repl,"")
+            if(newap==ap):
+                repl=cnt
+                newap=ap.replace(repl,"")
+            data = {
+                "apply": newap
+            }
+            db.child("job").child(jobt).update(data)
+
 class AllUI(QWidget):
     def __init__(self):
         QWidget.__init__(self, None)
@@ -17,10 +56,21 @@ class AllUI(QWidget):
         self.ui.setupUi(self)
         self.showapplist(db.child("job").get().val())
 
+    def removeAll(self):
+        for i in reversed(range(self.ui.gridLayout.count())):
+            widget = self.ui.gridLayout.itemAt(i).widget()
+            if widget is not None:
+                widget.deleteLater()
+                self.ui.gridLayout.removeWidget(widget)
+
+    def reloadlist(self):
+        self.removeAll()
+        self.showapplist(db.child("job").get().val())
+
     
     def showapplist(self,data,count=0):
         for key in data:
-            if(arg1 in key):
+            if(arg1 in key and db.child("job").child(key).child("apply").get().val()!=""):
                 ap=db.child("job").child(key).child("apply").get().val()
                 af=db.child("job").child(key).child("position").get().val()
                 eachap = ap.split("\n")
@@ -29,11 +79,11 @@ class AllUI(QWidget):
                     name=db.child("users").child(n).child("firstname").get().val()+" "+db.child("users").child(n).child("lastname").get().val()
                     phone=db.child("users").child(n).child("phone_number").get().val()
                     email=db.child("users").child(n).child("email").get().val()
-                    self.createNewWindow(count,af,name,phone,email,n)
+                    self.createNewWindow(count,af,name,phone,email,n,key)
                     count=count+1
 
 
-    def createNewWindow(self,rowNo,af,name,phone,email,n):
+    def createNewWindow(self,rowNo,af,name,phone,email,n,key):
         framename = "frame_" + str(rowNo)
         appname = "appn_" + str(rowNo)
         posnam = "posn_" + str(rowNo)
@@ -134,9 +184,37 @@ class AllUI(QWidget):
         self.gridLayout_2.addWidget(self.button3, 2, 2, 1, 1, Qt.AlignLeft|Qt.AlignVCenter)
 
         self.button.setProperty("usdes", n)
-        # self.button2.setProperty("jobdes", cnum2)
+        self.button2.setProperty("accn", n)
+        self.button2.setProperty("jobn", key)
+        self.button3.setProperty("accn", n)
+        self.button3.setProperty("jobn", key)
         self.button.clicked.connect(self.more)
-        # self.button2.clicked.connect(self.sent)
+        self.button2.clicked.connect(self.accept)
+        self.button3.clicked.connect(self.deny)
+
+    def accept(self):
+        button=self.sender()
+        cnt=button.property("accn")
+        jobt=button.property("jobn")
+        message=arg1+": Hello thankyou for applying to our company. We are happy to inform you that you are selected as one of the candidate. Please tell use when you are free to interview\n"
+        rn=jobt+"&"+cnt
+        create_chat(rn,cnt,jobt,message)
+        self.reloadlist()
+        subprocess.run(['python', 'chat.py', arg1,rn])
+
+
+
+
+    def deny(self):
+        button=self.sender()
+        cnt=button.property("accn")
+        jobt=button.property("jobn")
+        message=arg1+": Hello thankyou for applying to our company. We are sorry to inform you that you are NOT selected as one of the candidate. We encourage you to apply next time\n"
+        rn=jobt+"&"+cnt
+        create_chat(rn,cnt,jobt,message)
+        self.reloadlist()
+        subprocess.run(['python', 'chat.py', arg1,rn])
+        
 
     def more(self):
         button=self.sender()

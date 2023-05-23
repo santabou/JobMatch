@@ -196,7 +196,10 @@ class MainUI(QMainWindow):
     def sent(self):
         button=self.sender()
         comp=button.property("jobdes")
-        add_apply(comp,self.user)
+        if(self.user in db.child("job").child(comp).child("apply").get().val()):
+            QMessageBox.information(self, "ERROR", f"Already Submit")
+        else:
+            add_apply(comp,self.user)
 
     
     def more(self):
@@ -225,10 +228,10 @@ class MainUI(QMainWindow):
             subprocess.run(['python', 'gojob.py', self.user])
     
     def cha(self):
-        if(self.userType=="0"):
-            subprocess.run(['python', 'goroom.py', self.user])
-        else:
-            pass
+        print(self.userType)
+        if(self.userType=="0"):self.typename="users"
+        else: self.typename="companies"
+        subprocess.run(['python', 'allchatdisplay.py', self.user,self.typename])
     
     def view(self):
         if(self.userType=="0"):
