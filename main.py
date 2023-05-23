@@ -196,10 +196,14 @@ class MainUI(QMainWindow):
     def sent(self):
         button=self.sender()
         comp=button.property("jobdes")
-        if(self.user in db.child("job").child(comp).child("apply").get().val()):
+        checkchat=comp+"&"+self.user
+        if(checkchat in db.child("users").child(self.user).child("chat").get().val()):
             QMessageBox.information(self, "ERROR", f"Already Submit")
         else:
-            add_apply(comp,self.user)
+            if(self.user in db.child("job").child(comp).child("apply").get().val()):
+                QMessageBox.information(self, "ERROR", f"Already Submit")
+            else:
+                add_apply(comp,self.user)
 
     
     def more(self):
