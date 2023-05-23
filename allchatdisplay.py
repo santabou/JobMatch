@@ -24,12 +24,15 @@ class AllUI(QWidget):
     def showchatlist(self,data,count=0):
             x=data.split("\n")
             for n in x:
-                 n2=n.split("&")
-                 for m in n2:
-                      pos=db.child("job").child(n2[0]).child("position").get().val()
-                      if m!=arg1:
+                n2=n.split("&")
+                for m in n2:
+                    if db.child("job").child(n2[0]).child("position").get().val()!=None:
+                        pos=db.child("job").child(n2[0]).child("position").get().val()
+                    else:
+                        pos="Any"
+                    if m!=arg1:
                         self.createNewWindow(count,n,m,pos)
-                 count=count+1
+                count=count+1
 
 
     def createNewWindow(self,rowNo,n,n2,pos):
@@ -121,6 +124,6 @@ def main():
 if __name__ == "__main__":
     arg1 = sys.argv[1]
     arg2 = sys.argv[2]
-    # arg1="u1"
-    # arg2="users"
+    arg1="u1"
+    arg2="users"
     sys.exit(main())

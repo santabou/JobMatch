@@ -11,6 +11,31 @@ import subprocess
 firebase = pyrebase.initialize_app(firebaseConfig)
 db = firebase.database()
 
+def create_chat(rn,cnt,jobt,message):
+    if(db.child("ms").child(rn).get().val()==None):
+            data = {
+                "message": message,
+            }
+            db.child("ms").child(rn).update(data)
+            if db.child("users").child(cnt).child("chat").get().val()!= None:
+                data2 = {
+                    "chat": db.child("users").child(cnt).child("chat").get().val()+"\n"+rn
+                }
+            else:
+                data2 = {
+                    "chat": rn,
+                }
+            db.child("users").child(cnt).update(data2)
+            if db.child("companies").child(jobt).child("chat").get().val()!= None:
+                data3 = {
+                    "chat": db.child("companies").child(jobt).child("chat").get().val()+"\n"+rn
+                }
+            else:
+                data3 = {
+                    "chat": rn,
+                }
+            db.child("companies").child(jobt).update(data3)
+
 def add_apply(comname,user):
     if db.child("job").child(comname).child("apply").get().val()!= None:
         data = {
@@ -45,6 +70,7 @@ class MainUI(QMainWindow):
             self.ui.usn.setText("Welcome, "+db.child("companies").child(self.user).child("companyname").get().val())
             self.ui.uppro.setText("Create/Edit Job Application")
             self.ui.vipro.setText("View Applicant")
+            self.createuserlist(db.child("users").get().val())
 
         self.ui.uppro.clicked.connect(self.logging)
         self.ui.gochat.clicked.connect(self.cha)
@@ -95,6 +121,28 @@ class MainUI(QMainWindow):
                         loc=db.child("job").child(section[:-1]).child("location").get().val()
                         self.createNewWindow(count,comp,pos,sal,loc,cnum2)
 
+    def createuserlist(self,data,sear="",section="",count=0):
+        for key in data:
+            if isinstance(data[key], dict):
+                count=count+1
+                self.createuserlist(data[key],sear, section + key + "/",count)      
+            else:
+                if(sear!=""):
+                    if(sear.lower() in db.child("users").child(section[:-1]).child(key).get().val().lower()):
+                        usn=section[:-1]
+                        name=db.child("users").child(section[:-1]).child("firstname").get().val()+" "+db.child("users").child(section[:-1]).child("lastname").get().val()
+                        phone=db.child("users").child(section[:-1]).child("phone_number").get().val()
+                        email=db.child("users").child(section[:-1]).child("email").get().val()
+                        pos=db.child("users").child(section[:-1]).child("position").get().val()
+                        self.createNewWindow(count,name,phone,email,pos,usn)
+                else:
+                    if(key=="firstname"):
+                        usn=section[:-1]
+                        name=db.child("users").child(section[:-1]).child("firstname").get().val()+" "+db.child("users").child(section[:-1]).child("lastname").get().val()
+                        phone=db.child("users").child(section[:-1]).child("phone_number").get().val()
+                        email=db.child("users").child(section[:-1]).child("email").get().val()
+                        pos=db.child("users").child(section[:-1]).child("position").get().val()
+                        self.createNewWindow(count,name,phone,email,pos,usn)
 
 
 
@@ -163,13 +211,20 @@ class MainUI(QMainWindow):
         self.button2.setStyleSheet(u"color: rgb(255, 255, 255);")
 
 
-        # print(com)
-        self.label.setText(QCoreApplication.translate("MainWindow", "Company: "+com, None))
-        self.label_2.setText(QCoreApplication.translate("MainWindow", "Position: "+pos, None))
-        self.label_3.setText(QCoreApplication.translate("MainWindow", "Salary: "+sal, None))
-        self.label_4.setText(QCoreApplication.translate("MainWindow", "location: "+loc, None))
-        self.button.setText(QCoreApplication.translate("MainWindow", u"view more", None))
-        self.button2.setText(QCoreApplication.translate("MainWindow", u"submit Application", None))
+        if(self.userType=="0"):
+            self.label.setText(QCoreApplication.translate("MainWindow", "Company: "+com, None))
+            self.label_2.setText(QCoreApplication.translate("MainWindow", "Position: "+pos, None))
+            self.label_3.setText(QCoreApplication.translate("MainWindow", "Salary: "+sal, None))
+            self.label_4.setText(QCoreApplication.translate("MainWindow", "location: "+loc, None))
+            self.button.setText(QCoreApplication.translate("MainWindow", u"view more", None))
+            self.button2.setText(QCoreApplication.translate("MainWindow", u"submit Application", None))
+        else:
+            self.label.setText(QCoreApplication.translate("MainWindow", "Name: "+com, None))
+            self.label_2.setText(QCoreApplication.translate("MainWindow", "phone Number: "+pos, None))
+            self.label_3.setText(QCoreApplication.translate("MainWindow", "Email Address: "+sal, None))
+            self.label_4.setText(QCoreApplication.translate("MainWindow", "Position: "+loc, None))
+            self.button.setText(QCoreApplication.translate("MainWindow", u"view more", None))
+            self.button2.setText(QCoreApplication.translate("MainWindow", u"Contact", None))
 
 
         setattr(self.ui, framename, self.frame)
@@ -196,22 +251,37 @@ class MainUI(QMainWindow):
     def sent(self):
         button=self.sender()
         comp=button.property("jobdes")
-        checkchat=comp+"&"+self.user
-        if(checkchat in db.child("users").child(self.user).child("chat").get().val()):
-            QMessageBox.information(self, "ERROR", f"Already Submit")
-        else:
-            if(self.user in db.child("job").child(comp).child("apply").get().val()):
+        if self.userType=="0":
+            checkchat=comp+"&"+self.user
+            if(checkchat in db.child("users").child(self.user).child("chat").get().val()):
                 QMessageBox.information(self, "ERROR", f"Already Submit")
             else:
-                add_apply(comp,self.user)
+                if(self.user in db.child("job").child(comp).child("apply").get().val()):
+                    QMessageBox.information(self, "ERROR", f"Already Submit")
+                else:
+                    add_apply(comp,self.user)
+        else:
+            cnt=button.property("jobdes")
+            jobt=self.user
+            checkchat=jobt+"&"+cnt
+            if(checkchat in db.child("companies").child(self.user).child("chat").get().val()):
+                QMessageBox.information(self, "ERROR", f"Already Sent")
+            else:
+                message=self.user+": Hello We are impress by your profile are you willing to interview with us?\n"
+                rn=jobt+"&"+cnt
+                create_chat(rn,cnt,jobt,message)
+                subprocess.run(['python', 'chat.py', self.user,rn])
 
     
     def more(self):
         button=self.sender()
         jobd=button.property("jobdes")
+        if self.userType=="0":
+            subprocess.run(['python', 'viewjobdetail.py', jobd])
+        else:
+            subprocess.run(['python', 'viewuserprofile.py', jobd])
         # j=db.child("job").child(jobd).get().val()
         # self.print_values(j)
-        subprocess.run(['python', 'viewjobdetail.py', jobd])
         
     # def print_values(self,data, section=""):
     #     for key in data:
