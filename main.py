@@ -172,8 +172,9 @@ class MainUI(QMainWindow):
         button=self.sender()
         comna=button.property("comname")
         jobd=button.property("jobdes")
-        j=db.child("job").child(jobd).get().val()
-        self.print_values(j)
+        # j=db.child("job").child(jobd).get().val()
+        # self.print_values(j)
+        subprocess.run(['python', 'viewjobdetail.py', jobd])
         
 
     
