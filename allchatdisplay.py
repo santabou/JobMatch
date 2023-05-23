@@ -117,8 +117,6 @@ def main():
 if __name__ == "__main__":
     arg1 = sys.argv[1]
     arg2 = sys.argv[2]
-    print(arg1)
-    print(arg2)
     # arg1="u1"
     # arg2="users"
     sys.exit(main())

@@ -228,7 +228,6 @@ class MainUI(QMainWindow):
             subprocess.run(['python', 'gojob.py', self.user])
     
     def cha(self):
-        print(self.userType)
         if(self.userType=="0"):self.typename="users"
         else: self.typename="companies"
         subprocess.run(['python', 'allchatdisplay.py', self.user,self.typename])
