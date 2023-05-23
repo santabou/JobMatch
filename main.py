@@ -11,6 +11,16 @@ import subprocess
 firebase = pyrebase.initialize_app(firebaseConfig)
 db = firebase.database()
 
+def add_apply(comname,user):
+    if db.child("job").child(comname).child("apply").get().val()!= None:
+        data = {
+        "apply": db.child("job").child(comname).child("apply").get().val()+"\n"+user
+    }
+    else:
+        data = {
+            "apply": user
+        }
+    db.child("job").child(comname).update(data)
 
 class MainUI(QMainWindow):
     def __init__(self):
@@ -34,7 +44,7 @@ class MainUI(QMainWindow):
         else:
             self.ui.usn.setText("Welcome, "+db.child("companies").child(self.user).child("companyname").get().val())
             self.ui.uppro.setText("Create/Edit Job Application")
-            self.ui.vipro.setText("View Job Application")
+            self.ui.vipro.setText("View Applicant")
 
         self.ui.uppro.clicked.connect(self.logging)
         self.ui.gochat.clicked.connect(self.cha)
@@ -74,24 +84,27 @@ class MainUI(QMainWindow):
                         cnum2=section[:-1]
                         pos=db.child("job").child(section[:-1]).child("position").get().val()
                         sal=db.child("job").child(section[:-1]).child("salary").get().val()
-                        self.createNewWindow(count,comp,pos,sal,cnum2)
+                        loc=db.child("job").child(section[:-1]).child("location").get().val()
+                        self.createNewWindow(count,comp,pos,sal,loc,cnum2)
                 else:
                     if(key=="username"):
                         comp=db.child("job").child(section[:-1]).child("companyname").get().val()
                         cnum2=section[:-1]
                         pos=db.child("job").child(section[:-1]).child("position").get().val()
                         sal=db.child("job").child(section[:-1]).child("salary").get().val()
-                        self.createNewWindow(count,comp,pos,sal,cnum2)
+                        loc=db.child("job").child(section[:-1]).child("location").get().val()
+                        self.createNewWindow(count,comp,pos,sal,loc,cnum2)
 
 
 
 
-    def createNewWindow(self,rowNo,com,pos,sal,cnum2):
+    def createNewWindow(self,rowNo,com,pos,sal,loc,cnum2):
 
         framename = "frame_" + str(rowNo)
         comnam = "comn_" + str(rowNo)
         posnam = "posn_" + str(rowNo)
         salnam = "saln_" + str(rowNo)
+        locnam = "locn_" + str(rowNo)
         morenam = "morn_" + str(rowNo)
         subnam = "subn_" + str(rowNo)
 
@@ -128,6 +141,13 @@ class MainUI(QMainWindow):
         self.label_3.setMaximumSize(QSize(200, 20))
         self.label_3.setStyleSheet(u"color: rgb(255, 255, 255);")
 
+        self.label_4 = QLabel(self.frame)
+        self.frame.setObjectName(locnam)
+        self.label_4.setObjectName(u"label_3")
+        self.label_4.setMinimumSize(QSize(120, 20))
+        self.label_4.setMaximumSize(QSize(120, 20))
+        self.label_4.setStyleSheet(u"color: rgb(255, 255, 255);")
+
         self.button = QPushButton(self.frame)
         self.frame.setObjectName(morenam)
         self.button.setObjectName(u"button")
@@ -147,6 +167,7 @@ class MainUI(QMainWindow):
         self.label.setText(QCoreApplication.translate("MainWindow", "Company: "+com, None))
         self.label_2.setText(QCoreApplication.translate("MainWindow", "Position: "+pos, None))
         self.label_3.setText(QCoreApplication.translate("MainWindow", "Salary: "+sal, None))
+        self.label_4.setText(QCoreApplication.translate("MainWindow", "location: "+loc, None))
         self.button.setText(QCoreApplication.translate("MainWindow", u"view more", None))
         self.button2.setText(QCoreApplication.translate("MainWindow", u"submit Application", None))
 
@@ -155,6 +176,7 @@ class MainUI(QMainWindow):
         setattr(self.ui, comnam, self.label)
         setattr(self.ui, posnam, self.label_2)
         setattr(self.ui, salnam, self.label_3)
+        setattr(self.ui, locnam, self.label_4)
         setattr(self.ui, morenam, self.button)
         setattr(self.ui, subnam, self.button2)
 
@@ -162,33 +184,39 @@ class MainUI(QMainWindow):
         self.gridLayout_2.addWidget(self.label, 0, 0, 1, 1, Qt.AlignLeft|Qt.AlignVCenter)
         self.gridLayout_2.addWidget(self.label_2, 1, 0, 1, 1, Qt.AlignLeft|Qt.AlignVCenter)
         self.gridLayout_2.addWidget(self.label_3, 2, 0, 1, 1, Qt.AlignLeft|Qt.AlignVCenter)
+        self.gridLayout_2.addWidget(self.label_4, 0, 1, 1, 1, Qt.AlignLeft|Qt.AlignVCenter)
         self.gridLayout_2.addWidget(self.button, 2, 1, 1, 1, Qt.AlignLeft|Qt.AlignVCenter)
         self.gridLayout_2.addWidget(self.button2, 2, 2, 1, 1, Qt.AlignLeft|Qt.AlignVCenter)
 
         self.button.setProperty("jobdes", cnum2)
+        self.button2.setProperty("jobdes", cnum2)
         self.button.clicked.connect(self.more)
+        self.button2.clicked.connect(self.sent)
+
+    def sent(self):
+        button=self.sender()
+        comp=button.property("jobdes")
+        add_apply(comp,self.user)
+
     
     def more(self):
         button=self.sender()
-        comna=button.property("comname")
         jobd=button.property("jobdes")
         # j=db.child("job").child(jobd).get().val()
         # self.print_values(j)
         subprocess.run(['python', 'viewjobdetail.py', jobd])
         
-
-    
-    def print_values(self,data, section=""):
-        for key in data:
-            if isinstance(data[key], dict):
-                self.print_values(data[key], section + key + "/")
-            else:
-                if (key=="username"):
-                    pass
-                else:
-                    if section:
-                        print(section[:-1])
-                    print(key+":"+data[key])
+    # def print_values(self,data, section=""):
+    #     for key in data:
+    #         if isinstance(data[key], dict):
+    #             self.print_values(data[key], section + key + "/")
+    #         else:
+    #             if (key=="username"):
+    #                 pass
+    #             else:
+    #                 if section:
+    #                     print(section[:-1])
+    #                 print(key+":"+data[key])
 
     def logging(self):
         if(self.userType=="0"):
