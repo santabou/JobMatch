@@ -5,17 +5,18 @@ from config import firebaseConfig
 from PySide6.QtGui import *
 import pyrebase
 from enternumber import Ui_Form
-import subprocess
+from chat import ChatUI
 
 firebase = pyrebase.initialize_app(firebaseConfig)
 db = firebase.database()
 
-class ChatU(QWidget):
-    def __init__(self):
+class GoCUI(QWidget):
+    def __init__(self,u):
         QWidget.__init__(self, None)
         self.ui = Ui_Form()
         self.ui.setupUi(self)
         self.ui.ok.clicked.connect(self.go)
+        self.user=u
 
     def go(self):
         rn=self.ui.lineEdit.text()
@@ -27,21 +28,21 @@ class ChatU(QWidget):
             }
             db.child("ms").child(rn).update(data)
         if(pa==db.child("ms").child(rn).child("password").get().val()):
-            subprocess.check_output(['python', 'chat.py',arg1,rn])
+            self.openchat(rn)
         else:
             QMessageBox.information(self,"ERROR", f"Wrong Password.")
-        
-    
 
-        
+    def openchat(self,rn):
+        self.open=QWidget()
+        self.eui=ChatUI(self.user,rn)
+        self.eui.show()
+    
 def main():
     app = QApplication(sys.argv)
 
-    w = ChatU()
+    w = GoCUI()
     w.show()
     return app.exec()
 
 if __name__ == "__main__":
-    arg1 = sys.argv[1]
-    # arg1="u1"
     sys.exit(main())

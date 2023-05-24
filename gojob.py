@@ -1,52 +1,34 @@
 import sys
 from PySide6.QtWidgets import *
 from PySide6.QtCore import *
-from config import firebaseConfig
 from PySide6.QtGui import *
-import pyrebase
 from jobnumber import Ui_Form
-import subprocess
+from editjobapp import JobUI
 
-firebase = pyrebase.initialize_app(firebaseConfig)
-db = firebase.database()
-
-class ChatU(QWidget):
-    def __init__(self):
+class GoUI(QWidget):
+    def __init__(self,u):
         QWidget.__init__(self, None)
         self.ui = Ui_Form()
         self.ui.setupUi(self)
         self.ui.ok.clicked.connect(self.go)
+        self.user=u
 
     def go(self):
         jn=self.ui.comboBox.currentText()
-        if(db.child("job").child(comname+"_"+jn).get().val()==None):
-            data = {
-                "position": "",
-                "education": "",
-                "salary": "",
-                "avaliable": "",
-                "phone": "",
-                "due":"",
-                "requirement":"",
-                "username":comname,
-                "companyname":db.child("companies").child(comname).child("companyname").get().val(),
-                "email":db.child("companies").child(comname).child("email").get().val(),
-                "location":db.child("companies").child(comname).child("location").get().val()
-            }
-            db.child("job").child(comname+"_"+jn).update(data)
-        subprocess.check_output(['python', 'editjobapp.py',comname,jn])
-        
-    
+        self.openedituser(jn)
+
+    def openedituser(self,jn):
+        self.open=QWidget()
+        self.eui=JobUI(self.user,jn)
+        self.eui.show()
 
         
 def main():
     app = QApplication(sys.argv)
 
-    w = ChatU()
+    w = GoUI()
     w.show()
     return app.exec()
 
 if __name__ == "__main__":
-    comname = sys.argv[1]
-    # arg1="u1"
     sys.exit(main())

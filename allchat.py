@@ -27,15 +27,22 @@ class Ui_Form(object):
         self.verticalLayout.setObjectName(u"verticalLayout")
         self.openroom = QPushButton(Form)
         self.openroom.setObjectName(u"openroom")
+        font = QFont()
+        font.setPointSize(11)
+        font.setBold(True)
+        self.openroom.setFont(font)
+        self.openroom.setStyleSheet(u"background-color: #4E97D1;\n"
+"color: rgb(255, 255, 255);")
 
         self.verticalLayout.addWidget(self.openroom)
 
         self.scrollArea = QScrollArea(Form)
         self.scrollArea.setObjectName(u"scrollArea")
+        self.scrollArea.setStyleSheet(u"background-color: rgb(184, 246, 255)")
         self.scrollArea.setWidgetResizable(True)
         self.scrollAreaWidgetContents = QWidget()
         self.scrollAreaWidgetContents.setObjectName(u"scrollAreaWidgetContents")
-        self.scrollAreaWidgetContents.setGeometry(QRect(0, 0, 776, 541))
+        self.scrollAreaWidgetContents.setGeometry(QRect(0, 0, 780, 546))
         self.gridLayout = QGridLayout(self.scrollAreaWidgetContents)
         self.gridLayout.setObjectName(u"gridLayout")
         self.scrollArea.setWidget(self.scrollAreaWidgetContents)

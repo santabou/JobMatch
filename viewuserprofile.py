@@ -3,38 +3,35 @@ from PySide6.QtWidgets import *
 from PySide6.QtCore import *
 from viewprofile import Ui_Form
 from PySide6.QtGui import *
-import pyrebase
-from config import firebaseConfig
+from db import User,Session,engine
 
+local_session=Session(bind=engine)
 
-firebase = pyrebase.initialize_app(firebaseConfig)
-
-# Connect to the Firebase Realtime Database
-db = firebase.database()
-class UserUI(QWidget):
-    def __init__(self):
+class VUserUI(QWidget):
+    def __init__(self,u):
         QWidget.__init__(self, None)
         self.ui = Ui_Form()
         self.ui.setupUi(self)
-        self.ui.fnlabel.setText(db.child("users").child(arg1).child("firstname").get().val())
-        self.ui.lnlabel.setText(db.child("users").child(arg1).child("lastname").get().val())
-        self.ui.emlabel.setText(db.child("users").child(arg1).child("email").get().val())
-        self.ui.doblabel.setText(db.child("users").child(arg1).child("dob").get().val())
-        self.ui.gdlabel.setText(db.child("users").child(arg1).child("gender").get().val())
-        self.ui.pnblabel.setText(db.child("users").child(arg1).child("phone_number").get().val())
-        self.ui.poslabel.setText(db.child("users").child(arg1).child("position").get().val())
-        self.ui.edulabel.setText(db.child("users").child(arg1).child("education").get().val())
-        self.ui.eprlabel.setText(db.child("users").child(arg1).child("experience").get().val())
-        self.ui.sklabel.setText(db.child("users").child(arg1).child("skills").get().val())
+        self.user=u
+        user = local_session.query(User).filter_by(username=self.user).first()
+        if user:
+            self.ui.fnlabel.setText(user.firstname)
+            self.ui.lnlabel.setText(user.lastname)
+            self.ui.emlabel.setText(user.email)
+            self.ui.doblabel.setText(user.dob)
+            self.ui.gdlabel.setText(user.gender)
+            self.ui.pnblabel.setText(user.phone_number)
+            self.ui.poslabel.setText(user.position)
+            self.ui.edulabel.setText(user.education)
+            self.ui.eprlabel.setText(user.experience)
+            self.ui.sklabel.setText(user.skill)
 
 def main():    
     app = QApplication(sys.argv)
-    w = UserUI()
+    w = VUserUI()
     w.show()
 
     return app.exec()
 
 if __name__ == "__main__":
-    arg1 = sys.argv[1]
-    # arg1= "u1"
     sys.exit(main())

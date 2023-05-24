@@ -16,6 +16,16 @@
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
     <widget class="QPushButton" name="openroom">
+     <property name="font">
+      <font>
+       <pointsize>11</pointsize>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: #4E97D1;
+color: rgb(255, 255, 255);</string>
+     </property>
      <property name="text">
       <string>Open/Create Chat Room by Number</string>
      </property>
@@ -23,6 +33,9 @@
    </item>
    <item>
     <widget class="QScrollArea" name="scrollArea">
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(184, 246, 255)</string>
+     </property>
      <property name="widgetResizable">
       <bool>true</bool>
      </property>
@@ -31,8 +44,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>776</width>
-        <height>541</height>
+        <width>780</width>
+        <height>546</height>
        </rect>
       </property>
       <layout class="QGridLayout" name="gridLayout"/>

@@ -17,6 +17,16 @@
    <layout class="QHBoxLayout" name="horizontalLayout">
     <item>
      <widget class="QTabWidget" name="tabWidget">
+      <property name="font">
+       <font>
+        <pointsize>11</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(184, 246, 255)</string>
+      </property>
       <property name="currentIndex">
        <number>0</number>
       </property>
@@ -26,14 +36,29 @@
        </attribute>
        <layout class="QGridLayout" name="gridLayout_2">
         <item row="0" column="1">
-         <widget class="QLineEdit" name="searchEdit"/>
+         <widget class="QLineEdit" name="searchEdit">
+          <property name="styleSheet">
+           <string notr="true">background-color: #white</string>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
         </item>
         <item row="0" column="2">
          <widget class="QPushButton" name="searchButton">
           <property name="font">
            <font>
-            <pointsize>8</pointsize>
+            <pointsize>11</pointsize>
+            <weight>75</weight>
+            <bold>true</bold>
            </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background-color: #4E97D1;
+color: rgb(255, 255, 255);
+
+</string>
           </property>
           <property name="text">
            <string>Search</string>
@@ -42,6 +67,18 @@
         </item>
         <item row="0" column="3">
          <widget class="QPushButton" name="clearButton">
+          <property name="font">
+           <font>
+            <pointsize>11</pointsize>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background-color: #4E97D1;
+color: rgb(255, 255, 255);
+</string>
+          </property>
           <property name="text">
            <string>Clear/Reload</string>
           </property>
@@ -58,7 +95,7 @@
              <x>0</x>
              <y>0</y>
              <width>748</width>
-             <height>439</height>
+             <height>430</height>
             </rect>
            </property>
            <layout class="QGridLayout" name="gridLayout"/>
@@ -85,6 +122,11 @@
           <pointsize>20</pointsize>
          </font>
         </property>
+        <property name="styleSheet">
+         <string notr="true">color: #4E97D1;
+
+</string>
+        </property>
         <property name="text">
          <string>Hello</string>
         </property>
@@ -100,8 +142,16 @@
         </property>
         <property name="font">
          <font>
-          <pointsize>12</pointsize>
+          <pointsize>11</pointsize>
+          <weight>75</weight>
+          <bold>true</bold>
+          <kerning>true</kerning>
          </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: #4E97D1;
+color: rgb(255, 255, 255);
+</string>
         </property>
         <property name="text">
          <string>Update Profile</string>
@@ -111,15 +161,22 @@
         <property name="geometry">
          <rect>
           <x>220</x>
-          <y>200</y>
+          <y>190</y>
           <width>261</width>
           <height>41</height>
          </rect>
         </property>
         <property name="font">
          <font>
-          <pointsize>12</pointsize>
+          <pointsize>11</pointsize>
+          <weight>75</weight>
+          <bold>true</bold>
          </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: #4E97D1;
+color: rgb(255, 255, 255);
+</string>
         </property>
         <property name="text">
          <string>View Profile</string>
@@ -129,18 +186,50 @@
         <property name="geometry">
          <rect>
           <x>220</x>
-          <y>270</y>
+          <y>260</y>
           <width>261</width>
           <height>41</height>
          </rect>
         </property>
         <property name="font">
          <font>
-          <pointsize>12</pointsize>
+          <pointsize>11</pointsize>
+          <weight>75</weight>
+          <bold>true</bold>
          </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: #4E97D1;
+color: rgb(255, 255, 255);
+</string>
         </property>
         <property name="text">
          <string>Create/Enter Chat Room</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="log_out">
+        <property name="geometry">
+         <rect>
+          <x>220</x>
+          <y>330</y>
+          <width>261</width>
+          <height>41</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>11</pointsize>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: #4E97D1;
+color: rgb(255, 255, 255);
+</string>
+        </property>
+        <property name="text">
+         <string>Log Out</string>
         </property>
        </widget>
       </widget>

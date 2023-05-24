@@ -13,6 +13,10 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: rgb(184, 246, 255)
+</string>
+  </property>
   <layout class="QGridLayout" name="gridLayout">
    <item row="0" column="1">
     <widget class="QLineEdit" name="lineEdit">
@@ -21,10 +25,23 @@
        <pointsize>12</pointsize>
       </font>
      </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(255, 255, 255);</string>
+     </property>
     </widget>
    </item>
    <item row="3" column="1">
     <widget class="QPushButton" name="ok">
+     <property name="font">
+      <font>
+       <pointsize>10</pointsize>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: #4E97D1;
+color: rgb(255, 255, 255);</string>
+     </property>
      <property name="text">
       <string>OK</string>
      </property>
@@ -34,7 +51,8 @@
     <widget class="QLabel" name="label">
      <property name="font">
       <font>
-       <pointsize>12</pointsize>
+       <pointsize>11</pointsize>
+       <bold>true</bold>
       </font>
      </property>
      <property name="text">
@@ -44,6 +62,11 @@
    </item>
    <item row="2" column="0" colspan="2">
     <widget class="QLabel" name="label_2">
+     <property name="font">
+      <font>
+       <pointsize>10</pointsize>
+      </font>
+     </property>
      <property name="text">
       <string>Note: When enter a room number, if it exist, it will enter that room else it will create new</string>
      </property>
@@ -53,7 +76,8 @@
     <widget class="QLabel" name="label_3">
      <property name="font">
       <font>
-       <pointsize>12</pointsize>
+       <pointsize>11</pointsize>
+       <bold>true</bold>
       </font>
      </property>
      <property name="text">
@@ -67,6 +91,9 @@
       <font>
        <pointsize>12</pointsize>
       </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(255, 255, 255);</string>
      </property>
     </widget>
    </item>

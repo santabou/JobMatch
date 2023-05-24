@@ -23,6 +23,8 @@ class Ui_Form(object):
         if not Form.objectName():
             Form.setObjectName(u"Form")
         Form.resize(800, 600)
+        Form.setStyleSheet(u"background-color: rgb(184, 246, 255)\n"
+"")
         self.verticalLayout = QVBoxLayout(Form)
         self.verticalLayout.setObjectName(u"verticalLayout")
         self.scrollArea = QScrollArea(Form)

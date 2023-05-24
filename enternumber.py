@@ -23,6 +23,8 @@ class Ui_Form(object):
         if not Form.objectName():
             Form.setObjectName(u"Form")
         Form.resize(602, 156)
+        Form.setStyleSheet(u"background-color: rgb(184, 246, 255)\n"
+"")
         self.gridLayout = QGridLayout(Form)
         self.gridLayout.setObjectName(u"gridLayout")
         self.lineEdit = QLineEdit(Form)
@@ -30,34 +32,48 @@ class Ui_Form(object):
         font = QFont()
         font.setPointSize(12)
         self.lineEdit.setFont(font)
+        self.lineEdit.setStyleSheet(u"background-color: rgb(255, 255, 255);")
 
         self.gridLayout.addWidget(self.lineEdit, 0, 1, 1, 1)
 
         self.ok = QPushButton(Form)
         self.ok.setObjectName(u"ok")
+        font1 = QFont()
+        font1.setPointSize(10)
+        font1.setBold(True)
+        self.ok.setFont(font1)
+        self.ok.setStyleSheet(u"background-color: #4E97D1;\n"
+"color: rgb(255, 255, 255);")
 
         self.gridLayout.addWidget(self.ok, 3, 1, 1, 1)
 
         self.label = QLabel(Form)
         self.label.setObjectName(u"label")
-        self.label.setFont(font)
+        font2 = QFont()
+        font2.setPointSize(11)
+        font2.setBold(True)
+        self.label.setFont(font2)
 
         self.gridLayout.addWidget(self.label, 0, 0, 1, 1)
 
         self.label_2 = QLabel(Form)
         self.label_2.setObjectName(u"label_2")
+        font3 = QFont()
+        font3.setPointSize(10)
+        self.label_2.setFont(font3)
 
         self.gridLayout.addWidget(self.label_2, 2, 0, 1, 2)
 
         self.label_3 = QLabel(Form)
         self.label_3.setObjectName(u"label_3")
-        self.label_3.setFont(font)
+        self.label_3.setFont(font2)
 
         self.gridLayout.addWidget(self.label_3, 1, 0, 1, 1)
 
         self.passline = QLineEdit(Form)
         self.passline.setObjectName(u"passline")
         self.passline.setFont(font)
+        self.passline.setStyleSheet(u"background-color: rgb(255, 255, 255);")
 
         self.gridLayout.addWidget(self.passline, 1, 1, 1, 1)
 

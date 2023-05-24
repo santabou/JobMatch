@@ -13,6 +13,10 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: rgb(184, 246, 255)
+</string>
+  </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
     <widget class="QLabel" name="title">
@@ -25,12 +29,17 @@
       <string/>
      </property>
      <property name="pixmap">
-      <pixmap>logo.png</pixmap>
+      <pixmap>../JobMatch/logo.png</pixmap>
      </property>
     </widget>
    </item>
    <item>
     <widget class="QTabWidget" name="tabWidget">
+     <property name="styleSheet">
+      <string notr="true">border-color: rgb(184, 246, 255);
+alternate-background-color: rgb(255, 255, 255);
+font: 700 11pt &quot;Segoe UI&quot;;</string>
+     </property>
      <property name="currentIndex">
       <number>0</number>
      </property>
@@ -43,8 +52,15 @@
         <widget class="QLabel" name="labellog">
          <property name="font">
           <font>
-           <pointsize>18</pointsize>
+           <family>Segoe UI</family>
+           <pointsize>11</pointsize>
+           <italic>false</italic>
+           <bold>true</bold>
           </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">
+font: 700 11pt &quot;Segoe UI&quot;;</string>
          </property>
          <property name="text">
           <string>Log-in</string>
@@ -68,8 +84,15 @@
         <widget class="QLabel" name="label_10">
          <property name="font">
           <font>
-           <pointsize>12</pointsize>
+           <family>Segoe UI</family>
+           <pointsize>11</pointsize>
+           <italic>false</italic>
+           <bold>true</bold>
           </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">
+font: 700 11pt &quot;Segoe UI&quot;;</string>
          </property>
          <property name="text">
           <string>Username</string>
@@ -80,7 +103,10 @@
         <widget class="QLineEdit" name="logusername">
          <property name="font">
           <font>
-           <pointsize>15</pointsize>
+           <family>Segoe UI</family>
+           <pointsize>11</pointsize>
+           <italic>false</italic>
+           <bold>true</bold>
           </font>
          </property>
          <property name="styleSheet">
@@ -108,8 +134,15 @@ background-color: white;
         <widget class="QLabel" name="label_3">
          <property name="font">
           <font>
-           <pointsize>12</pointsize>
+           <family>Segoe UI</family>
+           <pointsize>11</pointsize>
+           <italic>false</italic>
+           <bold>true</bold>
           </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">
+font: 700 11pt &quot;Segoe UI&quot;;</string>
          </property>
          <property name="text">
           <string>Password</string>
@@ -120,7 +153,10 @@ background-color: white;
         <widget class="QLineEdit" name="logpassword">
          <property name="font">
           <font>
-           <pointsize>15</pointsize>
+           <family>Segoe UI</family>
+           <pointsize>11</pointsize>
+           <italic>false</italic>
+           <bold>true</bold>
           </font>
          </property>
          <property name="styleSheet">
@@ -151,7 +187,10 @@ background-color: white;
         <widget class="QLabel" name="label_17">
          <property name="font">
           <font>
-           <pointsize>12</pointsize>
+           <family>Segoe UI</family>
+           <pointsize>11</pointsize>
+           <italic>false</italic>
+           <bold>true</bold>
           </font>
          </property>
          <property name="text">
@@ -163,7 +202,10 @@ background-color: white;
         <widget class="QRadioButton" name="userrad">
          <property name="font">
           <font>
-           <pointsize>10</pointsize>
+           <family>Segoe UI</family>
+           <pointsize>11</pointsize>
+           <italic>false</italic>
+           <bold>true</bold>
           </font>
          </property>
          <property name="text">
@@ -178,7 +220,10 @@ background-color: white;
         <widget class="QRadioButton" name="comrad">
          <property name="font">
           <font>
-           <pointsize>10</pointsize>
+           <family>Segoe UI</family>
+           <pointsize>11</pointsize>
+           <italic>false</italic>
+           <bold>true</bold>
           </font>
          </property>
          <property name="text">
@@ -194,23 +239,22 @@ background-color: white;
          <property name="orientation">
           <enum>Qt::Vertical</enum>
          </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>20</width>
-           <height>40</height>
-          </size>
-         </property>
         </spacer>
        </item>
        <item>
         <widget class="QPushButton" name="logenter">
          <property name="font">
           <font>
-           <pointsize>12</pointsize>
+           <family>Segoe UI</family>
+           <pointsize>11</pointsize>
+           <italic>false</italic>
+           <bold>true</bold>
           </font>
          </property>
          <property name="styleSheet">
-          <string notr="true"/>
+          <string notr="true">background-color: #4E97D1;
+color: rgb(255, 255, 255);
+font: 700 11pt &quot;Segoe UI&quot;;</string>
          </property>
          <property name="text">
           <string>Enter</string>
@@ -221,8 +265,16 @@ background-color: white;
         <widget class="QPushButton" name="gotosign">
          <property name="font">
           <font>
-           <pointsize>12</pointsize>
+           <family>Segoe UI</family>
+           <pointsize>11</pointsize>
+           <italic>false</italic>
+           <bold>true</bold>
           </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background-color: #4E97D1;
+color: rgb(255, 255, 255);
+font: 700 11pt &quot;Segoe UI&quot;;</string>
          </property>
          <property name="text">
           <string>Don't have account? Sign-up here</string>
@@ -233,8 +285,16 @@ background-color: white;
         <widget class="QPushButton" name="gotosigncom">
          <property name="font">
           <font>
-           <pointsize>12</pointsize>
+           <family>Segoe UI</family>
+           <pointsize>11</pointsize>
+           <italic>false</italic>
+           <bold>true</bold>
           </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background-color: #4E97D1;
+color: rgb(255, 255, 255);
+font: 700 11pt &quot;Segoe UI&quot;;</string>
          </property>
          <property name="text">
           <string>Sign-up for Company</string>
@@ -252,7 +312,10 @@ background-color: white;
         <widget class="QLabel" name="labelsign">
          <property name="font">
           <font>
-           <pointsize>18</pointsize>
+           <family>Segoe UI</family>
+           <pointsize>11</pointsize>
+           <italic>false</italic>
+           <bold>true</bold>
           </font>
          </property>
          <property name="text">
@@ -264,7 +327,10 @@ background-color: white;
         <widget class="QLabel" name="label_11">
          <property name="font">
           <font>
-           <pointsize>8</pointsize>
+           <family>Segoe UI</family>
+           <pointsize>11</pointsize>
+           <italic>false</italic>
+           <bold>true</bold>
           </font>
          </property>
          <property name="text">
@@ -276,7 +342,10 @@ background-color: white;
         <widget class="QLineEdit" name="signusername">
          <property name="font">
           <font>
-           <pointsize>15</pointsize>
+           <family>Segoe UI</family>
+           <pointsize>11</pointsize>
+           <italic>false</italic>
+           <bold>true</bold>
           </font>
          </property>
          <property name="styleSheet">
@@ -304,7 +373,10 @@ background-color: white;
         <widget class="QLabel" name="label_5">
          <property name="font">
           <font>
-           <pointsize>8</pointsize>
+           <family>Segoe UI</family>
+           <pointsize>11</pointsize>
+           <italic>false</italic>
+           <bold>true</bold>
           </font>
          </property>
          <property name="text">
@@ -316,7 +388,10 @@ background-color: white;
         <widget class="QLineEdit" name="signpassword">
          <property name="font">
           <font>
-           <pointsize>15</pointsize>
+           <family>Segoe UI</family>
+           <pointsize>11</pointsize>
+           <italic>false</italic>
+           <bold>true</bold>
           </font>
          </property>
          <property name="styleSheet">
@@ -347,7 +422,10 @@ background-color: white;
         <widget class="QLabel" name="label_6">
          <property name="font">
           <font>
-           <pointsize>8</pointsize>
+           <family>Segoe UI</family>
+           <pointsize>11</pointsize>
+           <italic>false</italic>
+           <bold>true</bold>
           </font>
          </property>
          <property name="text">
@@ -359,7 +437,10 @@ background-color: white;
         <widget class="QLineEdit" name="signemail">
          <property name="font">
           <font>
-           <pointsize>15</pointsize>
+           <family>Segoe UI</family>
+           <pointsize>11</pointsize>
+           <italic>false</italic>
+           <bold>true</bold>
           </font>
          </property>
          <property name="styleSheet">
@@ -387,7 +468,10 @@ background-color: white;
         <widget class="QLabel" name="label_9">
          <property name="font">
           <font>
-           <pointsize>8</pointsize>
+           <family>Segoe UI</family>
+           <pointsize>11</pointsize>
+           <italic>false</italic>
+           <bold>true</bold>
           </font>
          </property>
          <property name="text">
@@ -399,7 +483,10 @@ background-color: white;
         <widget class="QLineEdit" name="signfirst">
          <property name="font">
           <font>
-           <pointsize>15</pointsize>
+           <family>Segoe UI</family>
+           <pointsize>11</pointsize>
+           <italic>false</italic>
+           <bold>true</bold>
           </font>
          </property>
          <property name="styleSheet">
@@ -427,7 +514,10 @@ background-color: white;
         <widget class="QLabel" name="label_7">
          <property name="font">
           <font>
-           <pointsize>8</pointsize>
+           <family>Segoe UI</family>
+           <pointsize>11</pointsize>
+           <italic>false</italic>
+           <bold>true</bold>
           </font>
          </property>
          <property name="text">
@@ -439,7 +529,10 @@ background-color: white;
         <widget class="QLineEdit" name="signlast">
          <property name="font">
           <font>
-           <pointsize>15</pointsize>
+           <family>Segoe UI</family>
+           <pointsize>11</pointsize>
+           <italic>false</italic>
+           <bold>true</bold>
           </font>
          </property>
          <property name="styleSheet">
@@ -467,7 +560,10 @@ background-color: white;
         <widget class="QLabel" name="label_8">
          <property name="font">
           <font>
-           <pointsize>8</pointsize>
+           <family>Segoe UI</family>
+           <pointsize>11</pointsize>
+           <italic>false</italic>
+           <bold>true</bold>
           </font>
          </property>
          <property name="text">
@@ -489,7 +585,10 @@ background-color: white;
            <widget class="QComboBox" name="signday">
             <property name="font">
              <font>
-              <pointsize>12</pointsize>
+              <family>Segoe UI</family>
+              <pointsize>11</pointsize>
+              <italic>false</italic>
+              <bold>true</bold>
              </font>
             </property>
             <property name="styleSheet">
@@ -686,7 +785,10 @@ QComboBox::drop-down {
            <widget class="QComboBox" name="signmonth">
             <property name="font">
              <font>
-              <pointsize>12</pointsize>
+              <family>Segoe UI</family>
+              <pointsize>11</pointsize>
+              <italic>false</italic>
+              <bold>true</bold>
              </font>
             </property>
             <property name="styleSheet">
@@ -788,7 +890,10 @@ QComboBox::drop-down {
            <widget class="QLineEdit" name="signyear">
             <property name="font">
              <font>
-              <pointsize>15</pointsize>
+              <family>Segoe UI</family>
+              <pointsize>11</pointsize>
+              <italic>false</italic>
+              <bold>true</bold>
              </font>
             </property>
             <property name="styleSheet">
@@ -853,7 +958,10 @@ background-color: white;
         <widget class="QLabel" name="labelcom">
          <property name="font">
           <font>
-           <pointsize>18</pointsize>
+           <family>Segoe UI</family>
+           <pointsize>11</pointsize>
+           <italic>false</italic>
+           <bold>true</bold>
           </font>
          </property>
          <property name="text">
@@ -878,7 +986,10 @@ background-color: white;
         <widget class="QLabel" name="label_12">
          <property name="font">
           <font>
-           <pointsize>12</pointsize>
+           <family>Segoe UI</family>
+           <pointsize>11</pointsize>
+           <italic>false</italic>
+           <bold>true</bold>
           </font>
          </property>
          <property name="text">
@@ -890,7 +1001,10 @@ background-color: white;
         <widget class="QLineEdit" name="comusername">
          <property name="font">
           <font>
-           <pointsize>15</pointsize>
+           <family>Segoe UI</family>
+           <pointsize>11</pointsize>
+           <italic>false</italic>
+           <bold>true</bold>
           </font>
          </property>
          <property name="styleSheet">
@@ -918,7 +1032,10 @@ background-color: white;
         <widget class="QLabel" name="label_13">
          <property name="font">
           <font>
-           <pointsize>12</pointsize>
+           <family>Segoe UI</family>
+           <pointsize>11</pointsize>
+           <italic>false</italic>
+           <bold>true</bold>
           </font>
          </property>
          <property name="text">
@@ -930,7 +1047,10 @@ background-color: white;
         <widget class="QLineEdit" name="compassword">
          <property name="font">
           <font>
-           <pointsize>15</pointsize>
+           <family>Segoe UI</family>
+           <pointsize>11</pointsize>
+           <italic>false</italic>
+           <bold>true</bold>
           </font>
          </property>
          <property name="styleSheet">
@@ -961,7 +1081,10 @@ background-color: white;
         <widget class="QLabel" name="label_16">
          <property name="font">
           <font>
-           <pointsize>12</pointsize>
+           <family>Segoe UI</family>
+           <pointsize>11</pointsize>
+           <italic>false</italic>
+           <bold>true</bold>
           </font>
          </property>
          <property name="text">
@@ -973,7 +1096,10 @@ background-color: white;
         <widget class="QLineEdit" name="comemail">
          <property name="font">
           <font>
-           <pointsize>15</pointsize>
+           <family>Segoe UI</family>
+           <pointsize>11</pointsize>
+           <italic>false</italic>
+           <bold>true</bold>
           </font>
          </property>
          <property name="styleSheet">
@@ -1001,7 +1127,10 @@ background-color: white;
         <widget class="QLabel" name="label_14">
          <property name="font">
           <font>
-           <pointsize>12</pointsize>
+           <family>Segoe UI</family>
+           <pointsize>11</pointsize>
+           <italic>false</italic>
+           <bold>true</bold>
           </font>
          </property>
          <property name="text">
@@ -1013,7 +1142,10 @@ background-color: white;
         <widget class="QLineEdit" name="comname">
          <property name="font">
           <font>
-           <pointsize>15</pointsize>
+           <family>Segoe UI</family>
+           <pointsize>11</pointsize>
+           <italic>false</italic>
+           <bold>true</bold>
           </font>
          </property>
          <property name="styleSheet">
@@ -1041,7 +1173,10 @@ background-color: white;
         <widget class="QLabel" name="label_15">
          <property name="font">
           <font>
-           <pointsize>12</pointsize>
+           <family>Segoe UI</family>
+           <pointsize>11</pointsize>
+           <italic>false</italic>
+           <bold>true</bold>
           </font>
          </property>
          <property name="text">
@@ -1053,7 +1188,10 @@ background-color: white;
         <widget class="QLineEdit" name="comloc">
          <property name="font">
           <font>
-           <pointsize>15</pointsize>
+           <family>Segoe UI</family>
+           <pointsize>11</pointsize>
+           <italic>false</italic>
+           <bold>true</bold>
           </font>
          </property>
          <property name="styleSheet">
@@ -1094,7 +1232,10 @@ background-color: white;
         <widget class="QPushButton" name="comenter">
          <property name="font">
           <font>
-           <pointsize>12</pointsize>
+           <family>Segoe UI</family>
+           <pointsize>11</pointsize>
+           <italic>false</italic>
+           <bold>true</bold>
           </font>
          </property>
          <property name="text">
@@ -1106,7 +1247,10 @@ background-color: white;
         <widget class="QPushButton" name="gotolog2">
          <property name="font">
           <font>
-           <pointsize>12</pointsize>
+           <family>Segoe UI</family>
+           <pointsize>11</pointsize>
+           <italic>false</italic>
+           <bold>true</bold>
           </font>
          </property>
          <property name="text">

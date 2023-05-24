@@ -5,37 +5,44 @@ from allapp import Ui_Form
 from config import firebaseConfig
 from PySide6.QtGui import *
 import pyrebase
-import subprocess
+from chat import ChatUI
+from viewuserprofile import VUserUI
+
+from db import Company,User,Job,Session,engine
+local_session=Session(bind=engine)
 
 firebase = pyrebase.initialize_app(firebaseConfig)
 db = firebase.database()
 
-def create_chat(rn,cnt,jobt,message):
+def create_chat(rn,cnt,jobt,message,u):
+    user = local_session.query(User).filter_by(username=cnt).first()
+    com = local_session.query(Company).filter_by(username=u).first()
+    job = local_session.query(Job).filter_by(jobid=jobt).first()
     if(db.child("ms").child(rn).get().val()==None):
             data = {
                 "message": message,
             }
             db.child("ms").child(rn).update(data)
-            if db.child("users").child(cnt).child("chat").get().val()!= None:
-                data2 = {
-                    "chat": db.child("users").child(cnt).child("chat").get().val()+"\n"+rn
-                }
+            if user.chat!= "":
+                c1=user.chat
+                if user:
+                    user.chat = c1+"\n"+rn
+                    local_session.commit()
             else:
-                data2 = {
-                    "chat": rn,
-                }
-            db.child("users").child(cnt).update(data2)
-            if db.child("companies").child(arg1).child("chat").get().val()!= None:
-                data3 = {
-                    "chat": db.child("companies").child(arg1).child("chat").get().val()+"\n"+rn
-                }
+                if user:
+                    user.chat = rn
+                    local_session.commit()
+            if com.chat!= "":
+                c2=com.chat
+                if com:
+                    com.chat=c2+"\n"+rn
+                    local_session.commit()
             else:
-                data3 = {
-                    "chat": rn,
-                }
-            db.child("companies").child(arg1).update(data3)
+                if com:
+                    com.chat=rn
+                    local_session.commit()
 
-            ap=db.child("job").child(jobt).child("apply").get().val()
+            ap=job.apply
             repl=cnt+"\n"
             newap=ap.replace(repl,"")
             if(newap==ap):
@@ -47,14 +54,17 @@ def create_chat(rn,cnt,jobt,message):
             data = {
                 "apply": newap
             }
-            db.child("job").child(jobt).update(data)
+            if job:
+                job.apply=newap
+                local_session.commit()
 
 class AllUI(QWidget):
-    def __init__(self):
+    def __init__(self,u):
         QWidget.__init__(self, None)
         self.ui = Ui_Form()
         self.ui.setupUi(self)
-        self.showapplist(db.child("job").get().val())
+        self.user=u
+        self.showapplist(local_session.query(Job).all())
 
     def removeAll(self):
         for i in reversed(range(self.ui.gridLayout.count())):
@@ -65,21 +75,22 @@ class AllUI(QWidget):
 
     def reloadlist(self):
         self.removeAll()
-        self.showapplist(db.child("job").get().val())
+        self.showapplist(local_session.query(Job).all())
 
     
     def showapplist(self,data,count=0):
         for key in data:
-            if(arg1 in key and db.child("job").child(key).child("apply").get().val()!=""):
-                ap=db.child("job").child(key).child("apply").get().val()
-                af=db.child("job").child(key).child("position").get().val()
+            if(self.user == key.username and key.apply!=""):
+                af=key.position
+                ap=key.apply
                 eachap = ap.split("\n")
                 for n in eachap:
-                    # print(n)
-                    name=db.child("users").child(n).child("firstname").get().val()+" "+db.child("users").child(n).child("lastname").get().val()
-                    phone=db.child("users").child(n).child("phone_number").get().val()
-                    email=db.child("users").child(n).child("email").get().val()
-                    self.createNewWindow(count,af,name,phone,email,n,key)
+                    k=key.jobid
+                    user = local_session.query(User).filter_by(username=n).first()
+                    name=user.firstname+" "+user.lastname
+                    phone=user.phone_number
+                    email=user.email
+                    self.createNewWindow(count,af,name,phone,email,n,k)
                     count=count+1
 
 
@@ -98,7 +109,7 @@ class AllUI(QWidget):
         self.frame.setObjectName(u"frame")
         self.frame.setMinimumSize(QSize(500, 100))
         self.frame.setMaximumSize(QSize(500, 100))
-        self.frame.setStyleSheet(u"background-color: grey;")
+        self.frame.setStyleSheet(u"background-color: #4E97D1;")
         self.frame.setFrameShape(QFrame.StyledPanel)
         self.frame.setFrameShadow(QFrame.Raised)
 
@@ -138,21 +149,21 @@ class AllUI(QWidget):
         self.button.setObjectName(u"button")
         self.button.setMinimumSize(QSize(120, 20))
         self.button.setMaximumSize(QSize(120, 20))
-        self.button.setStyleSheet(u"color: rgb(255, 255, 255);")
+        self.button.setStyleSheet(u"background-color: #4E97D1; color: rgb(255, 255, 255);")
 
         self.button2 = QPushButton(self.frame)
         self.frame.setObjectName(accname)
         self.button2.setObjectName(u"button2")
         self.button2.setMinimumSize(QSize(120, 20))
         self.button2.setMaximumSize(QSize(120, 20))
-        self.button2.setStyleSheet(u"color: rgb(255, 255, 255);")
+        self.button2.setStyleSheet(u"background-color: #4E97D1; color: rgb(255, 255, 255);")
 
         self.button3 = QPushButton(self.frame)
         self.frame.setObjectName(denname)
         self.button3.setObjectName(u"button3")
         self.button3.setMinimumSize(QSize(120, 20))
         self.button3.setMaximumSize(QSize(120, 20))
-        self.button3.setStyleSheet(u"color: rgb(255, 255, 255);")
+        self.button3.setStyleSheet(u"background-color: #4E97D1; color: rgb(255, 255, 255);")
 
 
         # print(com)
@@ -183,6 +194,7 @@ class AllUI(QWidget):
         self.gridLayout_2.addWidget(self.button2, 1, 2, 1, 1, Qt.AlignLeft|Qt.AlignVCenter)
         self.gridLayout_2.addWidget(self.button3, 2, 2, 1, 1, Qt.AlignLeft|Qt.AlignVCenter)
 
+        print(key)
         self.button.setProperty("usdes", n)
         self.button2.setProperty("accn", n)
         self.button2.setProperty("jobn", key)
@@ -192,15 +204,20 @@ class AllUI(QWidget):
         self.button2.clicked.connect(self.accept)
         self.button3.clicked.connect(self.deny)
 
+    def openchat(self,rn):
+        self.open=QWidget()
+        self.eui=ChatUI(self.user,rn)
+        self.eui.show()
+
     def accept(self):
         button=self.sender()
         cnt=button.property("accn")
-        jobt=button.property("jobn")
-        message=arg1+": Hello thankyou for applying to our company. We are happy to inform you that you are selected as one of the candidate. Please tell use when you are free to interview\n"
-        rn=jobt+"&"+cnt
-        create_chat(rn,cnt,jobt,message)
+        jobt= button.property("jobn")
+        message=self.user+": Hello thankyou for applying to our company. We are happy to inform you that you are selected as one of the candidate. Please tell use when you are free to interview\n"
+        rn=str(jobt)+"&"+str(cnt)
+        create_chat(rn,cnt,jobt,message,self.user)
         self.reloadlist()
-        subprocess.run(['python', 'chat.py', arg1,rn])
+        self.openchat(rn)
 
 
 
@@ -209,17 +226,24 @@ class AllUI(QWidget):
         button=self.sender()
         cnt=button.property("accn")
         jobt=button.property("jobn")
-        message=arg1+": Hello thankyou for applying to our company. We are sorry to inform you that you are NOT selected as one of the candidate. We encourage you to apply next time\n"
-        rn=jobt+"&"+cnt
-        create_chat(rn,cnt,jobt,message)
+        message=self.user+": Hello thankyou for applying to our company. We are sorry to inform you that you are NOT selected as one of the candidate. We encourage you to apply next time\n"
+        rn=str(jobt)+"&"+str(cnt)
+        create_chat(rn,cnt,jobt,message,self.user)
         self.reloadlist()
-        subprocess.run(['python', 'chat.py', arg1,rn])
+        self.openchat(rn)
         
 
     def more(self):
         button=self.sender()
         jobd=button.property("usdes")
-        subprocess.run(['python', 'viewuserprofile.py', jobd])
+        self.openviewuser(jobd)
+
+
+    def openviewuser(self,j):
+        self.open=QWidget()
+        self.vui=VUserUI(j)
+        self.vui.show()
+    
 
 
 def main():    
@@ -230,6 +254,4 @@ def main():
     return app.exec()
 
 if __name__ == "__main__":
-    arg1 = sys.argv[1]
-    # arg1="c1"
     sys.exit(main())

@@ -2,35 +2,41 @@ import sys
 from PySide6.QtWidgets import *
 from PySide6.QtCore import *
 from allchat import Ui_Form
-from config import firebaseConfig
 from PySide6.QtGui import *
-import pyrebase
-import subprocess
+from chat import ChatUI
+from goroom import GoCUI
+from db import Company,User,Job,Session,engine
+local_session=Session(bind=engine)
 
-firebase = pyrebase.initialize_app(firebaseConfig)
-db = firebase.database()
-
-class AllUI(QWidget):
-    def __init__(self):
+class AllCUI(QWidget):
+    def __init__(self,u,t):
         QWidget.__init__(self, None)
         self.ui = Ui_Form()
         self.ui.setupUi(self)
+        self.user=u
+        self.userType=t
         self.ui.openroom.clicked.connect(self.open)
-        if(db.child(arg2).child(arg1).child("chat").get().val()!=None):
-
-            self.showchatlist(db.child(arg2).child(arg1).child("chat").get().val())
-
+        if self.userType=="0":
+            self.user = local_session.query(User).filter_by(username=self.user).first()
+            if(self.user.chat!=""):
+                self.showchatlist(self.user.chat)
+        else:
+            self.com = local_session.query(Company).filter_by(username=self.user).first()
+            if(self.com.chat!=""):
+                self.showchatlist(self.com.chat)
     
     def showchatlist(self,data,count=0):
             x=data.split("\n")
             for n in x:
                 n2=n.split("&")
                 for m in n2:
-                    if db.child("job").child(n2[0]).child("position").get().val()!=None:
-                        pos=db.child("job").child(n2[0]).child("position").get().val()
+                    job = local_session.query(Job).filter_by(jobid=n2[0]).first()
+                    if(job is not None):
+                        if job.position!="":
+                            pos=job.position
                     else:
                         pos="Any"
-                    if m!=arg1:
+                    if m!=self.user:
                         self.createNewWindow(count,n,m,pos)
                 count=count+1
 
@@ -47,7 +53,7 @@ class AllUI(QWidget):
         self.frame.setObjectName(u"frame")
         self.frame.setMinimumSize(QSize(500, 100))
         self.frame.setMaximumSize(QSize(500, 100))
-        self.frame.setStyleSheet(u"background-color: grey;")
+        self.frame.setStyleSheet(u"background-color: #4E97D1;")
         self.frame.setFrameShape(QFrame.StyledPanel)
         self.frame.setFrameShadow(QFrame.Raised)
 
@@ -80,7 +86,7 @@ class AllUI(QWidget):
         self.button.setObjectName(u"button3")
         self.button.setMinimumSize(QSize(120, 20))
         self.button.setMaximumSize(QSize(120, 20))
-        self.button.setStyleSheet(u"color: rgb(255, 255, 255);")
+        self.button.setStyleSheet(u"background-color: #4E97D1; color: rgb(255, 255, 255);")
 
 
         # print(com)
@@ -108,22 +114,28 @@ class AllUI(QWidget):
     def more(self):
         button=self.sender()
         rn=button.property("romna")
-        subprocess.run(['python', 'chat.py', arg1,rn])
+        self.openchat(rn)
 
     def open(self):
-        subprocess.run(['python', 'goroom.py', arg1])
+        self.openroom()
+
+    def openchat(self,rn):
+        self.open=QWidget()
+        self.eui=ChatUI(self.user,rn)
+        self.eui.show()
+
+    def openroom(self):
+        self.open=QWidget()
+        self.eui=GoCUI(self.user)
+        self.eui.show()
 
 
 def main():    
     app = QApplication(sys.argv)
-    w = AllUI()
+    w = AllCUI()
     w.show()
 
     return app.exec()
 
 if __name__ == "__main__":
-    arg1 = sys.argv[1]
-    arg2 = sys.argv[2]
-    arg1="u1"
-    arg2="users"
     sys.exit(main())

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>679</width>
-    <height>493</height>
+    <width>379</width>
+    <height>524</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,66 +16,22 @@
   <widget class="QWidget" name="gridLayoutWidget">
    <property name="geometry">
     <rect>
-     <x>10</x>
-     <y>10</y>
-     <width>651</width>
+     <x>20</x>
+     <y>30</y>
+     <width>341</width>
      <height>461</height>
     </rect>
    </property>
    <layout class="QGridLayout" name="gridLayout">
-    <item row="0" column="5">
-     <widget class="QLabel" name="sallabel">
-      <property name="text">
-       <string>TextLabel</string>
+    <item row="2" column="0" alignment="Qt::AlignTop">
+     <widget class="QLabel" name="label_13">
+      <property name="font">
+       <font>
+        <bold>true</bold>
+       </font>
       </property>
-     </widget>
-    </item>
-    <item row="1" column="1">
-     <widget class="QLabel" name="seatlabel">
       <property name="text">
-       <string>TextLabel</string>
-      </property>
-     </widget>
-    </item>
-    <item row="0" column="1">
-     <widget class="QLabel" name="cnlabel">
-      <property name="text">
-       <string>TextLabel</string>
-      </property>
-     </widget>
-    </item>
-    <item row="1" column="2">
-     <widget class="QLabel" name="label_7">
-      <property name="text">
-       <string>Phone Number :</string>
-      </property>
-     </widget>
-    </item>
-    <item row="0" column="2">
-     <widget class="QLabel" name="label_3">
-      <property name="text">
-       <string>Position :</string>
-      </property>
-     </widget>
-    </item>
-    <item row="6" column="4" alignment="Qt::AlignTop">
-     <widget class="QLabel" name="reqlabel">
-      <property name="text">
-       <string>TextLabel</string>
-      </property>
-     </widget>
-    </item>
-    <item row="6" column="3" alignment="Qt::AlignTop">
-     <widget class="QLabel" name="label_17">
-      <property name="text">
-       <string>Requirements :</string>
-      </property>
-     </widget>
-    </item>
-    <item row="0" column="3">
-     <widget class="QLabel" name="poslabel">
-      <property name="text">
-       <string>TextLabel</string>
+       <string>Avaliable till :</string>
       </property>
      </widget>
     </item>
@@ -86,71 +42,128 @@
       </property>
      </widget>
     </item>
-    <item row="0" column="0">
-     <widget class="QLabel" name="label">
-      <property name="text">
-       <string>Company Name :</string>
-      </property>
-     </widget>
-    </item>
-    <item row="2" column="4" alignment="Qt::AlignTop">
-     <widget class="QLabel" name="edulabel">
-      <property name="text">
-       <string>TextLabel</string>
-      </property>
-     </widget>
-    </item>
-    <item row="0" column="4">
-     <widget class="QLabel" name="label_5">
-      <property name="text">
-       <string>Salary :</string>
-      </property>
-     </widget>
-    </item>
-    <item row="1" column="3">
+    <item row="8" column="1">
      <widget class="QLabel" name="pnblabel">
       <property name="text">
        <string>TextLabel</string>
       </property>
      </widget>
     </item>
-    <item row="1" column="4">
-     <widget class="QLabel" name="label_11">
+    <item row="9" column="1">
+     <widget class="QLabel" name="edulabel">
       <property name="text">
-       <string>Email :</string>
-      </property>
-     </widget>
-    </item>
-    <item row="2" column="0" alignment="Qt::AlignTop">
-     <widget class="QLabel" name="label_13">
-      <property name="text">
-       <string>Avaliable till :</string>
-      </property>
-     </widget>
-    </item>
-    <item row="2" column="3" alignment="Qt::AlignTop">
-     <widget class="QLabel" name="label_15">
-      <property name="text">
-       <string>Education :</string>
+       <string>TextLabel</string>
       </property>
      </widget>
     </item>
     <item row="6" column="0" alignment="Qt::AlignTop">
      <widget class="QLabel" name="label_16">
+      <property name="font">
+       <font>
+        <bold>true</bold>
+       </font>
+      </property>
       <property name="text">
        <string>Location :</string>
       </property>
      </widget>
     </item>
-    <item row="1" column="0">
-     <widget class="QLabel" name="label_9">
+    <item row="1" column="1">
+     <widget class="QLabel" name="seatlabel">
       <property name="text">
-       <string>Seats Left :</string>
+       <string>TextLabel</string>
       </property>
      </widget>
     </item>
-    <item row="1" column="5">
+    <item row="10" column="1">
+     <widget class="QLabel" name="reqlabel">
+      <property name="text">
+       <string>TextLabel</string>
+      </property>
+     </widget>
+    </item>
+    <item row="7" column="0">
+     <widget class="QLabel" name="label_3">
+      <property name="font">
+       <font>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>Position :</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="0">
+     <widget class="QLabel" name="label">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="font">
+       <font>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>Company Name :</string>
+      </property>
+     </widget>
+    </item>
+    <item row="8" column="0">
+     <widget class="QLabel" name="label_7">
+      <property name="font">
+       <font>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>Phone Number :</string>
+      </property>
+     </widget>
+    </item>
+    <item row="9" column="0">
+     <widget class="QLabel" name="label_15">
+      <property name="font">
+       <font>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>Education :</string>
+      </property>
+     </widget>
+    </item>
+    <item row="7" column="1">
+     <widget class="QLabel" name="poslabel">
+      <property name="text">
+       <string>TextLabel</string>
+      </property>
+     </widget>
+    </item>
+    <item row="10" column="0">
+     <widget class="QLabel" name="label_17">
+      <property name="font">
+       <font>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>Requirements :</string>
+      </property>
+     </widget>
+    </item>
+    <item row="12" column="1">
      <widget class="QLabel" name="emlabel">
+      <property name="text">
+       <string>TextLabel</string>
+      </property>
+     </widget>
+    </item>
+    <item row="11" column="1">
+     <widget class="QLabel" name="sallabel">
       <property name="text">
        <string>TextLabel</string>
       </property>
@@ -160,6 +173,55 @@
      <widget class="QLabel" name="avalabel">
       <property name="text">
        <string>TextLabel</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="1">
+     <widget class="QLabel" name="cnlabel">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="text">
+       <string>TextLabel</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="0">
+     <widget class="QLabel" name="label_9">
+      <property name="font">
+       <font>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>Seats Left :</string>
+      </property>
+     </widget>
+    </item>
+    <item row="11" column="0">
+     <widget class="QLabel" name="label_5">
+      <property name="font">
+       <font>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>Salary :</string>
+      </property>
+     </widget>
+    </item>
+    <item row="12" column="0">
+     <widget class="QLabel" name="label_11">
+      <property name="font">
+       <font>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>Email :</string>
       </property>
      </widget>
     </item>

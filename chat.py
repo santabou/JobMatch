@@ -9,7 +9,7 @@ from text import Ui_Form
 firebase = pyrebase.initialize_app(firebaseConfig)
 db = firebase.database()
 
-def message(mess):
+def message(mess,rn):
     if(db.child("ms").child(rn).child("message").get().val()==None):
         mess1=mess
     else:
@@ -21,15 +21,17 @@ def message(mess):
 
 
 
-class ChatU(QWidget):
-    def __init__(self):
+class ChatUI(QWidget):
+    def __init__(self,u,r):
         QWidget.__init__(self, None)
         self.ui = Ui_Form()
         self.ui.setupUi(self)
-        self.ui.roomnum.setText(rn)
-        self.ui.myname.setText(arg1)
+        self.user=u
+        self.room=r
+        self.ui.roomnum.setText(self.room)
+        self.ui.myname.setText(self.user)
         self.ui.pushButton.clicked.connect(self.send)
-        self.ui.textEdit.setText(db.child("ms").child(rn).child("message").get().val())
+        self.ui.textEdit.setText(db.child("ms").child(self.room).child("message").get().val())
         self.stream=db.child("ms").stream(self.stream_handler)
 
     
@@ -41,28 +43,24 @@ class ChatU(QWidget):
         event.accept()
 
     def send(self):
-        mess=str(arg1)+": "+str(self.ui.lineEdit.text())
-        message(mess)
+        mess=str(self.user)+": "+str(self.ui.lineEdit.text())
+        message(mess,self.room)
         self.ui.lineEdit.setText("")
 
     def stream_handler(self,message):
         if message["event"] == "patch":
             QMetaObject.invokeMethod(self.ui.textEdit, "setText", 
                                      Qt.QueuedConnection,
-                                     Q_ARG(str, db.child("ms").child(rn).child("message").get().val()))
+                                     Q_ARG(str, db.child("ms").child(self.room).child("message").get().val()))
     
 
         
 def main():
     app = QApplication(sys.argv)
 
-    w = ChatU()
+    w = ChatUI()
     w.show()
     return app.exec()
 
 if __name__ == "__main__":
-    arg1 = sys.argv[1]
-    rn = sys.argv[2]
-    # arg1="u1"
-    # rn="1234"
     sys.exit(main())

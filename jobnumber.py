@@ -23,23 +23,35 @@ class Ui_Form(object):
         if not Form.objectName():
             Form.setObjectName(u"Form")
         Form.resize(602, 136)
+        Form.setStyleSheet(u"background-color: rgb(184, 246, 255)\n"
+"")
         self.gridLayout = QGridLayout(Form)
         self.gridLayout.setObjectName(u"gridLayout")
         self.label_2 = QLabel(Form)
         self.label_2.setObjectName(u"label_2")
+        font = QFont()
+        font.setPointSize(10)
+        self.label_2.setFont(font)
 
         self.gridLayout.addWidget(self.label_2, 1, 0, 1, 2)
 
         self.ok = QPushButton(Form)
         self.ok.setObjectName(u"ok")
+        font1 = QFont()
+        font1.setPointSize(10)
+        font1.setBold(True)
+        self.ok.setFont(font1)
+        self.ok.setStyleSheet(u"background-color: #4E97D1;\n"
+"color: rgb(255, 255, 255);")
 
         self.gridLayout.addWidget(self.ok, 2, 1, 1, 1)
 
         self.label = QLabel(Form)
         self.label.setObjectName(u"label")
-        font = QFont()
-        font.setPointSize(12)
-        self.label.setFont(font)
+        font2 = QFont()
+        font2.setPointSize(11)
+        font2.setBold(True)
+        self.label.setFont(font2)
 
         self.gridLayout.addWidget(self.label, 0, 0, 1, 1)
 
@@ -48,7 +60,11 @@ class Ui_Form(object):
         self.comboBox.addItem("")
         self.comboBox.addItem("")
         self.comboBox.setObjectName(u"comboBox")
-        self.comboBox.setFont(font)
+        font3 = QFont()
+        font3.setPointSize(9)
+        font3.setBold(False)
+        self.comboBox.setFont(font3)
+        self.comboBox.setStyleSheet(u"background-color: rgb(255, 255, 255);")
 
         self.gridLayout.addWidget(self.comboBox, 0, 1, 1, 1)
 

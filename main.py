@@ -2,75 +2,84 @@ import sys
 from PySide6.QtWidgets import *
 from PySide6.QtCore import *
 from mainpage import Ui_MainWindow
-from config import firebaseConfig
 from PySide6.QtGui import *
+from db import Company,Job,User,Session,engine
+from config import firebaseConfig
 import pyrebase
-import subprocess
+from edituserprofile import UserUI
+from gojob import GoUI
+from viewjobdetail import VJobUI
+from viewuserprofile import VUserUI
+from chat import ChatUI
+from allappdisplay import AllUI
+from allchatdisplay import AllCUI
+
 
 
 firebase = pyrebase.initialize_app(firebaseConfig)
 db = firebase.database()
+local_session=Session(bind=engine)
 
 def create_chat(rn,cnt,jobt,message):
+    user = local_session.query(User).filter_by(username=cnt).first()
+    com = local_session.query(Company).filter_by(username=jobt).first()
+
     if(db.child("ms").child(rn).get().val()==None):
             data = {
                 "message": message,
             }
             db.child("ms").child(rn).update(data)
-            if db.child("users").child(cnt).child("chat").get().val()!= None:
-                data2 = {
-                    "chat": db.child("users").child(cnt).child("chat").get().val()+"\n"+rn
-                }
+            if user.chat!= "":
+                c1=user.chat
+                if user:
+                    user.chat = c1+"\n"+rn
+                    local_session.commit()
             else:
-                data2 = {
-                    "chat": rn,
-                }
-            db.child("users").child(cnt).update(data2)
-            if db.child("companies").child(jobt).child("chat").get().val()!= None:
-                data3 = {
-                    "chat": db.child("companies").child(jobt).child("chat").get().val()+"\n"+rn
-                }
+                if user:
+                    user.chat = rn
+                    local_session.commit()
+            if com.chat!= "":
+                c2=com.chat
+                if com:
+                    com.chat=c2+"\n"+rn
+                    local_session.commit()
             else:
-                data3 = {
-                    "chat": rn,
-                }
-            db.child("companies").child(jobt).update(data3)
+                if com:
+                    com.chat=rn
+                    local_session.commit()
 
 def add_apply(comname,user):
-    if db.child("job").child(comname).child("apply").get().val()!= None:
-        data = {
-        "apply": db.child("job").child(comname).child("apply").get().val()+"\n"+user
-    }
+    job = local_session.query(Job).filter_by(jobid=comname).first()
+    if job.apply!= "":
+        if job:
+            j1=job.apply
+            job.apply=j1+"\n"+user
+            local_session.commit()
     else:
-        data = {
-            "apply": user
-        }
-    db.child("job").child(comname).update(data)
+        if job:
+            j1=job.apply
+            job.apply=user
+            local_session.commit()
 
 class MainUI(QMainWindow):
-    def __init__(self):
+    def __init__(self,u,t):
         QMainWindow.__init__(self, None)
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
-
-        # Call the subprocess file
-        output = subprocess.check_output(['python', 'logsignpypyrebase.py'])
-
-        # Convert the output bytes to a string and split it into two parts
-        output_str = output.decode('utf-8').strip().split(" and ")
-        
-        # Extract the two input values from the output
-        self.user = output_str[0]
-        self.userType = output_str[1]
-
+        self.userType=t
+        self.user=u
         if(self.userType=="0"):
-            self.ui.usn.setText("Hello, "+db.child("users").child(self.user).child("firstname").get().val()+" "+db.child("users").child(self.user).child("lastname").get().val())
-            self.createjoblist(db.child("job").get().val())
+            user = local_session.query(User).filter_by(username=self.user).first()
+            if user:
+                self.ui.usn.setText("Hello, "+user.firstname+" "+user.lastname)
+            self.createjoblist(local_session.query(Job).all())
         else:
-            self.ui.usn.setText("Welcome, "+db.child("companies").child(self.user).child("companyname").get().val())
+            com = local_session.query(Company).filter_by(username=self.user).first()
+            if com:
+                self.ui.usn.setText("Welcome, "+com.companyname)
             self.ui.uppro.setText("Create/Edit Job Application")
             self.ui.vipro.setText("View Applicant")
-            self.createuserlist(db.child("users").get().val())
+            self.createuserlist(local_session.query(User).all())
 
         self.ui.uppro.clicked.connect(self.logging)
         self.ui.gochat.clicked.connect(self.cha)
@@ -87,65 +96,95 @@ class MainUI(QMainWindow):
 
     def searching(self):
         self.removeAll()
+        search=self.ui.searchEdit.text()
         if(self.userType=="0"):
-            search=self.ui.searchEdit.text()
-            self.createjoblist(db.child("job").get().val(),search)
+            self.createjoblist(local_session.query(Job).all(),search)
+        else:
+            self.createuserlist(local_session.query(User).all(),search)
 
     def reloadlist(self):
         self.removeAll()
+        self.ui.searchEdit.setText("")
         if(self.userType=="0"):
-            self.ui.searchEdit.setText("")
-            self.createjoblist(db.child("job").get().val())
+            self.createjoblist(local_session.query(Job).all())
+        else:
+            self.createuserlist(local_session.query(User).all())
 
-    def createjoblist(self,data,sear="",section="",count=0):
+    def createjoblist(self,data,sear="",count=0):
         for key in data:
-            if isinstance(data[key], dict):
-                count=count+1
-                self.createjoblist(data[key],sear, section + key + "/",count)
-                
+            if(sear!=""):
+                if(sear.lower() in str(key).lower()):
+                    comp=key.comname
+                    cnum2=key.jobid
+                    pos=key.position
+                    sal=key.salary
+                    loc=key.location
+                    self.createNewWindow(count,comp,pos,sal,loc,cnum2)
             else:
-                if(sear!=""):
-                    if(sear.lower() in db.child("job").child(section[:-1]).child(key).get().val().lower()):
-                        comp=db.child("job").child(section[:-1]).child("companyname").get().val()
-                        cnum2=section[:-1]
-                        pos=db.child("job").child(section[:-1]).child("position").get().val()
-                        sal=db.child("job").child(section[:-1]).child("salary").get().val()
-                        loc=db.child("job").child(section[:-1]).child("location").get().val()
-                        self.createNewWindow(count,comp,pos,sal,loc,cnum2)
-                else:
-                    if(key=="username"):
-                        comp=db.child("job").child(section[:-1]).child("companyname").get().val()
-                        cnum2=section[:-1]
-                        pos=db.child("job").child(section[:-1]).child("position").get().val()
-                        sal=db.child("job").child(section[:-1]).child("salary").get().val()
-                        loc=db.child("job").child(section[:-1]).child("location").get().val()
-                        self.createNewWindow(count,comp,pos,sal,loc,cnum2)
+                comp=key.comname
+                cnum2=key.jobid
+                pos=key.position
+                sal=key.salary
+                loc=key.location
+                self.createNewWindow(count,comp,pos,sal,loc,cnum2)
+            count=count+1
 
-    def createuserlist(self,data,sear="",section="",count=0):
+
+    def createuserlist(self,data,sear="",count=0):
         for key in data:
-            if isinstance(data[key], dict):
-                count=count+1
-                self.createuserlist(data[key],sear, section + key + "/",count)      
+            if(sear!=""):
+                if(sear.lower() in str(key).lower()):
+                    usn=key.username
+                    name=key.firstname+" "+key.lastname
+                    phone=key.phone_number
+                    email=key.email
+                    pos=key.position
+                    self.createNewWindow(count,name,phone,email,pos,usn)
             else:
-                if(sear!=""):
-                    if(sear.lower() in db.child("users").child(section[:-1]).child(key).get().val().lower()):
-                        usn=section[:-1]
-                        name=db.child("users").child(section[:-1]).child("firstname").get().val()+" "+db.child("users").child(section[:-1]).child("lastname").get().val()
-                        phone=db.child("users").child(section[:-1]).child("phone_number").get().val()
-                        email=db.child("users").child(section[:-1]).child("email").get().val()
-                        pos=db.child("users").child(section[:-1]).child("position").get().val()
-                        self.createNewWindow(count,name,phone,email,pos,usn)
-                else:
-                    if(key=="firstname"):
-                        usn=section[:-1]
-                        name=db.child("users").child(section[:-1]).child("firstname").get().val()+" "+db.child("users").child(section[:-1]).child("lastname").get().val()
-                        phone=db.child("users").child(section[:-1]).child("phone_number").get().val()
-                        email=db.child("users").child(section[:-1]).child("email").get().val()
-                        pos=db.child("users").child(section[:-1]).child("position").get().val()
-                        self.createNewWindow(count,name,phone,email,pos,usn)
+                usn=key.username
+                name=key.firstname+" "+key.lastname
+                phone=key.phone_number
+                email=key.email
+                pos=key.position
+                self.createNewWindow(count,name,phone,email,pos,usn)
+            count=count+1
 
+    def logging(self):
+        if(self.userType=="0"):
+            self.openedituser()
+        else:
+            self.openeditjob()
 
+    def openedituser(self):
+        self.open=QWidget()
+        self.eui=UserUI(self.user)
+        self.eui.show()
 
+    def openeditjob(self):
+        self.open=QWidget()
+        self.eui=GoUI(self.user)
+        self.eui.show()
+    
+    def cha(self):
+        self.openallchat()
+    
+    def openallchat(self):
+        self.open=QWidget()
+        self.vui=AllCUI(self.user,self.userType)
+        self.vui.show()
+    
+    def view(self):
+        if(self.userType=="0"):
+            self.openviewuser(self.user)
+        else:
+            self.openallapp()
+
+    def openallapp(self):
+        self.open=QWidget()
+        self.oui=AllUI(self.user)
+        self.oui.show()
+
+    
     def createNewWindow(self,rowNo,com,pos,sal,loc,cnum2):
 
         framename = "frame_" + str(rowNo)
@@ -159,9 +198,9 @@ class MainUI(QMainWindow):
         self.frame = QFrame(self.ui.scrollAreaWidgetContents_4)
         self.frame.setObjectName(framename)
         self.frame.setObjectName(u"frame")
-        self.frame.setMinimumSize(QSize(500, 100))
-        self.frame.setMaximumSize(QSize(500, 100))
-        self.frame.setStyleSheet(u"background-color: grey;")
+        self.frame.setMinimumSize(QSize(700, 100))
+        self.frame.setMaximumSize(QSize(700, 100))
+        self.frame.setStyleSheet(u"background-color: #4E97D1;")
         self.frame.setFrameShape(QFrame.StyledPanel)
         self.frame.setFrameShadow(QFrame.Raised)
 
@@ -199,15 +238,15 @@ class MainUI(QMainWindow):
         self.button = QPushButton(self.frame)
         self.frame.setObjectName(morenam)
         self.button.setObjectName(u"button")
-        self.button.setMinimumSize(QSize(120, 20))
+        self.button.setMinimumSize(QSize(200, 20))
         self.button.setMaximumSize(QSize(120, 20))
         self.button.setStyleSheet(u"color: rgb(255, 255, 255);")
 
         self.button2 = QPushButton(self.frame)
         self.frame.setObjectName(subnam)
         self.button2.setObjectName(u"button2")
-        self.button2.setMinimumSize(QSize(120, 20))
-        self.button2.setMaximumSize(QSize(120, 20))
+        self.button2.setMinimumSize(QSize(200, 20))
+        self.button2.setMaximumSize(QSize(200, 20))
         self.button2.setStyleSheet(u"color: rgb(255, 255, 255);")
 
 
@@ -253,10 +292,14 @@ class MainUI(QMainWindow):
         comp=button.property("jobdes")
         if self.userType=="0":
             checkchat=comp+"&"+self.user
-            if(checkchat in db.child("users").child(self.user).child("chat").get().val()):
+            user = local_session.query(User).filter_by(username=self.user).first()
+            ch=user.chat
+            if(checkchat in ch):
                 QMessageBox.information(self, "ERROR", f"Already Submit")
             else:
-                if(self.user in db.child("job").child(comp).child("apply").get().val()):
+                job = local_session.query(Job).filter_by(jobid=comp).first()
+                app=job.apply
+                if(self.user in app):
                     QMessageBox.information(self, "ERROR", f"Already Submit")
                 else:
                     add_apply(comp,self.user)
@@ -264,53 +307,39 @@ class MainUI(QMainWindow):
             cnt=button.property("jobdes")
             jobt=self.user
             checkchat=jobt+"&"+cnt
-            if(checkchat in db.child("companies").child(self.user).child("chat").get().val()):
+            com = local_session.query(Company).filter_by(username=self.user).first()
+            ch=com.chat
+            if(checkchat in ch):
                 QMessageBox.information(self, "ERROR", f"Already Sent")
             else:
                 message=self.user+": Hello We are impress by your profile are you willing to interview with us?\n"
                 rn=jobt+"&"+cnt
                 create_chat(rn,cnt,jobt,message)
-                subprocess.run(['python', 'chat.py', self.user,rn])
+                self.openchat(rn)
+
+    def openchat(self,rn):
+        self.open=QWidget()
+        self.eui=ChatUI(self.user,rn)
+        self.eui.show()
 
     
     def more(self):
         button=self.sender()
         jobd=button.property("jobdes")
         if self.userType=="0":
-            subprocess.run(['python', 'viewjobdetail.py', jobd])
+            self.openviewjob(jobd)
         else:
-            subprocess.run(['python', 'viewuserprofile.py', jobd])
-        # j=db.child("job").child(jobd).get().val()
-        # self.print_values(j)
-        
-    # def print_values(self,data, section=""):
-    #     for key in data:
-    #         if isinstance(data[key], dict):
-    #             self.print_values(data[key], section + key + "/")
-    #         else:
-    #             if (key=="username"):
-    #                 pass
-    #             else:
-    #                 if section:
-    #                     print(section[:-1])
-    #                 print(key+":"+data[key])
+            self.openviewuser(jobd)
 
-    def logging(self):
-        if(self.userType=="0"):
-            subprocess.run(['python', 'edituserprofile.py', self.user])
-        else:
-            subprocess.run(['python', 'gojob.py', self.user])
-    
-    def cha(self):
-        if(self.userType=="0"):self.typename="users"
-        else: self.typename="companies"
-        subprocess.run(['python', 'allchatdisplay.py', self.user,self.typename])
-    
-    def view(self):
-        if(self.userType=="0"):
-            subprocess.run(['python', 'viewuserprofile.py', self.user])
-        else:
-            subprocess.run(['python', 'allappdisplay.py', self.user])
+    def openviewjob(self,j):
+        self.open=QWidget()
+        self.vui=VJobUI(j)
+        self.vui.show()
+
+    def openviewuser(self,j):
+        self.open=QWidget()
+        self.vui=VUserUI(j)
+        self.vui.show()
 
 def main():
     app = QApplication(sys.argv)
