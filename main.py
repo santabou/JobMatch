@@ -86,6 +86,14 @@ class MainUI(QMainWindow):
         self.ui.vipro.clicked.connect(self.view)
         self.ui.clearButton.clicked.connect(self.reloadlist)
         self.ui.searchButton.clicked.connect(self.searching)
+        self.ui.log_out.clicked.connect(self.logout)
+
+    def logout(self):
+        from logsignpy import LoginUI
+        self.log=QWidget()
+        self.lui=LoginUI()
+        self.lui.show()
+        self.close()
 
     def removeAll(self):
         for i in reversed(range(self.ui.gridLayout.count())):
