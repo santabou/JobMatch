@@ -6,6 +6,7 @@ from PySide6.QtGui import *
 from chat import ChatUI
 from goroom import GoCUI
 from db import Company,User,Job,Session,engine
+
 local_session=Session(bind=engine)
 
 class AllCUI(QWidget):
@@ -39,7 +40,6 @@ class AllCUI(QWidget):
                     if m!=self.user:
                         self.createNewWindow(count,n,m,pos)
                 count=count+1
-
 
     def createNewWindow(self,rowNo,n,n2,pos):
         framename = "frame_" + str(rowNo)
@@ -88,13 +88,10 @@ class AllCUI(QWidget):
         self.button.setMaximumSize(QSize(120, 20))
         self.button.setStyleSheet(u"background-color: #4E97D1; color: rgb(255, 255, 255);")
 
-
-        # print(com)
         self.label.setText(QCoreApplication.translate("MainWindow", "Room Name: "+n, None))
         self.label_2.setText(QCoreApplication.translate("MainWindow", "Chat with: "+n2, None))
         self.label_3.setText(QCoreApplication.translate("MainWindow", "Position "+pos, None))
         self.button.setText(QCoreApplication.translate("MainWindow", u"Chat", None))
-
 
         setattr(self.ui, framename, self.frame)
         setattr(self.ui, chatname, self.label)
@@ -134,7 +131,6 @@ def main():
     app = QApplication(sys.argv)
     w = AllCUI()
     w.show()
-
     return app.exec()
 
 if __name__ == "__main__":

@@ -1,5 +1,5 @@
 from sqlalchemy.orm import declarative_base,sessionmaker
-from sqlalchemy import Column,String,DateTime,Integer,create_engine
+from sqlalchemy import Column,String,Integer,create_engine
 import os
 
 BASE_DIR=os.path.dirname(os.path.realpath(__file__))
@@ -27,7 +27,6 @@ class User(Base):
     def __repr__(self):
         return self.username+"&*&"+self.firstname+"&*&"+self.lastname+"&*&"+self.email+"&*&"+self.dob+"&*&"+self.position+"&*&"+self.phone_number+"&*&"+self.skill+"&*&"+self.education+"&*&"+self.gender+"&*&"+self.experience
 
-
 class Company(Base):
     __tablename__ = 'companies'
     id = Column(Integer, primary_key=True)
@@ -39,7 +38,6 @@ class Company(Base):
     chat=Column(String)
     def __repr__(self):
         return self.comname+"&*&"+self.position+"&*&"+self.salary+"&*&"+self.avaliable+"&*&"+self.due+"&*&"+self.email+"&*&"+self.phone+"&*&"+self.location+"&*&"+self.education+"&*&"+self.requirement
-
 
 class Job(Base):
     __tablename__ = 'jobs'

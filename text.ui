@@ -127,7 +127,7 @@ color: rgb(255, 255, 255);
       <string notr="true">font: 700 20pt &quot;Segoe UI&quot;;</string>
      </property>
      <property name="text">
-      <string>Room No.</string>
+      <string>Room Name:</string>
      </property>
     </widget>
    </item>

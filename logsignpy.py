@@ -8,7 +8,6 @@ from db import User,Company,Session,engine
 
 local_session=Session(bind=engine)
 
-
 class LoginUI(QWidget):
     def __init__(self):
         QWidget.__init__(self, None)
@@ -22,8 +21,6 @@ class LoginUI(QWidget):
         self.ui.signenter.clicked.connect(self.signingup)
         self.ui.comenter.clicked.connect(self.signingupcom)
         self.ui.logenter.clicked.connect(self.loggingin)
-
-    
 
     def change0(self):
         self.ui.tabWidget.setCurrentIndex(0)
@@ -143,7 +140,6 @@ class LoginUI(QWidget):
 
 def main():
     app = QApplication(sys.argv)
-
     w = LoginUI()
     w.show()
     return app.exec()

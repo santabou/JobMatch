@@ -7,56 +7,11 @@ from PySide6.QtGui import *
 import pyrebase
 from chat import ChatUI
 from viewuserprofile import VUserUI
-
 from db import Company,User,Job,Session,engine
-local_session=Session(bind=engine)
 
+local_session=Session(bind=engine)
 firebase = pyrebase.initialize_app(firebaseConfig)
 db = firebase.database()
-
-def create_chat(rn,cnt,jobt,message,u):
-    user = local_session.query(User).filter_by(username=cnt).first()
-    com = local_session.query(Company).filter_by(username=u).first()
-    job = local_session.query(Job).filter_by(jobid=jobt).first()
-    if(db.child("ms").child(rn).get().val()==None):
-            data = {
-                "message": message,
-            }
-            db.child("ms").child(rn).update(data)
-            if user.chat!= "":
-                c1=user.chat
-                if user:
-                    user.chat = c1+"\n"+rn
-                    local_session.commit()
-            else:
-                if user:
-                    user.chat = rn
-                    local_session.commit()
-            if com.chat!= "":
-                c2=com.chat
-                if com:
-                    com.chat=c2+"\n"+rn
-                    local_session.commit()
-            else:
-                if com:
-                    com.chat=rn
-                    local_session.commit()
-
-            ap=job.apply
-            repl=cnt+"\n"
-            newap=ap.replace(repl,"")
-            if(newap==ap):
-                repl="\n"+cnt
-                newap=ap.replace(repl,"")
-            if(newap==ap):
-                repl=cnt
-                newap=ap.replace(repl,"")
-            data = {
-                "apply": newap
-            }
-            if job:
-                job.apply=newap
-                local_session.commit()
 
 class AllUI(QWidget):
     def __init__(self,u):
@@ -77,7 +32,6 @@ class AllUI(QWidget):
         self.removeAll()
         self.showapplist(local_session.query(Job).all())
 
-    
     def showapplist(self,data,count=0):
         for key in data:
             if(self.user == key.username and key.apply!=""):
@@ -93,7 +47,6 @@ class AllUI(QWidget):
                     self.createNewWindow(count,af,name,phone,email,n,k)
                     count=count+1
 
-
     def createNewWindow(self,rowNo,af,name,phone,email,n,key):
         framename = "frame_" + str(rowNo)
         appname = "appn_" + str(rowNo)
@@ -107,8 +60,8 @@ class AllUI(QWidget):
         self.frame = QFrame(self.ui.scrollAreaWidgetContents)
         self.frame.setObjectName(framename)
         self.frame.setObjectName(u"frame")
-        self.frame.setMinimumSize(QSize(500, 100))
-        self.frame.setMaximumSize(QSize(500, 100))
+        self.frame.setMinimumSize(QSize(700, 100))
+        self.frame.setMaximumSize(QSize(700, 100))
         self.frame.setStyleSheet(u"background-color: #4E97D1;")
         self.frame.setFrameShape(QFrame.StyledPanel)
         self.frame.setFrameShadow(QFrame.Raised)
@@ -140,33 +93,31 @@ class AllUI(QWidget):
         self.label_4 = QLabel(self.frame)
         self.frame.setObjectName(emailname)
         self.label_4.setObjectName(u"label_3")
-        self.label_4.setMinimumSize(QSize(120, 20))
-        self.label_4.setMaximumSize(QSize(120, 20))
+        self.label_4.setMinimumSize(QSize(200, 20))
+        self.label_4.setMaximumSize(QSize(200, 20))
         self.label_4.setStyleSheet(u"color: rgb(255, 255, 255);")
 
         self.button = QPushButton(self.frame)
         self.frame.setObjectName(morenam)
         self.button.setObjectName(u"button")
-        self.button.setMinimumSize(QSize(120, 20))
-        self.button.setMaximumSize(QSize(120, 20))
+        self.button.setMinimumSize(QSize(200, 20))
+        self.button.setMaximumSize(QSize(200, 20))
         self.button.setStyleSheet(u"background-color: #4E97D1; color: rgb(255, 255, 255);")
 
         self.button2 = QPushButton(self.frame)
         self.frame.setObjectName(accname)
         self.button2.setObjectName(u"button2")
-        self.button2.setMinimumSize(QSize(120, 20))
-        self.button2.setMaximumSize(QSize(120, 20))
+        self.button2.setMinimumSize(QSize(200, 20))
+        self.button2.setMaximumSize(QSize(200, 20))
         self.button2.setStyleSheet(u"background-color: #4E97D1; color: rgb(255, 255, 255);")
 
         self.button3 = QPushButton(self.frame)
         self.frame.setObjectName(denname)
         self.button3.setObjectName(u"button3")
-        self.button3.setMinimumSize(QSize(120, 20))
-        self.button3.setMaximumSize(QSize(120, 20))
+        self.button3.setMinimumSize(QSize(200, 20))
+        self.button3.setMaximumSize(QSize(200, 20))
         self.button3.setStyleSheet(u"background-color: #4E97D1; color: rgb(255, 255, 255);")
 
-
-        # print(com)
         self.label.setText(QCoreApplication.translate("MainWindow", "Name: "+name, None))
         self.label_2.setText(QCoreApplication.translate("MainWindow", "Applied for: "+af, None))
         self.label_3.setText(QCoreApplication.translate("MainWindow", "Phone Number: "+phone, None))
@@ -174,7 +125,6 @@ class AllUI(QWidget):
         self.button.setText(QCoreApplication.translate("MainWindow", u"view more", None))
         self.button2.setText(QCoreApplication.translate("MainWindow", u"Accept", None))
         self.button3.setText(QCoreApplication.translate("MainWindow", u"Deny", None))
-
 
         setattr(self.ui, framename, self.frame)
         setattr(self.ui, appname, self.label)
@@ -215,12 +165,9 @@ class AllUI(QWidget):
         jobt= button.property("jobn")
         message=self.user+": Hello thankyou for applying to our company. We are happy to inform you that you are selected as one of the candidate. Please tell use when you are free to interview\n"
         rn=str(jobt)+"&"+str(cnt)
-        create_chat(rn,cnt,jobt,message,self.user)
+        self.create_chat(rn,cnt,jobt,message,self.user)
         self.reloadlist()
         self.openchat(rn)
-
-
-
 
     def deny(self):
         button=self.sender()
@@ -228,23 +175,63 @@ class AllUI(QWidget):
         jobt=button.property("jobn")
         message=self.user+": Hello thankyou for applying to our company. We are sorry to inform you that you are NOT selected as one of the candidate. We encourage you to apply next time\n"
         rn=str(jobt)+"&"+str(cnt)
-        create_chat(rn,cnt,jobt,message,self.user)
+        self.create_chat(rn,cnt,jobt,message,self.user)
         self.reloadlist()
         self.openchat(rn)
-        
 
     def more(self):
         button=self.sender()
         jobd=button.property("usdes")
         self.openviewuser(jobd)
 
-
     def openviewuser(self,j):
         self.open=QWidget()
         self.vui=VUserUI(j)
         self.vui.show()
     
+    def create_chat(self,rn,cnt,jobt,message,u):
+        user = local_session.query(User).filter_by(username=cnt).first()
+        com = local_session.query(Company).filter_by(username=u).first()
+        job = local_session.query(Job).filter_by(jobid=jobt).first()
+        if(db.child("ms").child(rn).get().val()==None):
+                data = {
+                    "message": message,
+                }
+                db.child("ms").child(rn).update(data)
+                if user.chat!= "":
+                    c1=user.chat
+                    if user:
+                        user.chat = c1+"\n"+rn
+                        local_session.commit()
+                else:
+                    if user:
+                        user.chat = rn
+                        local_session.commit()
+                if com.chat!= "":
+                    c2=com.chat
+                    if com:
+                        com.chat=c2+"\n"+rn
+                        local_session.commit()
+                else:
+                    if com:
+                        com.chat=rn
+                        local_session.commit()
 
+                ap=job.apply
+                repl=cnt+"\n"
+                newap=ap.replace(repl,"")
+                if(newap==ap):
+                    repl="\n"+cnt
+                    newap=ap.replace(repl,"")
+                if(newap==ap):
+                    repl=cnt
+                    newap=ap.replace(repl,"")
+                data = {
+                    "apply": newap
+                }
+                if job:
+                    job.apply=newap
+                    local_session.commit()
 
 def main():    
     app = QApplication(sys.argv)

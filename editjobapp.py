@@ -7,40 +7,6 @@ from db import Company,Job,Session,engine
 
 local_session=Session(bind=engine)
 
-def create_job(cn,jid):
-    com = local_session.query(Company).filter_by(username=cn).first()
-    job = Job(
-                jobid= jid,
-                username= com.username,
-                comname= com.companyname,
-                position="",
-                salary="",
-                available="",
-                due="",
-                email=com.email,
-                phone="",
-                location=com.location,
-                education="",
-                requirement="",
-                apply=""
-    )
-    local_session.add(job)
-    local_session.commit()
-
-def edit_item(pos, edu, sal, ava, pho, due, req,ind):
-    job = local_session.query(Job).filter_by(jobid=ind).first()
-    if job:
-        job.position = pos
-        job.education = edu
-        job.salary = sal
-        job.available = ava
-        job.phone = pho
-        job.due = due
-        job.requirement = req
-        local_session.commit()
-        return True
-    return False
-
 class JobUI(QWidget):
     def __init__(self,c,i):
         QWidget.__init__(self, None)
@@ -50,7 +16,7 @@ class JobUI(QWidget):
         self.id=i
         self.ind= self.comname+"_"+self.id
         if local_session.query(Job).filter_by(jobid=self.ind).first() is None:
-            create_job(self.comname,self.ind)
+            self.create_job(self.comname,self.ind)
 
         self.ui.dateedit.setCalendarPopup(True)
         self.ui.dateedit.setDisplayFormat("dd/MM/yyyy")
@@ -78,18 +44,49 @@ class JobUI(QWidget):
         due=self.ui.dateedit.text()
         req=self.ui.reqedit.toPlainText()
 
-        if(edit_item(pos,edu,sal,ava,pho,due,req,self.ind)):
+        if(self.edit_item(pos,edu,sal,ava,pho,due,req,self.ind)):
             QMessageBox.information(self,"Success", f"update successful!")
         else:
             QMessageBox.information(self,"ERROR", f"update failed.")
 
+    def create_job(self,cn,jid):
+        com = local_session.query(Company).filter_by(username=cn).first()
+        job = Job(
+                    jobid= jid,
+                    username= com.username,
+                    comname= com.companyname,
+                    position="",
+                    salary="",
+                    available="",
+                    due="",
+                    email=com.email,
+                    phone="",
+                    location=com.location,
+                    education="",
+                    requirement="",
+                    apply=""
+        )
+        local_session.add(job)
+        local_session.commit()
+
+    def edit_item(self,pos, edu, sal, ava, pho, due, req,ind):
+        job = local_session.query(Job).filter_by(jobid=ind).first()
+        if job:
+            job.position = pos
+            job.education = edu
+            job.salary = sal
+            job.available = ava
+            job.phone = pho
+            job.due = due
+            job.requirement = req
+            local_session.commit()
+            return True
+        return False
 
 def main():
     app = QApplication(sys.argv)
-
     w = JobUI()
     w.show()
-
     return app.exec()
 
 if __name__ == "__main__":

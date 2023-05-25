@@ -14,52 +14,9 @@ from chat import ChatUI
 from allappdisplay import AllUI
 from allchatdisplay import AllCUI
 
-
-
 firebase = pyrebase.initialize_app(firebaseConfig)
 db = firebase.database()
 local_session=Session(bind=engine)
-
-def create_chat(rn,cnt,jobt,message):
-    user = local_session.query(User).filter_by(username=cnt).first()
-    com = local_session.query(Company).filter_by(username=jobt).first()
-
-    if(db.child("ms").child(rn).get().val()==None):
-            data = {
-                "message": message,
-            }
-            db.child("ms").child(rn).update(data)
-            if user.chat!= "":
-                c1=user.chat
-                if user:
-                    user.chat = c1+"\n"+rn
-                    local_session.commit()
-            else:
-                if user:
-                    user.chat = rn
-                    local_session.commit()
-            if com.chat!= "":
-                c2=com.chat
-                if com:
-                    com.chat=c2+"\n"+rn
-                    local_session.commit()
-            else:
-                if com:
-                    com.chat=rn
-                    local_session.commit()
-
-def add_apply(comname,user):
-    job = local_session.query(Job).filter_by(jobid=comname).first()
-    if job.apply!= "":
-        if job:
-            j1=job.apply
-            job.apply=j1+"\n"+user
-            local_session.commit()
-    else:
-        if job:
-            j1=job.apply
-            job.apply=user
-            local_session.commit()
 
 class MainUI(QMainWindow):
     def __init__(self,u,t):
@@ -137,7 +94,6 @@ class MainUI(QMainWindow):
                 self.createNewWindow(count,comp,pos,sal,loc,cnum2)
             count=count+1
 
-
     def createuserlist(self,data,sear="",count=0):
         for key in data:
             if(sear!=""):
@@ -192,7 +148,6 @@ class MainUI(QMainWindow):
         self.oui=AllUI(self.user)
         self.oui.show()
 
-    
     def createNewWindow(self,rowNo,com,pos,sal,loc,cnum2):
 
         framename = "frame_" + str(rowNo)
@@ -239,15 +194,15 @@ class MainUI(QMainWindow):
         self.label_4 = QLabel(self.frame)
         self.frame.setObjectName(locnam)
         self.label_4.setObjectName(u"label_3")
-        self.label_4.setMinimumSize(QSize(120, 20))
-        self.label_4.setMaximumSize(QSize(120, 20))
+        self.label_4.setMinimumSize(QSize(200, 20))
+        self.label_4.setMaximumSize(QSize(200, 20))
         self.label_4.setStyleSheet(u"color: rgb(255, 255, 255);")
 
         self.button = QPushButton(self.frame)
         self.frame.setObjectName(morenam)
         self.button.setObjectName(u"button")
         self.button.setMinimumSize(QSize(200, 20))
-        self.button.setMaximumSize(QSize(120, 20))
+        self.button.setMaximumSize(QSize(200, 20))
         self.button.setStyleSheet(u"color: rgb(255, 255, 255);")
 
         self.button2 = QPushButton(self.frame)
@@ -256,7 +211,6 @@ class MainUI(QMainWindow):
         self.button2.setMinimumSize(QSize(200, 20))
         self.button2.setMaximumSize(QSize(200, 20))
         self.button2.setStyleSheet(u"color: rgb(255, 255, 255);")
-
 
         if(self.userType=="0"):
             self.label.setText(QCoreApplication.translate("MainWindow", "Company: "+com, None))
@@ -272,7 +226,6 @@ class MainUI(QMainWindow):
             self.label_4.setText(QCoreApplication.translate("MainWindow", "Position: "+loc, None))
             self.button.setText(QCoreApplication.translate("MainWindow", u"view more", None))
             self.button2.setText(QCoreApplication.translate("MainWindow", u"Contact", None))
-
 
         setattr(self.ui, framename, self.frame)
         setattr(self.ui, comnam, self.label)
@@ -310,7 +263,8 @@ class MainUI(QMainWindow):
                 if(self.user in app):
                     QMessageBox.information(self, "ERROR", f"Already Submit")
                 else:
-                    add_apply(comp,self.user)
+                    self.add_apply(comp,self.user)
+                    QMessageBox.information(self, "SUCCESS", f"Submit Complete")
         else:
             cnt=button.property("jobdes")
             jobt=self.user
@@ -322,14 +276,13 @@ class MainUI(QMainWindow):
             else:
                 message=self.user+": Hello We are impress by your profile are you willing to interview with us?\n"
                 rn=jobt+"&"+cnt
-                create_chat(rn,cnt,jobt,message)
+                self.create_chat(rn,cnt,jobt,message)
                 self.openchat(rn)
 
     def openchat(self,rn):
         self.open=QWidget()
         self.eui=ChatUI(self.user,rn)
         self.eui.show()
-
     
     def more(self):
         button=self.sender()
@@ -349,16 +302,51 @@ class MainUI(QMainWindow):
         self.vui=VUserUI(j)
         self.vui.show()
 
+    def create_chat(self,rn,cnt,jobt,message):
+        user = local_session.query(User).filter_by(username=cnt).first()
+        com = local_session.query(Company).filter_by(username=jobt).first()
+
+        if(db.child("ms").child(rn).get().val()==None):
+                data = {
+                    "message": message,
+                }
+                db.child("ms").child(rn).update(data)
+                if user.chat!= "":
+                    c1=user.chat
+                    if user:
+                        user.chat = c1+"\n"+rn
+                        local_session.commit()
+                else:
+                    if user:
+                        user.chat = rn
+                        local_session.commit()
+                if com.chat!= "":
+                    c2=com.chat
+                    if com:
+                        com.chat=c2+"\n"+rn
+                        local_session.commit()
+                else:
+                    if com:
+                        com.chat=rn
+                        local_session.commit()
+
+    def add_apply(self,comname,user):
+        job = local_session.query(Job).filter_by(jobid=comname).first()
+        if job.apply!= "":
+            if job:
+                j1=job.apply
+                job.apply=j1+"\n"+user
+                local_session.commit()
+        else:
+            if job:
+                j1=job.apply
+                job.apply=user
+                local_session.commit()
+
 def main():
     app = QApplication(sys.argv)
-
     w = MainUI()
-    w.setWindowFlags(w.windowFlags() | Qt.WindowStaysOnTopHint)
     w.show()
-    w.setWindowFlags(w.windowFlags() & ~(Qt.WindowStaysOnTopHint) | Qt.WindowCloseButtonHint)
-    w.activateWindow()
-    w.show()
-    
     return app.exec()
 
 if __name__ == "__main__":

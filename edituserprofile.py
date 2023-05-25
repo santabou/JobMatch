@@ -3,28 +3,9 @@ from PySide6.QtWidgets import *
 from PySide6.QtCore import *
 from useredit import Ui_Form
 from PySide6.QtGui import *
-
 from db import User,Session,engine
 
 local_session=Session(bind=engine)
-
-def edit_item(username, email, firstname, lastname, dob, pos, pho, gender, edu, epr, sk):
-    user = local_session.query(User).filter_by(username=username).first()
-    if user:
-        user.email = email
-        user.firstname = firstname
-        user.lastname = lastname
-        user.dob = dob
-        user.position = pos
-        user.phone_number = pho
-        user.gender = gender
-        user.education = edu
-        user.experience = epr
-        user.skill = sk
-        local_session.commit()
-        return True
-    return False
-
 
 class UserUI(QWidget):
     def __init__(self,u):
@@ -33,7 +14,6 @@ class UserUI(QWidget):
         self.ui.setupUi(self)
         self.user=u
         user = local_session.query(User).filter_by(username=self.user).first()
-
 
         if user:
             date_str = user.dob
@@ -71,7 +51,6 @@ class UserUI(QWidget):
         sk =  self.ui.skilledit.toPlainText()
         username= self.user
 
-
         if(self.ui.malebutton.isChecked()):
             gender = "Male"
         elif (self.ui.femalebutton.isChecked()):
@@ -79,19 +58,33 @@ class UserUI(QWidget):
         elif (self.ui.otherbutton.isChecked()):
             gender = "Prefer not to say"
 
-        if(edit_item(username, email, firstname, lastname, dob,pos,pho,gender,edu,epr,sk)):
+        if(self.edit_item(username, email, firstname, lastname, dob,pos,pho,gender,edu,epr,sk)):
             QMessageBox.information(self,"Success", f"update successful!")
         else:
             QMessageBox.information(self,"ERROR", f"update failed.")
         return True
-
+    
+    def edit_item(self,username, email, firstname, lastname, dob, pos, pho, gender, edu, epr, sk):
+        user = local_session.query(User).filter_by(username=username).first()
+        if user:
+            user.email = email
+            user.firstname = firstname
+            user.lastname = lastname
+            user.dob = dob
+            user.position = pos
+            user.phone_number = pho
+            user.gender = gender
+            user.education = edu
+            user.experience = epr
+            user.skill = sk
+            local_session.commit()
+            return True
+        return False
 
 def main():
     app = QApplication(sys.argv)
-
     w = UserUI()
     w.show()
-
     return app.exec()
 
 if __name__ == "__main__":

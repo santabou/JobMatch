@@ -110,7 +110,7 @@ class Ui_Form(object):
         self.label_2.setText(QCoreApplication.translate("Form", u"Name:", None))
         self.roomnum.setText(QCoreApplication.translate("Form", u"0000", None))
         self.pushButton.setText(QCoreApplication.translate("Form", u"PushButton", None))
-        self.label.setText(QCoreApplication.translate("Form", u"Room No.", None))
+        self.label.setText(QCoreApplication.translate("Form", u"Room Name:", None))
         self.myname.setText(QCoreApplication.translate("Form", u"Name", None))
     # retranslateUi
 
