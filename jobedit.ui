@@ -112,7 +112,7 @@ font: 700 11pt &quot;Segoe UI&quot;;</string>
          </font>
         </property>
         <property name="text">
-         <string>Description</string>
+         <string>Requirement</string>
         </property>
        </widget>
       </item>

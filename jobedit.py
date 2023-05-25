@@ -168,7 +168,7 @@ class Ui_Form(object):
         self.label_5.setText(QCoreApplication.translate("Form", u"Seats Avaliable", None))
         self.label_3.setText(QCoreApplication.translate("Form", u"Salary", None))
         self.label_2.setText(QCoreApplication.translate("Form", u"Education Level", None))
-        self.label_4.setText(QCoreApplication.translate("Form", u"Description", None))
+        self.label_4.setText(QCoreApplication.translate("Form", u"Requirement", None))
         self.label_7.setText(QCoreApplication.translate("Form", u"Phone Number", None))
         self.label.setText(QCoreApplication.translate("Form", u"Position", None))
         self.savebutton.setText(QCoreApplication.translate("Form", u"Save", None))

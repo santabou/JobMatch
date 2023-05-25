@@ -6,46 +6,76 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>378</width>
-    <height>490</height>
+    <width>500</width>
+    <height>700</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Form</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: rgb(184, 246, 255)
+</string>
   </property>
   <widget class="QWidget" name="gridLayoutWidget">
    <property name="geometry">
     <rect>
      <x>10</x>
      <y>10</y>
-     <width>651</width>
-     <height>461</height>
+     <width>481</width>
+     <height>681</height>
     </rect>
    </property>
    <layout class="QGridLayout" name="gridLayout">
-    <item row="5" column="1">
-     <widget class="QLabel" name="emlabel">
-      <property name="text">
-       <string>TextLabel</string>
-      </property>
-     </widget>
-    </item>
-    <item row="7" column="0">
-     <widget class="QLabel" name="label_15">
+    <item row="13" column="0">
+     <widget class="QLabel" name="label_17">
       <property name="font">
        <font>
+        <weight>75</weight>
         <bold>true</bold>
        </font>
       </property>
       <property name="text">
-       <string>Education :</string>
+       <string>Skills :</string>
       </property>
      </widget>
     </item>
-    <item row="0" column="1">
-     <widget class="QLabel" name="fnlabel">
+    <item row="1" column="0">
+     <widget class="QLabel" name="label_3">
+      <property name="font">
+       <font>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
       <property name="text">
-       <string>TextLabel</string>
+       <string>Lastname :</string>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="0">
+     <widget class="QLabel" name="label_9">
+      <property name="font">
+       <font>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>Date Of Birth :</string>
+      </property>
+     </widget>
+    </item>
+    <item row="5" column="0">
+     <widget class="QLabel" name="label_11">
+      <property name="font">
+       <font>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>Email :</string>
       </property>
      </widget>
     </item>
@@ -53,42 +83,12 @@
      <widget class="QLabel" name="label_7">
       <property name="font">
        <font>
+        <weight>75</weight>
         <bold>true</bold>
        </font>
       </property>
       <property name="text">
        <string>Phone Number :</string>
-      </property>
-     </widget>
-    </item>
-    <item row="6" column="0" alignment="Qt::AlignTop">
-     <widget class="QLabel" name="label_13">
-      <property name="font">
-       <font>
-        <bold>true</bold>
-       </font>
-      </property>
-      <property name="text">
-       <string>Position :</string>
-      </property>
-     </widget>
-    </item>
-    <item row="10" column="1" alignment="Qt::AlignTop">
-     <widget class="QLabel" name="eprlabel">
-      <property name="text">
-       <string>TextLabel</string>
-      </property>
-     </widget>
-    </item>
-    <item row="2" column="0">
-     <widget class="QLabel" name="label_5">
-      <property name="font">
-       <font>
-        <bold>true</bold>
-       </font>
-      </property>
-      <property name="text">
-       <string>Gender :</string>
       </property>
      </widget>
     </item>
@@ -102,6 +102,7 @@
       </property>
       <property name="font">
        <font>
+        <weight>75</weight>
         <bold>true</bold>
        </font>
       </property>
@@ -110,70 +111,64 @@
       </property>
      </widget>
     </item>
-    <item row="10" column="0" alignment="Qt::AlignTop">
-     <widget class="QLabel" name="label_16">
+    <item row="8" column="0">
+     <widget class="QLabel" name="label_15">
       <property name="font">
        <font>
+        <weight>75</weight>
         <bold>true</bold>
        </font>
       </property>
       <property name="text">
-       <string>Experience :</string>
+       <string>Education :</string>
       </property>
      </widget>
     </item>
-    <item row="5" column="0">
-     <widget class="QLabel" name="label_11">
+    <item row="2" column="0">
+     <widget class="QLabel" name="label_5">
       <property name="font">
        <font>
+        <weight>75</weight>
         <bold>true</bold>
        </font>
       </property>
       <property name="text">
-       <string>Email :</string>
+       <string>Gender :</string>
       </property>
      </widget>
     </item>
-    <item row="3" column="0">
-     <widget class="QLabel" name="label_9">
+    <item row="7" column="0">
+     <widget class="QLabel" name="label_13">
       <property name="font">
        <font>
+        <weight>75</weight>
         <bold>true</bold>
        </font>
       </property>
       <property name="text">
-       <string>Date Of Birth :</string>
-      </property>
-     </widget>
-    </item>
-    <item row="1" column="0">
-     <widget class="QLabel" name="label_3">
-      <property name="font">
-       <font>
-        <bold>true</bold>
-       </font>
-      </property>
-      <property name="text">
-       <string>Lastname :</string>
-      </property>
-     </widget>
-    </item>
-    <item row="1" column="1">
-     <widget class="QLabel" name="lnlabel">
-      <property name="text">
-       <string>TextLabel</string>
-      </property>
-     </widget>
-    </item>
-    <item row="4" column="1">
-     <widget class="QLabel" name="pnblabel">
-      <property name="text">
-       <string>TextLabel</string>
+       <string>Position :</string>
       </property>
      </widget>
     </item>
     <item row="7" column="1">
-     <widget class="QLabel" name="edulabel">
+     <widget class="QLabel" name="poslabel">
+      <property name="text">
+       <string>TextLabel</string>
+      </property>
+     </widget>
+    </item>
+    <item row="13" column="1">
+     <widget class="QTextBrowser" name="sklabel">
+      <property name="maximumSize">
+       <size>
+        <width>250</width>
+        <height>100</height>
+       </size>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="1">
+     <widget class="QLabel" name="doblabel">
       <property name="text">
        <string>TextLabel</string>
       </property>
@@ -186,36 +181,74 @@
       </property>
      </widget>
     </item>
-    <item row="3" column="1">
-     <widget class="QLabel" name="doblabel">
+    <item row="0" column="1">
+     <widget class="QLabel" name="fnlabel">
       <property name="text">
        <string>TextLabel</string>
       </property>
      </widget>
     </item>
-    <item row="6" column="1" alignment="Qt::AlignTop">
-     <widget class="QLabel" name="poslabel">
+    <item row="5" column="1">
+     <widget class="QLabel" name="emlabel">
       <property name="text">
        <string>TextLabel</string>
       </property>
      </widget>
     </item>
-    <item row="11" column="0">
-     <widget class="QLabel" name="label_17">
-      <property name="font">
-       <font>
-        <bold>true</bold>
-       </font>
-      </property>
+    <item row="4" column="1">
+     <widget class="QLabel" name="pnblabel">
       <property name="text">
-       <string>Skills :</string>
+       <string>TextLabel</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="1">
+     <widget class="QLabel" name="lnlabel">
+      <property name="text">
+       <string>TextLabel</string>
       </property>
      </widget>
     </item>
     <item row="11" column="1">
-     <widget class="QLabel" name="sklabel">
+     <widget class="QTextBrowser" name="eprlabel">
+      <property name="maximumSize">
+       <size>
+        <width>250</width>
+        <height>100</height>
+       </size>
+      </property>
+     </widget>
+    </item>
+    <item row="8" column="1">
+     <widget class="QTextBrowser" name="edulabel">
+      <property name="maximumSize">
+       <size>
+        <width>250</width>
+        <height>100</height>
+       </size>
+      </property>
+      <property name="styleSheet">
+       <string notr="true"/>
+      </property>
+      <property name="html">
+       <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:7.8pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+     </widget>
+    </item>
+    <item row="11" column="0">
+     <widget class="QLabel" name="label_16">
+      <property name="font">
+       <font>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
       <property name="text">
-       <string>TextLabel</string>
+       <string>Experience :</string>
       </property>
      </widget>
     </item>
