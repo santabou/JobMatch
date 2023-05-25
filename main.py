@@ -63,9 +63,9 @@ class MainUI(QMainWindow):
         self.removeAll()
         search=self.ui.searchEdit.text()
         if(self.userType=="0"):
-            self.createjoblist(local_session.query(Job).all(),search)
+            self.createjoblist(local_session.query(Job).all(),search,0)
         else:
-            self.createuserlist(local_session.query(User).all(),search)
+            self.createuserlist(local_session.query(User).all(),search,0)
 
     def reloadlist(self):
         self.removeAll()
@@ -75,7 +75,7 @@ class MainUI(QMainWindow):
         else:
             self.createuserlist(local_session.query(User).all())
 
-    def createjoblist(self,data,sear="",count=0):
+    def createjoblist(self,data,sear="",searchresultno=1,count=0):
         for key in data:
             if(sear!=""):
                 if(sear.lower() in str(key).lower()):
@@ -85,6 +85,7 @@ class MainUI(QMainWindow):
                     sal=key.salary
                     loc=key.location
                     self.createNewWindow(count,comp,pos,sal,loc,cnum2)
+                    searchresultno=searchresultno+1
             else:
                 comp=key.comname
                 cnum2=key.jobid
@@ -92,9 +93,13 @@ class MainUI(QMainWindow):
                 sal=key.salary
                 loc=key.location
                 self.createNewWindow(count,comp,pos,sal,loc,cnum2)
+                searchresultno=searchresultno+1
             count=count+1
+        if searchresultno==0:
+            QMessageBox.information(self, "ERROR", f"No Result Found")
 
-    def createuserlist(self,data,sear="",count=0):
+
+    def createuserlist(self,data,sear="",searchresultno=1,count=0):
         for key in data:
             if(sear!=""):
                 if(sear.lower() in str(key).lower()):
@@ -104,6 +109,7 @@ class MainUI(QMainWindow):
                     email=key.email
                     pos=key.position
                     self.createNewWindow(count,name,phone,email,pos,usn)
+                    searchresultno=searchresultno+1
             else:
                 usn=key.username
                 name=key.firstname+" "+key.lastname
@@ -111,7 +117,11 @@ class MainUI(QMainWindow):
                 email=key.email
                 pos=key.position
                 self.createNewWindow(count,name,phone,email,pos,usn)
+                searchresultno=searchresultno+1
+
             count=count+1
+        if searchresultno==0:
+            QMessageBox.information(self, "ERROR", f"No Result Found")
 
     def logging(self):
         if(self.userType=="0"):
