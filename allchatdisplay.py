@@ -32,7 +32,7 @@ class AllCUI(QWidget):
                 n2=n.split("&")
                 for m in n2:
                     job = local_session.query(Job).filter_by(jobid=n2[0]).first()
-                    if(job is not None):
+                    if job:
                         if job.position!="":
                             pos=job.position
                     else:

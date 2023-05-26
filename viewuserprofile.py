@@ -25,6 +25,8 @@ class VUserUI(QWidget):
             self.ui.edulabel.setText(user.education)
             self.ui.eprlabel.setText(user.experience)
             self.ui.sklabel.setText(user.skill)
+        else:
+            QMessageBox.information(self, "ERROR", f"User Not Found")
 
 def main():    
     app = QApplication(sys.argv)
