@@ -12,8 +12,8 @@ class VJobUI(QWidget):
         QWidget.__init__(self, None)
         self.ui = Ui_Form()
         self.ui.setupUi(self)
-        self.user=u
-        job = local_session.query(Job).filter_by(jobid=self.user).first()
+        self.jid=u
+        job = local_session.query(Job).filter_by(jobid=self.jid).first()
         if job:
             self.ui.cnlabel.setText(job.comname)
             self.ui.reqlabel.setText(job.requirement)
@@ -25,6 +25,8 @@ class VJobUI(QWidget):
             self.ui.edulabel.setText(job.education)
             self.ui.loclabel.setText(job.location)
             self.ui.avalabel.setText(job.due)
+        else:
+            QMessageBox.information(self, "ERROR", f"Job Not Found")
 
 def main():    
     app = QApplication(sys.argv)

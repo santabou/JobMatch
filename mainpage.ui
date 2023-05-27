@@ -106,7 +106,7 @@ color: rgb(255, 255, 255);
       </widget>
       <widget class="QWidget" name="tab_2">
        <attribute name="title">
-        <string>Setting</string>
+        <string>User</string>
        </attribute>
        <widget class="QLabel" name="usn">
         <property name="geometry">

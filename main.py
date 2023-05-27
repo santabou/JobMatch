@@ -29,14 +29,14 @@ class MainUI(QMainWindow):
             user = local_session.query(User).filter_by(username=self.user).first()
             if user:
                 self.ui.usn.setText("Hello, "+user.firstname+" "+user.lastname)
-            self.createjoblist(local_session.query(Job).all())
+            self.getalljob(local_session.query(Job).all())
         else:
             com = local_session.query(Company).filter_by(username=self.user).first()
             if com:
                 self.ui.usn.setText("Welcome, "+com.companyname)
             self.ui.uppro.setText("Create/Edit Job Application")
             self.ui.vipro.setText("View Applicant")
-            self.createuserlist(local_session.query(User).all())
+            self.getalluser(local_session.query(User).all())
 
         self.ui.uppro.clicked.connect(self.logging)
         self.ui.gochat.clicked.connect(self.cha)
@@ -46,6 +46,7 @@ class MainUI(QMainWindow):
         self.ui.log_out.clicked.connect(self.logout)
 
     def logout(self):
+        QMessageBox.information(self, "SUCCESS", f"LogOut Success")
         from logsignpy import LoginUI
         self.log=QWidget()
         self.lui=LoginUI()
@@ -63,19 +64,19 @@ class MainUI(QMainWindow):
         self.removeAll()
         search=self.ui.searchEdit.text()
         if(self.userType=="0"):
-            self.createjoblist(local_session.query(Job).all(),search,0)
+            self.getalljob(local_session.query(Job).all(),search,0)
         else:
-            self.createuserlist(local_session.query(User).all(),search,0)
+            self.getalluser(local_session.query(User).all(),search,0)
 
     def reloadlist(self):
         self.removeAll()
         self.ui.searchEdit.setText("")
         if(self.userType=="0"):
-            self.createjoblist(local_session.query(Job).all())
+            self.getalljob(local_session.query(Job).all())
         else:
-            self.createuserlist(local_session.query(User).all())
+            self.getalluser(local_session.query(User).all())
 
-    def createjoblist(self,data,sear="",searchresultno=1,count=0):
+    def getalljob(self,data,sear="",searchresultno=1,count=0):
         for key in data:
             if(sear!=""):
                 if(sear.lower() in str(key).lower()):
@@ -99,7 +100,7 @@ class MainUI(QMainWindow):
             QMessageBox.information(self, "ERROR", f"No Result Found")
 
 
-    def createuserlist(self,data,sear="",searchresultno=1,count=0):
+    def getalluser(self,data,sear="",searchresultno=1,count=0):
         for key in data:
             if(sear!=""):
                 if(sear.lower() in str(key).lower()):

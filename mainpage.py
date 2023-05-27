@@ -153,6 +153,6 @@ class Ui_MainWindow(object):
         self.vipro.setText(QCoreApplication.translate("MainWindow", u"View Profile", None))
         self.gochat.setText(QCoreApplication.translate("MainWindow", u"Create/Enter Chat Room", None))
         self.log_out.setText(QCoreApplication.translate("MainWindow", u"Log Out", None))
-        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), QCoreApplication.translate("MainWindow", u"Setting", None))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), QCoreApplication.translate("MainWindow", u"User", None))
     # retranslateUi
 

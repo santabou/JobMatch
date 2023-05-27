@@ -14,15 +14,15 @@ class AllCUI(QWidget):
         QWidget.__init__(self, None)
         self.ui = Ui_Form()
         self.ui.setupUi(self)
-        self.user=u
+        self.username=u
         self.userType=t
         self.ui.openroom.clicked.connect(self.open)
         if self.userType=="0":
-            self.user = local_session.query(User).filter_by(username=self.user).first()
+            self.user = local_session.query(User).filter_by(username=self.username).first()
             if(self.user.chat!=""):
                 self.showchatlist(self.user.chat)
         else:
-            self.com = local_session.query(Company).filter_by(username=self.user).first()
+            self.com = local_session.query(Company).filter_by(username=self.username).first()
             if(self.com.chat!=""):
                 self.showchatlist(self.com.chat)
     
@@ -118,12 +118,12 @@ class AllCUI(QWidget):
 
     def openchat(self,rn):
         self.open=QWidget()
-        self.eui=ChatUI(self.user,rn)
+        self.eui=ChatUI(self.username,rn)
         self.eui.show()
 
     def openroom(self):
         self.open=QWidget()
-        self.eui=GoCUI(self.user)
+        self.eui=GoCUI(self.username)
         self.eui.show()
 
 
