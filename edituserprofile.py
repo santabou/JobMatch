@@ -17,12 +17,14 @@ class UserUI(QWidget):
         user = local_session.query(User).filter_by(username=self.user).first()
 
         if user:
+            # Set the date in the QDateEdit widget
             date_str = user.dob
             date_format = "dd/MM/yyyy"
             date = QDate.fromString(date_str, date_format)
             self.ui.dobedit.setDate(date)
 
             self.ui.updateedit.clicked.connect(self.update)
+            # Set the text
             self.ui.firstedit.setText(user.firstname)
             self.ui.lastedit.setText(user.lastname)
             self.ui.emailedit.setText(user.email)
@@ -32,6 +34,7 @@ class UserUI(QWidget):
             self.ui.epredit.setText(user.experience)
             self.ui.skilledit.setText(user.skill)
 
+            # Set the appropriate gender radio button
             if user.gender == "Male":
                 self.ui.malebutton.setChecked(True)
             elif user.gender == "Female":
@@ -40,6 +43,7 @@ class UserUI(QWidget):
                 self.ui.otherbutton.setChecked(True)
 
     def update(self):
+        # Get the updated values
         firstname = self.ui.firstedit.text()
         lastname = self.ui.lastedit.text()
         dob = self.ui.dobedit.text()
@@ -52,6 +56,7 @@ class UserUI(QWidget):
         sk =  self.ui.skilledit.toPlainText()
         username= self.user
 
+        # Determine the selected gender
         if(self.ui.malebutton.isChecked()):
             gender = "Male"
         elif (self.ui.femalebutton.isChecked()):
@@ -59,6 +64,7 @@ class UserUI(QWidget):
         elif (self.ui.otherbutton.isChecked()):
             gender = "Prefer not to say"
 
+         # Update the user information
         if(self.edit_item(username, email, firstname, lastname, dob,pos,pho,gender,edu,epr,sk)):
             QMessageBox.information(self,"Success", f"update successful!")
             self.openviewuser(username)
@@ -72,6 +78,7 @@ class UserUI(QWidget):
         self.close()
     
     def edit_item(self,username, email, firstname, lastname, dob, pos, pho, gender, edu, epr, sk):
+        # Retrieve the user from the database
         user = local_session.query(User).filter_by(username=username).first()
         if user:
             user.email = email

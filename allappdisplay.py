@@ -34,12 +34,14 @@ class AllUI(QWidget):
 
     def showapplist(self,data,count=0):
         for key in data:
+            # Check if the current user matches the username
             if(self.user == key.username and key.apply!=""):
                 af=key.position
                 ap=key.apply
                 eachap = ap.split("\n")
                 for n in eachap:
                     k=key.jobid
+                    # Retrieve user information based on the username
                     user = local_session.query(User).filter_by(username=n).first()
                     name=user.firstname+" "+user.lastname
                     phone=user.phone_number
@@ -47,7 +49,9 @@ class AllUI(QWidget):
                     self.createNewWindow(count,af,name,phone,email,n,k)
                     count=count+1
 
+
     def createNewWindow(self,rowNo,af,name,phone,email,n,key):
+        # Generate unique object names
         framename = "frame_" + str(rowNo)
         appname = "appn_" + str(rowNo)
         posnam = "posn_" + str(rowNo)
@@ -57,6 +61,7 @@ class AllUI(QWidget):
         accname = "accn_" + str(rowNo)
         denname = "denn_" + str(rowNo)
 
+        # Create a QFrame widget
         self.frame = QFrame(self.ui.scrollAreaWidgetContents)
         self.frame.setObjectName(framename)
         self.frame.setObjectName(u"frame")
@@ -126,6 +131,7 @@ class AllUI(QWidget):
         self.button2.setText(QCoreApplication.translate("MainWindow", u"Accept", None))
         self.button3.setText(QCoreApplication.translate("MainWindow", u"Deny", None))
 
+        # Set object names for each widget
         setattr(self.ui, framename, self.frame)
         setattr(self.ui, appname, self.label)
         setattr(self.ui, posnam, self.label_2)
@@ -135,6 +141,7 @@ class AllUI(QWidget):
         setattr(self.ui, accname, self.button2)
         setattr(self.ui, accname, self.button3)
 
+        # Add widgets to layouts
         self.ui.gridLayout.addWidget(self.frame, rowNo, 0, 1, 1, Qt.AlignHCenter|Qt.AlignVCenter)
         self.gridLayout_2.addWidget(self.label, 0, 0, 1, 1, Qt.AlignLeft|Qt.AlignVCenter)
         self.gridLayout_2.addWidget(self.label_2, 1, 0, 1, 1, Qt.AlignLeft|Qt.AlignVCenter)
@@ -143,13 +150,14 @@ class AllUI(QWidget):
         self.gridLayout_2.addWidget(self.button, 2, 1, 1, 1, Qt.AlignLeft|Qt.AlignVCenter)
         self.gridLayout_2.addWidget(self.button2, 1, 2, 1, 1, Qt.AlignLeft|Qt.AlignVCenter)
         self.gridLayout_2.addWidget(self.button3, 2, 2, 1, 1, Qt.AlignLeft|Qt.AlignVCenter)
-
-        print(key)
+        
+        # Set properties for the buttons
         self.button.setProperty("usdes", n)
         self.button2.setProperty("accn", n)
         self.button2.setProperty("jobn", key)
         self.button3.setProperty("accn", n)
         self.button3.setProperty("jobn", key)
+        # Connect button
         self.button.clicked.connect(self.more)
         self.button2.clicked.connect(self.accept)
         self.button3.clicked.connect(self.deny)
@@ -160,27 +168,44 @@ class AllUI(QWidget):
         self.eui.show()
 
     def accept(self):
+        # Get the button that triggered the signal
         button=self.sender()
+        # Get the value
         cnt=button.property("accn")
         jobt= button.property("jobn")
+        # Create message
         message=self.user+": Hello thankyou for applying to our company. We are happy to inform you that you are selected as one of the candidate. Please tell use when you are free to interview\n"
+        
+        # Create a unique room name for the chat
         rn=str(jobt)+"&"+str(cnt)
+        # Create a chat and send the message
         self.create_chat(rn,cnt,jobt,message,self.user)
+        # Reload the list
         self.reloadlist()
+        # Open the chat
         self.openchat(rn)
 
     def deny(self):
+        # Get the button that triggered the signal
         button=self.sender()
+        # Get the value
         cnt=button.property("accn")
         jobt=button.property("jobn")
+        # Create message
         message=self.user+": Hello thankyou for applying to our company. We are sorry to inform you that you are NOT selected as one of the candidate. We encourage you to apply next time\n"
+        # Create a unique room name for the chat
         rn=str(jobt)+"&"+str(cnt)
+        # Create a chat and send the message
         self.create_chat(rn,cnt,jobt,message,self.user)
+        # Reload the list
         self.reloadlist()
+        # Open the chat
         self.openchat(rn)
 
     def more(self):
+        # Get the button that triggered the signal
         button=self.sender()
+        #get the value
         jobd=button.property("usdes")
         self.openviewuser(jobd)
 
@@ -193,11 +218,14 @@ class AllUI(QWidget):
         user = local_session.query(User).filter_by(username=cnt).first()
         com = local_session.query(Company).filter_by(username=u).first()
         job = local_session.query(Job).filter_by(jobid=jobt).first()
+        # Check if the chat room already exists
         if(db.child("ms").child(rn).get().val()==None):
+                # Create a new chat room and update the message
                 data = {
                     "message": message,
                 }
                 db.child("ms").child(rn).update(data)
+                # Update the user's chat list with the new chat room
                 if user.chat!= "":
                     c1=user.chat
                     if user:
@@ -207,6 +235,7 @@ class AllUI(QWidget):
                     if user:
                         user.chat = rn
                         local_session.commit()
+                # Update the company's chat list with the new chat room
                 if com.chat!= "":
                     c2=com.chat
                     if com:
@@ -217,6 +246,7 @@ class AllUI(QWidget):
                         com.chat=rn
                         local_session.commit()
 
+                # Update the job's application list by removing the accepted candidate
                 ap=job.apply
                 repl=cnt+"\n"
                 newap=ap.replace(repl,"")

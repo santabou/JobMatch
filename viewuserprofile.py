@@ -13,8 +13,10 @@ class VUserUI(QWidget):
         self.ui = Ui_Form()
         self.ui.setupUi(self)
         self.user=u
+         # Query the database to retrieve the user information
         user = local_session.query(User).filter_by(username=self.user).first()
         if user:
+            # If the user is found, update the labels
             self.ui.fnlabel.setText(user.firstname)
             self.ui.lnlabel.setText(user.lastname)
             self.ui.emlabel.setText(user.email)

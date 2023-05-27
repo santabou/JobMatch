@@ -16,31 +16,39 @@ class ChatUI(QWidget):
         self.ui.setupUi(self)
         self.user=u
         self.room=r
+        # Set up the UI
         self.ui.roomnum.setText(self.room)
         self.ui.myname.setText(self.user)
         self.ui.pushButton.clicked.connect(self.send)
         self.ui.textEdit.setText(db.child("ms").child(self.room).child("message").get().val())
+
+        # Start streaming updates from the Firebase database
         self.stream=db.child("ms").stream(self.stream_handler)
     
     def stop_stream(self):
+        # Stop streaming updates from the Firebase database
         self.stream.close()
 
     def closeEvent(self, event):
+        # Handle the close event by stopping the stream and accepting the event
         self.stop_stream()
         event.accept()
 
     def send(self):
+        # Get the message from the input line edit and send it to the Firebase database
         mess=str(self.user)+": "+str(self.ui.lineEdit.text())
         self.message(mess,self.room)
         self.ui.lineEdit.setText("")
 
     def stream_handler(self,message):
         if message["event"] == "patch":
+            # Update the text in the text edit widget with the updated message from the database
             QMetaObject.invokeMethod(self.ui.textEdit, "setText", 
                                      Qt.QueuedConnection,
                                      Q_ARG(str, db.child("ms").child(self.room).child("message").get().val()))
             
     def message(self,mess,rn):
+        # Update the message in the Firebase database for the given room number
         if(db.child("ms").child(rn).child("message").get().val()==None):
             mess1=mess
         else:

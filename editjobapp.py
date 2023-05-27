@@ -23,12 +23,14 @@ class JobUI(QWidget):
         self.ui.dateedit.setDisplayFormat("dd/MM/yyyy")
         job = local_session.query(Job).filter_by(jobid=self.ind).first()
         if job:
+            # Set the date in the QDateEdit widget
             date_str = job.due
             date_format = "dd/MM/yyyy"
             date = QDate.fromString(date_str, date_format)
             self.ui.dateedit.setDate(date)
 
             self.ui.savebutton.clicked.connect(self.update)
+            # Set the text
             self.ui.posedit.setText(job.position)
             self.ui.eduedit.setText(job.education)
             self.ui.saledit.setText(job.salary)
@@ -37,6 +39,7 @@ class JobUI(QWidget):
             self.ui.reqedit.setText(job.requirement)
 
     def update(self):
+        # Get the updated values
         pos = self.ui.posedit.text()
         edu = self.ui.eduedit.text()
         sal = self.ui.saledit.text()
@@ -45,6 +48,7 @@ class JobUI(QWidget):
         due=self.ui.dateedit.text()
         req=self.ui.reqedit.toPlainText()
 
+        # Update the information
         if(self.edit_item(pos,edu,sal,ava,pho,due,req,self.ind)):
             QMessageBox.information(self,"Success", f"update successful!")
             self.openviewjob(self.ind)

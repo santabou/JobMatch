@@ -13,7 +13,9 @@ class VJobUI(QWidget):
         self.ui = Ui_Form()
         self.ui.setupUi(self)
         self.jid=u
+        #getuser
         job = local_session.query(Job).filter_by(jobid=self.jid).first()
+        #settext
         if job:
             self.ui.cnlabel.setText(job.comname)
             self.ui.reqlabel.setText(job.requirement)

@@ -38,15 +38,15 @@ class MainUI(QMainWindow):
             self.ui.vipro.setText("View Applicant")
             self.getalluser(local_session.query(User).all())
 
-        self.ui.uppro.clicked.connect(self.logging)
-        self.ui.gochat.clicked.connect(self.cha)
+        self.ui.uppro.clicked.connect(self.editting)
+        self.ui.gochat.clicked.connect(self.openallchat)
         self.ui.vipro.clicked.connect(self.view)
         self.ui.clearButton.clicked.connect(self.reloadlist)
         self.ui.searchButton.clicked.connect(self.searching)
         self.ui.log_out.clicked.connect(self.logout)
 
     def logout(self):
-        QMessageBox.information(self, "SUCCESS", f"LogOut Success")
+        QMessageBox.information(self, "SUCCESS", f"Log Out Success")
         from logsignpy import LoginUI
         self.log=QWidget()
         self.lui=LoginUI()
@@ -78,7 +78,9 @@ class MainUI(QMainWindow):
 
     def getalljob(self,data,sear="",searchresultno=1,count=0):
         for key in data:
+            # check if there is anything search word
             if(sear!=""):
+                #check if search match
                 if(sear.lower() in str(key).lower()):
                     comp=key.comname
                     cnum2=key.jobid
@@ -102,7 +104,9 @@ class MainUI(QMainWindow):
 
     def getalluser(self,data,sear="",searchresultno=1,count=0):
         for key in data:
+            # check if there is anything search word
             if(sear!=""):
+                #check if search matches
                 if(sear.lower() in str(key).lower()):
                     usn=key.username
                     name=key.firstname+" "+key.lastname
@@ -124,7 +128,7 @@ class MainUI(QMainWindow):
         if searchresultno==0:
             QMessageBox.information(self, "ERROR", f"No Result Found")
 
-    def logging(self):
+    def editting(self):
         if(self.userType=="0"):
             self.openedituser()
         else:
@@ -139,9 +143,6 @@ class MainUI(QMainWindow):
         self.open=QWidget()
         self.eui=GoUI(self.user)
         self.eui.show()
-    
-    def cha(self):
-        self.openallchat()
     
     def openallchat(self):
         self.open=QWidget()
@@ -160,7 +161,7 @@ class MainUI(QMainWindow):
         self.oui.show()
 
     def createNewWindow(self,rowNo,com,pos,sal,loc,cnum2):
-
+        # Generate unique object names
         framename = "frame_" + str(rowNo)
         comnam = "comn_" + str(rowNo)
         posnam = "posn_" + str(rowNo)
@@ -169,6 +170,7 @@ class MainUI(QMainWindow):
         morenam = "morn_" + str(rowNo)
         subnam = "subn_" + str(rowNo)
 
+        # Create a QFrame widget
         self.frame = QFrame(self.ui.scrollAreaWidgetContents_4)
         self.frame.setObjectName(framename)
         self.frame.setObjectName(u"frame")
@@ -237,7 +239,8 @@ class MainUI(QMainWindow):
             self.label_4.setText(QCoreApplication.translate("MainWindow", "Position: "+loc, None))
             self.button.setText(QCoreApplication.translate("MainWindow", u"view more", None))
             self.button2.setText(QCoreApplication.translate("MainWindow", u"Contact", None))
-
+        
+        # Set object names for each widget
         setattr(self.ui, framename, self.frame)
         setattr(self.ui, comnam, self.label)
         setattr(self.ui, posnam, self.label_2)
@@ -246,6 +249,7 @@ class MainUI(QMainWindow):
         setattr(self.ui, morenam, self.button)
         setattr(self.ui, subnam, self.button2)
 
+        # Add widgets to layouts
         self.ui.gridLayout.addWidget(self.frame, rowNo, 0, 1, 1, Qt.AlignHCenter|Qt.AlignVCenter)
         self.gridLayout_2.addWidget(self.label, 0, 0, 1, 1, Qt.AlignLeft|Qt.AlignVCenter)
         self.gridLayout_2.addWidget(self.label_2, 1, 0, 1, 1, Qt.AlignLeft|Qt.AlignVCenter)
@@ -254,15 +258,20 @@ class MainUI(QMainWindow):
         self.gridLayout_2.addWidget(self.button, 2, 1, 1, 1, Qt.AlignLeft|Qt.AlignVCenter)
         self.gridLayout_2.addWidget(self.button2, 2, 2, 1, 1, Qt.AlignLeft|Qt.AlignVCenter)
 
+        # Set properties for the buttons
         self.button.setProperty("jobdes", cnum2)
         self.button2.setProperty("jobdes", cnum2)
+        # Connect button        
         self.button.clicked.connect(self.more)
         self.button2.clicked.connect(self.sent)
 
     def sent(self):
+        # Get the button that triggered the signal
         button=self.sender()
+        # Get the value
         comp=button.property("jobdes")
         if self.userType=="0":
+            #check if already submit
             checkchat=comp+"&"+self.user
             user = local_session.query(User).filter_by(username=self.user).first()
             ch=user.chat
@@ -296,6 +305,7 @@ class MainUI(QMainWindow):
         self.eui.show()
     
     def more(self):
+        #get value from button
         button=self.sender()
         jobd=button.property("jobdes")
         if self.userType=="0":
@@ -317,11 +327,14 @@ class MainUI(QMainWindow):
         user = local_session.query(User).filter_by(username=cnt).first()
         com = local_session.query(Company).filter_by(username=jobt).first()
 
+        # Check if the chat room already exists
         if(db.child("ms").child(rn).get().val()==None):
                 data = {
                     "message": message,
                 }
+                # Update the chat room with the initial message
                 db.child("ms").child(rn).update(data)
+                # Update the user's chat list with the new chat room
                 if user.chat!= "":
                     c1=user.chat
                     if user:
@@ -331,6 +344,7 @@ class MainUI(QMainWindow):
                     if user:
                         user.chat = rn
                         local_session.commit()
+                # Update the company's chat list with the new chat room
                 if com.chat!= "":
                     c2=com.chat
                     if com:
@@ -343,6 +357,7 @@ class MainUI(QMainWindow):
 
     def add_apply(self,comname,user):
         job = local_session.query(Job).filter_by(jobid=comname).first()
+        # Check if the job already has applicants
         if job.apply!= "":
             if job:
                 j1=job.apply

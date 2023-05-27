@@ -30,7 +30,9 @@ class LoginUI(QWidget):
 
     def change2(self):
         self.ui.tabWidget.setCurrentIndex(2)
-    
+
+
+    #signing up for job seeker
     def signingup(self):
         username = self.ui.signusername.text()
         password = self.ui.signpassword.text()
@@ -45,6 +47,7 @@ class LoginUI(QWidget):
         elif self.email_exists(email, is_com):
             QMessageBox.information(self, "ERROR", f"Email already exists.")
         else:
+            #add_user
             user = User(
                 username=username,
                 password=password,
@@ -65,6 +68,7 @@ class LoginUI(QWidget):
             QMessageBox.information(self, "Success", f"Account created successfully!")
             self.ui.tabWidget.setCurrentIndex(0)
 
+    #signing up for company
     def signingupcom(self):
         username = self.ui.comusername.text()
         password = self.ui.compassword.text()
@@ -78,6 +82,7 @@ class LoginUI(QWidget):
         elif self.email_exists(email, is_com):
             QMessageBox.information(self, "ERROR", f"Email already exists.")
         else:
+            #add_company
             company = Company(
                 username=username,
                 password=password,
@@ -133,10 +138,6 @@ class LoginUI(QWidget):
         else:
             user = local_session.query(User).filter_by(username=usn).first()
         return user is not None and user.password == pwd
-
-    def closeEvent(self, event):
-        local_session.close()
-        event.accept()
 
 def main():
     app = QApplication(sys.argv)

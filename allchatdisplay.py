@@ -17,6 +17,7 @@ class AllCUI(QWidget):
         self.username=u
         self.userType=t
         self.ui.openroom.clicked.connect(self.open)
+        #check user type
         if self.userType=="0":
             self.user = local_session.query(User).filter_by(username=self.username).first()
             if(self.user.chat!=""):
@@ -32,22 +33,26 @@ class AllCUI(QWidget):
                 n2=n.split("&")
                 for m in n2:
                     job = local_session.query(Job).filter_by(jobid=n2[0]).first()
+                    # Check if the job object exists and retrieve the position
                     if job:
                         if job.position!="":
                             pos=job.position
                     else:
                         pos="Any"
                     if m!=self.user:
+                        #create chat list with n=room name m=the person chatting with, pos= position
                         self.createNewWindow(count,n,m,pos)
                 count=count+1
 
     def createNewWindow(self,rowNo,n,n2,pos):
+        # Generate unique object names
         framename = "frame_" + str(rowNo)
         chatname = "cnam_" + str(rowNo)
         withname = "wnam_" + str(rowNo)
         posname = "posnam_" + str(rowNo)
         opennam = "chat_" + str(rowNo)
 
+        # Create a QFrame widget
         self.frame = QFrame(self.ui.scrollAreaWidgetContents)
         self.frame.setObjectName(framename)
         self.frame.setObjectName(u"frame")
@@ -93,23 +98,29 @@ class AllCUI(QWidget):
         self.label_3.setText(QCoreApplication.translate("MainWindow", "Position "+pos, None))
         self.button.setText(QCoreApplication.translate("MainWindow", u"Chat", None))
 
+        # Set object names for each widget
         setattr(self.ui, framename, self.frame)
         setattr(self.ui, chatname, self.label)
         setattr(self.ui, withname, self.label_2)
         setattr(self.ui, posname, self.label_3)
         setattr(self.ui, opennam, self.button)
 
+        # Add widgets to layouts
         self.ui.gridLayout.addWidget(self.frame, rowNo, 0, 1, 1, Qt.AlignHCenter|Qt.AlignVCenter)
         self.gridLayout_2.addWidget(self.label, 0, 0, 1, 1, Qt.AlignLeft|Qt.AlignVCenter)
         self.gridLayout_2.addWidget(self.label_2, 1, 0, 1, 1, Qt.AlignLeft|Qt.AlignVCenter)
         self.gridLayout_2.addWidget(self.label_3, 2, 0, 1, 1, Qt.AlignLeft|Qt.AlignVCenter)
         self.gridLayout_2.addWidget(self.button, 2, 1, 1, 1, Qt.AlignLeft|Qt.AlignVCenter)
 
+        # Set properties for the buttons
         self.button.setProperty("romna", n)
+        # Connect button
         self.button.clicked.connect(self.more)
 
     def more(self):
+        # Get the button that triggered the signal
         button=self.sender()
+        # Get the value
         rn=button.property("romna")
         self.openchat(rn)
 
