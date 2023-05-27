@@ -4,7 +4,6 @@ from PySide6.QtCore import *
 from jobedit import Ui_Form
 from PySide6.QtGui import *
 from db import Company,Job,Session,engine
-from viewjobdetail import VJobUI
 
 local_session=Session(bind=engine)
 
@@ -51,15 +50,8 @@ class JobUI(QWidget):
         # Update the information
         if(self.edit_item(pos,edu,sal,ava,pho,due,req,self.ind)):
             QMessageBox.information(self,"Success", f"update successful!")
-            self.openviewjob(self.ind)
         else:
             QMessageBox.information(self,"ERROR", f"update failed.")
-
-    def openviewjob(self,j):
-        self.open=QWidget()
-        self.vui=VJobUI(j)
-        self.vui.show()
-        self.close()
 
     def create_job(self,cn,jid):
         com = local_session.query(Company).filter_by(username=cn).first()

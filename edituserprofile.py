@@ -4,7 +4,6 @@ from PySide6.QtCore import *
 from useredit import Ui_Form
 from PySide6.QtGui import *
 from db import User,Session,engine
-from viewuserprofile import VUserUI
 
 local_session=Session(bind=engine)
 
@@ -67,15 +66,8 @@ class UserUI(QWidget):
          # Update the user information
         if(self.edit_item(username, email, firstname, lastname, dob,pos,pho,gender,edu,epr,sk)):
             QMessageBox.information(self,"Success", f"update successful!")
-            self.openviewuser(username)
         else:
             QMessageBox.information(self,"ERROR", f"update failed.")
-    
-    def openviewuser(self,j):
-        self.open=QWidget()
-        self.vui=VUserUI(j)
-        self.vui.show()
-        self.close()
     
     def edit_item(self,username, email, firstname, lastname, dob, pos, pho, gender, edu, epr, sk):
         # Retrieve the user from the database
