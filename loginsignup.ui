@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>758</width>
-    <height>674</height>
+    <height>704</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -29,7 +29,7 @@
       <string/>
      </property>
      <property name="pixmap">
-      <pixmap>../JobMatch/logo.png</pixmap>
+      <pixmap>logo.png</pixmap>
      </property>
     </widget>
    </item>
@@ -53,14 +53,15 @@ font: 700 11pt &quot;Segoe UI&quot;;</string>
          <property name="font">
           <font>
            <family>Segoe UI</family>
-           <pointsize>11</pointsize>
+           <pointsize>20</pointsize>
+           <weight>87</weight>
            <italic>false</italic>
            <bold>true</bold>
           </font>
          </property>
          <property name="styleSheet">
           <string notr="true">
-font: 700 11pt &quot;Segoe UI&quot;;</string>
+font: 700 20pt &quot;Segoe UI&quot;;</string>
          </property>
          <property name="text">
           <string>Log-in</string>
@@ -86,6 +87,7 @@ font: 700 11pt &quot;Segoe UI&quot;;</string>
           <font>
            <family>Segoe UI</family>
            <pointsize>11</pointsize>
+           <weight>87</weight>
            <italic>false</italic>
            <bold>true</bold>
           </font>
@@ -105,6 +107,7 @@ font: 700 11pt &quot;Segoe UI&quot;;</string>
           <font>
            <family>Segoe UI</family>
            <pointsize>11</pointsize>
+           <weight>87</weight>
            <italic>false</italic>
            <bold>true</bold>
           </font>
@@ -136,6 +139,7 @@ background-color: white;
           <font>
            <family>Segoe UI</family>
            <pointsize>11</pointsize>
+           <weight>87</weight>
            <italic>false</italic>
            <bold>true</bold>
           </font>
@@ -155,6 +159,7 @@ font: 700 11pt &quot;Segoe UI&quot;;</string>
           <font>
            <family>Segoe UI</family>
            <pointsize>11</pointsize>
+           <weight>87</weight>
            <italic>false</italic>
            <bold>true</bold>
           </font>
@@ -189,6 +194,7 @@ background-color: white;
           <font>
            <family>Segoe UI</family>
            <pointsize>11</pointsize>
+           <weight>87</weight>
            <italic>false</italic>
            <bold>true</bold>
           </font>
@@ -204,6 +210,7 @@ background-color: white;
           <font>
            <family>Segoe UI</family>
            <pointsize>11</pointsize>
+           <weight>87</weight>
            <italic>false</italic>
            <bold>true</bold>
           </font>
@@ -222,6 +229,7 @@ background-color: white;
           <font>
            <family>Segoe UI</family>
            <pointsize>11</pointsize>
+           <weight>87</weight>
            <italic>false</italic>
            <bold>true</bold>
           </font>
@@ -239,6 +247,12 @@ background-color: white;
          <property name="orientation">
           <enum>Qt::Vertical</enum>
          </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>0</width>
+           <height>0</height>
+          </size>
+         </property>
         </spacer>
        </item>
        <item>
@@ -247,6 +261,7 @@ background-color: white;
           <font>
            <family>Segoe UI</family>
            <pointsize>11</pointsize>
+           <weight>87</weight>
            <italic>false</italic>
            <bold>true</bold>
           </font>
@@ -267,6 +282,7 @@ font: 700 11pt &quot;Segoe UI&quot;;</string>
           <font>
            <family>Segoe UI</family>
            <pointsize>11</pointsize>
+           <weight>87</weight>
            <italic>false</italic>
            <bold>true</bold>
           </font>
@@ -287,6 +303,7 @@ font: 700 11pt &quot;Segoe UI&quot;;</string>
           <font>
            <family>Segoe UI</family>
            <pointsize>11</pointsize>
+           <weight>87</weight>
            <italic>false</italic>
            <bold>true</bold>
           </font>
@@ -313,10 +330,15 @@ font: 700 11pt &quot;Segoe UI&quot;;</string>
          <property name="font">
           <font>
            <family>Segoe UI</family>
-           <pointsize>11</pointsize>
+           <pointsize>20</pointsize>
+           <weight>87</weight>
            <italic>false</italic>
            <bold>true</bold>
           </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">
+font: 700 20pt &quot;Segoe UI&quot;;</string>
          </property>
          <property name="text">
           <string>Sign-up</string>
@@ -329,6 +351,7 @@ font: 700 11pt &quot;Segoe UI&quot;;</string>
           <font>
            <family>Segoe UI</family>
            <pointsize>11</pointsize>
+           <weight>87</weight>
            <italic>false</italic>
            <bold>true</bold>
           </font>
@@ -344,6 +367,7 @@ font: 700 11pt &quot;Segoe UI&quot;;</string>
           <font>
            <family>Segoe UI</family>
            <pointsize>11</pointsize>
+           <weight>87</weight>
            <italic>false</italic>
            <bold>true</bold>
           </font>
@@ -375,6 +399,7 @@ background-color: white;
           <font>
            <family>Segoe UI</family>
            <pointsize>11</pointsize>
+           <weight>87</weight>
            <italic>false</italic>
            <bold>true</bold>
           </font>
@@ -390,6 +415,7 @@ background-color: white;
           <font>
            <family>Segoe UI</family>
            <pointsize>11</pointsize>
+           <weight>87</weight>
            <italic>false</italic>
            <bold>true</bold>
           </font>
@@ -424,6 +450,7 @@ background-color: white;
           <font>
            <family>Segoe UI</family>
            <pointsize>11</pointsize>
+           <weight>87</weight>
            <italic>false</italic>
            <bold>true</bold>
           </font>
@@ -439,6 +466,7 @@ background-color: white;
           <font>
            <family>Segoe UI</family>
            <pointsize>11</pointsize>
+           <weight>87</weight>
            <italic>false</italic>
            <bold>true</bold>
           </font>
@@ -470,6 +498,7 @@ background-color: white;
           <font>
            <family>Segoe UI</family>
            <pointsize>11</pointsize>
+           <weight>87</weight>
            <italic>false</italic>
            <bold>true</bold>
           </font>
@@ -485,6 +514,7 @@ background-color: white;
           <font>
            <family>Segoe UI</family>
            <pointsize>11</pointsize>
+           <weight>87</weight>
            <italic>false</italic>
            <bold>true</bold>
           </font>
@@ -516,6 +546,7 @@ background-color: white;
           <font>
            <family>Segoe UI</family>
            <pointsize>11</pointsize>
+           <weight>87</weight>
            <italic>false</italic>
            <bold>true</bold>
           </font>
@@ -531,6 +562,7 @@ background-color: white;
           <font>
            <family>Segoe UI</family>
            <pointsize>11</pointsize>
+           <weight>87</weight>
            <italic>false</italic>
            <bold>true</bold>
           </font>
@@ -562,6 +594,7 @@ background-color: white;
           <font>
            <family>Segoe UI</family>
            <pointsize>11</pointsize>
+           <weight>87</weight>
            <italic>false</italic>
            <bold>true</bold>
           </font>
@@ -587,6 +620,7 @@ background-color: white;
              <font>
               <family>Segoe UI</family>
               <pointsize>11</pointsize>
+              <weight>87</weight>
               <italic>false</italic>
               <bold>true</bold>
              </font>
@@ -787,6 +821,7 @@ QComboBox::drop-down {
              <font>
               <family>Segoe UI</family>
               <pointsize>11</pointsize>
+              <weight>87</weight>
               <italic>false</italic>
               <bold>true</bold>
              </font>
@@ -892,6 +927,7 @@ QComboBox::drop-down {
              <font>
               <family>Segoe UI</family>
               <pointsize>11</pointsize>
+              <weight>87</weight>
               <italic>false</italic>
               <bold>true</bold>
              </font>
@@ -959,10 +995,15 @@ background-color: white;
          <property name="font">
           <font>
            <family>Segoe UI</family>
-           <pointsize>11</pointsize>
+           <pointsize>20</pointsize>
+           <weight>87</weight>
            <italic>false</italic>
            <bold>true</bold>
           </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">
+font: 700 20pt &quot;Segoe UI&quot;;</string>
          </property>
          <property name="text">
           <string>Sign-up</string>
@@ -988,6 +1029,7 @@ background-color: white;
           <font>
            <family>Segoe UI</family>
            <pointsize>11</pointsize>
+           <weight>87</weight>
            <italic>false</italic>
            <bold>true</bold>
           </font>
@@ -1003,6 +1045,7 @@ background-color: white;
           <font>
            <family>Segoe UI</family>
            <pointsize>11</pointsize>
+           <weight>87</weight>
            <italic>false</italic>
            <bold>true</bold>
           </font>
@@ -1034,6 +1077,7 @@ background-color: white;
           <font>
            <family>Segoe UI</family>
            <pointsize>11</pointsize>
+           <weight>87</weight>
            <italic>false</italic>
            <bold>true</bold>
           </font>
@@ -1049,6 +1093,7 @@ background-color: white;
           <font>
            <family>Segoe UI</family>
            <pointsize>11</pointsize>
+           <weight>87</weight>
            <italic>false</italic>
            <bold>true</bold>
           </font>
@@ -1083,6 +1128,7 @@ background-color: white;
           <font>
            <family>Segoe UI</family>
            <pointsize>11</pointsize>
+           <weight>87</weight>
            <italic>false</italic>
            <bold>true</bold>
           </font>
@@ -1098,6 +1144,7 @@ background-color: white;
           <font>
            <family>Segoe UI</family>
            <pointsize>11</pointsize>
+           <weight>87</weight>
            <italic>false</italic>
            <bold>true</bold>
           </font>
@@ -1129,6 +1176,7 @@ background-color: white;
           <font>
            <family>Segoe UI</family>
            <pointsize>11</pointsize>
+           <weight>87</weight>
            <italic>false</italic>
            <bold>true</bold>
           </font>
@@ -1144,6 +1192,7 @@ background-color: white;
           <font>
            <family>Segoe UI</family>
            <pointsize>11</pointsize>
+           <weight>87</weight>
            <italic>false</italic>
            <bold>true</bold>
           </font>
@@ -1175,6 +1224,7 @@ background-color: white;
           <font>
            <family>Segoe UI</family>
            <pointsize>11</pointsize>
+           <weight>87</weight>
            <italic>false</italic>
            <bold>true</bold>
           </font>
@@ -1190,6 +1240,7 @@ background-color: white;
           <font>
            <family>Segoe UI</family>
            <pointsize>11</pointsize>
+           <weight>87</weight>
            <italic>false</italic>
            <bold>true</bold>
           </font>
@@ -1234,6 +1285,7 @@ background-color: white;
           <font>
            <family>Segoe UI</family>
            <pointsize>11</pointsize>
+           <weight>87</weight>
            <italic>false</italic>
            <bold>true</bold>
           </font>
@@ -1249,6 +1301,7 @@ background-color: white;
           <font>
            <family>Segoe UI</family>
            <pointsize>11</pointsize>
+           <weight>87</weight>
            <italic>false</italic>
            <bold>true</bold>
           </font>

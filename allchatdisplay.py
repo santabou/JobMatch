@@ -39,7 +39,7 @@ class AllCUI(QWidget):
                             pos=job.position
                     else:
                         pos="Any"
-                    if m!=self.user:
+                    if m!=self.username:
                         #create chat list with n=room name m=the person chatting with, pos= position
                         self.createNewWindow(count,n,m,pos)
                 count=count+1

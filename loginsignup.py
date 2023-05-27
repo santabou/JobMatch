@@ -24,7 +24,7 @@ class Ui_Form(object):
     def setupUi(self, Form):
         if not Form.objectName():
             Form.setObjectName(u"Form")
-        Form.resize(758, 674)
+        Form.resize(758, 704)
         Form.setStyleSheet(u"background-color: rgb(184, 246, 255)\n"
 "")
         self.verticalLayout = QVBoxLayout(Form)
@@ -34,7 +34,7 @@ class Ui_Form(object):
         font = QFont()
         font.setPointSize(20)
         self.title.setFont(font)
-        self.title.setPixmap(QPixmap(u"../JobMatch/logo.png"))
+        self.title.setPixmap(QPixmap(u"logo.png"))
 
         self.verticalLayout.addWidget(self.title)
 
@@ -51,12 +51,12 @@ class Ui_Form(object):
         self.labellog.setObjectName(u"labellog")
         font1 = QFont()
         font1.setFamilies([u"Segoe UI"])
-        font1.setPointSize(11)
+        font1.setPointSize(20)
         font1.setBold(True)
         font1.setItalic(False)
         self.labellog.setFont(font1)
         self.labellog.setStyleSheet(u"\n"
-"font: 700 11pt \"Segoe UI\";")
+"font: 700 20pt \"Segoe UI\";")
 
         self.verticalLayout_2.addWidget(self.labellog)
 
@@ -66,7 +66,12 @@ class Ui_Form(object):
 
         self.label_10 = QLabel(self.tab)
         self.label_10.setObjectName(u"label_10")
-        self.label_10.setFont(font1)
+        font2 = QFont()
+        font2.setFamilies([u"Segoe UI"])
+        font2.setPointSize(11)
+        font2.setBold(True)
+        font2.setItalic(False)
+        self.label_10.setFont(font2)
         self.label_10.setStyleSheet(u"\n"
 "font: 700 11pt \"Segoe UI\";")
 
@@ -74,7 +79,7 @@ class Ui_Form(object):
 
         self.logusername = QLineEdit(self.tab)
         self.logusername.setObjectName(u"logusername")
-        self.logusername.setFont(font1)
+        self.logusername.setFont(font2)
         self.logusername.setStyleSheet(u"QLineEdit{\n"
 "border: 2px solid grey;\n"
 "border-radius: 18px;\n"
@@ -94,7 +99,7 @@ class Ui_Form(object):
 
         self.label_3 = QLabel(self.tab)
         self.label_3.setObjectName(u"label_3")
-        self.label_3.setFont(font1)
+        self.label_3.setFont(font2)
         self.label_3.setStyleSheet(u"\n"
 "font: 700 11pt \"Segoe UI\";")
 
@@ -102,7 +107,7 @@ class Ui_Form(object):
 
         self.logpassword = QLineEdit(self.tab)
         self.logpassword.setObjectName(u"logpassword")
-        self.logpassword.setFont(font1)
+        self.logpassword.setFont(font2)
         self.logpassword.setStyleSheet(u"QLineEdit{\n"
 "border: 2px solid grey;\n"
 "border-radius: 18px;\n"
@@ -123,7 +128,7 @@ class Ui_Form(object):
 
         self.label_17 = QLabel(self.tab)
         self.label_17.setObjectName(u"label_17")
-        self.label_17.setFont(font1)
+        self.label_17.setFont(font2)
 
         self.verticalLayout_2.addWidget(self.label_17)
 
@@ -132,14 +137,14 @@ class Ui_Form(object):
         self.buttonGroup.setObjectName(u"buttonGroup")
         self.buttonGroup.addButton(self.userrad)
         self.userrad.setObjectName(u"userrad")
-        self.userrad.setFont(font1)
+        self.userrad.setFont(font2)
 
         self.verticalLayout_2.addWidget(self.userrad)
 
         self.comrad = QRadioButton(self.tab)
         self.buttonGroup.addButton(self.comrad)
         self.comrad.setObjectName(u"comrad")
-        self.comrad.setFont(font1)
+        self.comrad.setFont(font2)
 
         self.verticalLayout_2.addWidget(self.comrad)
 
@@ -149,7 +154,7 @@ class Ui_Form(object):
 
         self.logenter = QPushButton(self.tab)
         self.logenter.setObjectName(u"logenter")
-        self.logenter.setFont(font1)
+        self.logenter.setFont(font2)
         self.logenter.setStyleSheet(u"background-color: #4E97D1;\n"
 "color: rgb(255, 255, 255);\n"
 "font: 700 11pt \"Segoe UI\";")
@@ -158,7 +163,7 @@ class Ui_Form(object):
 
         self.gotosign = QPushButton(self.tab)
         self.gotosign.setObjectName(u"gotosign")
-        self.gotosign.setFont(font1)
+        self.gotosign.setFont(font2)
         self.gotosign.setStyleSheet(u"background-color: #4E97D1;\n"
 "color: rgb(255, 255, 255);\n"
 "font: 700 11pt \"Segoe UI\";")
@@ -167,7 +172,7 @@ class Ui_Form(object):
 
         self.gotosigncom = QPushButton(self.tab)
         self.gotosigncom.setObjectName(u"gotosigncom")
-        self.gotosigncom.setFont(font1)
+        self.gotosigncom.setFont(font2)
         self.gotosigncom.setStyleSheet(u"background-color: #4E97D1;\n"
 "color: rgb(255, 255, 255);\n"
 "font: 700 11pt \"Segoe UI\";")
@@ -182,18 +187,20 @@ class Ui_Form(object):
         self.labelsign = QLabel(self.tab_2)
         self.labelsign.setObjectName(u"labelsign")
         self.labelsign.setFont(font1)
+        self.labelsign.setStyleSheet(u"\n"
+"font: 700 20pt \"Segoe UI\";")
 
         self.verticalLayout_3.addWidget(self.labelsign)
 
         self.label_11 = QLabel(self.tab_2)
         self.label_11.setObjectName(u"label_11")
-        self.label_11.setFont(font1)
+        self.label_11.setFont(font2)
 
         self.verticalLayout_3.addWidget(self.label_11)
 
         self.signusername = QLineEdit(self.tab_2)
         self.signusername.setObjectName(u"signusername")
-        self.signusername.setFont(font1)
+        self.signusername.setFont(font2)
         self.signusername.setStyleSheet(u"QLineEdit{\n"
 "border: 2px solid grey;\n"
 "border-radius: 18px;\n"
@@ -213,13 +220,13 @@ class Ui_Form(object):
 
         self.label_5 = QLabel(self.tab_2)
         self.label_5.setObjectName(u"label_5")
-        self.label_5.setFont(font1)
+        self.label_5.setFont(font2)
 
         self.verticalLayout_3.addWidget(self.label_5)
 
         self.signpassword = QLineEdit(self.tab_2)
         self.signpassword.setObjectName(u"signpassword")
-        self.signpassword.setFont(font1)
+        self.signpassword.setFont(font2)
         self.signpassword.setStyleSheet(u"QLineEdit{\n"
 "border: 2px solid grey;\n"
 "border-radius: 18px;\n"
@@ -240,13 +247,13 @@ class Ui_Form(object):
 
         self.label_6 = QLabel(self.tab_2)
         self.label_6.setObjectName(u"label_6")
-        self.label_6.setFont(font1)
+        self.label_6.setFont(font2)
 
         self.verticalLayout_3.addWidget(self.label_6)
 
         self.signemail = QLineEdit(self.tab_2)
         self.signemail.setObjectName(u"signemail")
-        self.signemail.setFont(font1)
+        self.signemail.setFont(font2)
         self.signemail.setStyleSheet(u"QLineEdit{\n"
 "border: 2px solid grey;\n"
 "border-radius: 18px;\n"
@@ -266,13 +273,13 @@ class Ui_Form(object):
 
         self.label_9 = QLabel(self.tab_2)
         self.label_9.setObjectName(u"label_9")
-        self.label_9.setFont(font1)
+        self.label_9.setFont(font2)
 
         self.verticalLayout_3.addWidget(self.label_9)
 
         self.signfirst = QLineEdit(self.tab_2)
         self.signfirst.setObjectName(u"signfirst")
-        self.signfirst.setFont(font1)
+        self.signfirst.setFont(font2)
         self.signfirst.setStyleSheet(u"QLineEdit{\n"
 "border: 2px solid grey;\n"
 "border-radius: 18px;\n"
@@ -292,13 +299,13 @@ class Ui_Form(object):
 
         self.label_7 = QLabel(self.tab_2)
         self.label_7.setObjectName(u"label_7")
-        self.label_7.setFont(font1)
+        self.label_7.setFont(font2)
 
         self.verticalLayout_3.addWidget(self.label_7)
 
         self.signlast = QLineEdit(self.tab_2)
         self.signlast.setObjectName(u"signlast")
-        self.signlast.setFont(font1)
+        self.signlast.setFont(font2)
         self.signlast.setStyleSheet(u"QLineEdit{\n"
 "border: 2px solid grey;\n"
 "border-radius: 18px;\n"
@@ -318,7 +325,7 @@ class Ui_Form(object):
 
         self.label_8 = QLabel(self.tab_2)
         self.label_8.setObjectName(u"label_8")
-        self.label_8.setFont(font1)
+        self.label_8.setFont(font2)
 
         self.verticalLayout_3.addWidget(self.label_8)
 
@@ -364,7 +371,7 @@ class Ui_Form(object):
         self.signday.addItem("")
         self.signday.addItem("")
         self.signday.setObjectName(u"signday")
-        self.signday.setFont(font1)
+        self.signday.setFont(font2)
         self.signday.setStyleSheet(u"QComboBox {\n"
 "    border: 1px solid gray;\n"
 "    border-radius: 14px;\n"
@@ -411,7 +418,7 @@ class Ui_Form(object):
         self.signmonth.addItem("")
         self.signmonth.addItem("")
         self.signmonth.setObjectName(u"signmonth")
-        self.signmonth.setFont(font1)
+        self.signmonth.setFont(font2)
         self.signmonth.setStyleSheet(u"QComboBox {\n"
 "    border: 1px solid gray;\n"
 "    border-radius: 14px;\n"
@@ -446,7 +453,7 @@ class Ui_Form(object):
 
         self.signyear = QLineEdit(self.widget)
         self.signyear.setObjectName(u"signyear")
-        self.signyear.setFont(font1)
+        self.signyear.setFont(font2)
         self.signyear.setStyleSheet(u"QLineEdit{\n"
 "border: 2px solid grey;\n"
 "border-radius: 18px;\n"
@@ -489,6 +496,8 @@ class Ui_Form(object):
         self.labelcom = QLabel(self.tab_3)
         self.labelcom.setObjectName(u"labelcom")
         self.labelcom.setFont(font1)
+        self.labelcom.setStyleSheet(u"\n"
+"font: 700 20pt \"Segoe UI\";")
 
         self.verticalLayout_4.addWidget(self.labelcom)
 
@@ -498,13 +507,13 @@ class Ui_Form(object):
 
         self.label_12 = QLabel(self.tab_3)
         self.label_12.setObjectName(u"label_12")
-        self.label_12.setFont(font1)
+        self.label_12.setFont(font2)
 
         self.verticalLayout_4.addWidget(self.label_12)
 
         self.comusername = QLineEdit(self.tab_3)
         self.comusername.setObjectName(u"comusername")
-        self.comusername.setFont(font1)
+        self.comusername.setFont(font2)
         self.comusername.setStyleSheet(u"QLineEdit{\n"
 "border: 2px solid grey;\n"
 "border-radius: 18px;\n"
@@ -524,13 +533,13 @@ class Ui_Form(object):
 
         self.label_13 = QLabel(self.tab_3)
         self.label_13.setObjectName(u"label_13")
-        self.label_13.setFont(font1)
+        self.label_13.setFont(font2)
 
         self.verticalLayout_4.addWidget(self.label_13)
 
         self.compassword = QLineEdit(self.tab_3)
         self.compassword.setObjectName(u"compassword")
-        self.compassword.setFont(font1)
+        self.compassword.setFont(font2)
         self.compassword.setStyleSheet(u"QLineEdit{\n"
 "border: 2px solid grey;\n"
 "border-radius: 18px;\n"
@@ -551,13 +560,13 @@ class Ui_Form(object):
 
         self.label_16 = QLabel(self.tab_3)
         self.label_16.setObjectName(u"label_16")
-        self.label_16.setFont(font1)
+        self.label_16.setFont(font2)
 
         self.verticalLayout_4.addWidget(self.label_16)
 
         self.comemail = QLineEdit(self.tab_3)
         self.comemail.setObjectName(u"comemail")
-        self.comemail.setFont(font1)
+        self.comemail.setFont(font2)
         self.comemail.setStyleSheet(u"QLineEdit{\n"
 "border: 2px solid grey;\n"
 "border-radius: 18px;\n"
@@ -577,13 +586,13 @@ class Ui_Form(object):
 
         self.label_14 = QLabel(self.tab_3)
         self.label_14.setObjectName(u"label_14")
-        self.label_14.setFont(font1)
+        self.label_14.setFont(font2)
 
         self.verticalLayout_4.addWidget(self.label_14)
 
         self.comname = QLineEdit(self.tab_3)
         self.comname.setObjectName(u"comname")
-        self.comname.setFont(font1)
+        self.comname.setFont(font2)
         self.comname.setStyleSheet(u"QLineEdit{\n"
 "border: 2px solid grey;\n"
 "border-radius: 18px;\n"
@@ -603,13 +612,13 @@ class Ui_Form(object):
 
         self.label_15 = QLabel(self.tab_3)
         self.label_15.setObjectName(u"label_15")
-        self.label_15.setFont(font1)
+        self.label_15.setFont(font2)
 
         self.verticalLayout_4.addWidget(self.label_15)
 
         self.comloc = QLineEdit(self.tab_3)
         self.comloc.setObjectName(u"comloc")
-        self.comloc.setFont(font1)
+        self.comloc.setFont(font2)
         self.comloc.setStyleSheet(u"QLineEdit{\n"
 "border: 2px solid grey;\n"
 "border-radius: 18px;\n"
@@ -633,13 +642,13 @@ class Ui_Form(object):
 
         self.comenter = QPushButton(self.tab_3)
         self.comenter.setObjectName(u"comenter")
-        self.comenter.setFont(font1)
+        self.comenter.setFont(font2)
 
         self.verticalLayout_4.addWidget(self.comenter)
 
         self.gotolog2 = QPushButton(self.tab_3)
         self.gotolog2.setObjectName(u"gotolog2")
-        self.gotolog2.setFont(font1)
+        self.gotolog2.setFont(font2)
 
         self.verticalLayout_4.addWidget(self.gotolog2)
 
