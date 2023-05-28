@@ -14,7 +14,7 @@ class GoUI(QWidget):
         self.user=u
 
     def go(self):
-        jn=self.ui.comboBox.currentText()
+        jn=self.ui.comboBox.text()
         self.openedituser(jn)
 
     def openedituser(self,jn):

@@ -5,17 +5,21 @@ from config import firebaseConfig
 from PySide6.QtGui import *
 import pyrebase
 from text import Ui_Form
+from db import Message,Session,engine
 
 firebase = pyrebase.initialize_app(firebaseConfig)
 db = firebase.database()
 
+local_session=Session(bind=engine)
+
 class ChatUI(QWidget):
-    def __init__(self,u,r):
+    def __init__(self,u,r,p=""):
         QWidget.__init__(self, None)
         self.ui = Ui_Form()
         self.ui.setupUi(self)
         self.user=u
         self.room=r
+        self.password=p
         # Set up the UI
         self.ui.roomnum.setText(self.room)
         self.ui.myname.setText(self.user)
@@ -31,6 +35,10 @@ class ChatUI(QWidget):
 
     def closeEvent(self, event):
         # Handle the close event by stopping the stream and accepting the event
+        if local_session.query(Message).filter_by(roomNo=self.room).first() is None:
+            self.create_mess(db.child("ms").child(self.room).child("message").get().val())
+        else:
+            self.add_mess(db.child("ms").child(self.room).child("message").get().val())
         self.stop_stream()
         event.accept()
 
@@ -57,6 +65,23 @@ class ChatUI(QWidget):
             "message": mess1+"\n"
         }
         db.child("ms").child(rn).update(data)
+
+    def create_mess(self,ms):
+        message = Message(
+            roomNo=self.room,
+            mess=ms,
+            password=self.password
+        )
+        local_session.add(message)
+        local_session.commit()
+
+    def add_mess(self,ms):
+        mass = local_session.query(Message).filter_by(roomNo=self.room).first()
+        if mass:
+            mass.mess = ms
+            local_session.commit()
+            return True
+        return False
         
 def main():
     app = QApplication(sys.argv)

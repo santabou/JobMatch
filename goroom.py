@@ -28,13 +28,13 @@ class GoCUI(QWidget):
             }
             db.child("ms").child(rn).update(data)
         if(pa==db.child("ms").child(rn).child("password").get().val()):
-            self.openchat(rn)
+            self.openchat(rn,pa)
         else:
             QMessageBox.information(self,"ERROR", f"Wrong Password.")
 
-    def openchat(self,rn):
+    def openchat(self,rn,pas):
         self.open=QWidget()
-        self.eui=ChatUI(self.user,rn)
+        self.eui=ChatUI(self.user,rn,pas)
         self.eui.show()
     
 def main():

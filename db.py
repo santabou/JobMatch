@@ -58,4 +58,11 @@ class Job(Base):
 
     def __repr__(self):
         return self.comname+"&*&"+self.position+"&*&"+self.salary+"&*&"+self.available+"&*&"+self.due+"&*&"+self.email+"&*&"+self.phone+"&*&"+self.location+"&*&"+self.education+"&*&"+self.requirement
+    
+class Message(Base):
+    __tablename__ = 'messages'
+    id= Column(Integer, primary_key=True)
+    roomNo=Column(String)
+    mess=Column(String)
+    password=Column(String)
 
