@@ -72,7 +72,7 @@ class MainUI(QMainWindow):
 
     def reloadlist(self):
         if self.removeAll()==False:
-            QMessageBox.information(self, "ERROR", f"Somethingwrong when removing list")
+            QMessageBox.information(self, "ERROR", f"Something wrong when removing list")
             return False
         self.ui.searchEdit.setText("")
         if(self.userType=="0"):
