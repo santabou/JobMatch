@@ -4,7 +4,7 @@ from PySide6.QtCore import *
 from loginsignup import Ui_Form
 from PySide6.QtGui import *
 from main import MainUI
-from db import User,Company,Session,engine
+from db import User,Company,Session,engine,Base
 
 local_session=Session(bind=engine)
 
@@ -13,7 +13,9 @@ class LoginUI(QWidget):
         QWidget.__init__(self, None)
         self.ui = Ui_Form()
         self.ui.setupUi(self)
-
+        if not engine.dialect.has_table(engine.connect(), 'DATA.db'):
+            # Create the table if it doesn't exist
+            Base.metadata.create_all(engine)
         self.ui.gotolog.clicked.connect(self.change0)
         self.ui.gotolog2.clicked.connect(self.change0)
         self.ui.gotosign.clicked.connect(self.change1)
