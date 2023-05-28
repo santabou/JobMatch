@@ -27,8 +27,12 @@ class AllUI(QWidget):
             if widget is not None:
                 widget.deleteLater()
                 self.ui.gridLayout.removeWidget(widget)
+        if(self.ui.gridLayout.count()!=0):
+            return False
 
     def reloadlist(self):
+        if self.removeAll()==False:
+            QMessageBox.information(self, "ERROR", f"Somethingwrong when removing list")
         self.removeAll()
         self.showapplist(local_session.query(Job).all())
 

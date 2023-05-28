@@ -59,6 +59,8 @@ class MainUI(QMainWindow):
             if widget is not None:
                 widget.deleteLater()
                 self.ui.gridLayout.removeWidget(widget)
+        if(self.ui.gridLayout.count()!=0):
+            return False
 
     def searching(self):
         self.removeAll()
@@ -69,7 +71,9 @@ class MainUI(QMainWindow):
             self.createuserlist(local_session.query(User).all(),search,0)
 
     def reloadlist(self):
-        self.removeAll()
+        if self.removeAll()==False:
+            QMessageBox.information(self, "ERROR", f"Somethingwrong when removing list")
+            return False
         self.ui.searchEdit.setText("")
         if(self.userType=="0"):
             self.createjoblist(local_session.query(Job).all())
